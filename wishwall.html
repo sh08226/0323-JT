@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科创心愿墙 - 沈阳嘉桐科技有限公司</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://imgcache.tencentcs.com/qcloud/tcb.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-flask"></i>
+                <span>沈阳嘉桐科技</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="services.html">产品服务</a></li>
+                <li><a href="wishwall.html" class="active">科创心愿墙</a></li>
+                <li><a href="classes.html">研学班级</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <div class="nav-auth" id="navAuth">
+                <button class="btn-login" onclick="showLoginModal()">登录</button>
+                <button class="btn-register" onclick="showRegisterModal()">注册</button>
+            </div>
+            <div class="nav-user" id="navUser" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn-logout" onclick="logout()">退出</button>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="page-header wishwall-header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <h1><i class="fas fa-lightbulb"></i> 科创心愿墙</h1>
+            <p>分享你的科创想法，让创意照进现实</p>
+        </div>
+    </section>
+
+    <!-- 发布心愿 -->
+    <section class="wish-post-section">
+        <div class="container">
+            <div class="wish-post-card">
+                <h2>发布你的创意</h2>
+                <p>分享你的科创idea，也许下一个改变世界的发明就来自这里</p>
+                <button class="btn btn-accent" id="postWishBtn" onclick="checkAndPostWish()">
+                    <i class="fas fa-plus"></i> 发布创意
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 心愿墙展示 -->
+    <section class="wishwall-section">
+        <div class="container">
+            <div class="wishwall-grid" id="wishwallGrid">
+                <!-- 心愿贴纸将通过 JS 动态渲染 -->
+                <div class="wish-sticker" style="transform: rotate(-3deg);">
+                    <div class="sticker-content">
+                        <i class="fas fa-robot"></i>
+                        <h4>智能垃圾分类机器人</h4>
+                        <p>利用AI图像识别技术，自动识别并分类垃圾...</p>
+                        <span class="sticker-author">小明同学</span>
+                    </div>
+                </div>
+                <div class="wish-sticker" style="transform: rotate(2deg);">
+                    <div class="sticker-content">
+                        <i class="fas fa-rocket"></i>
+                        <h4>火星基地模拟器</h4>
+                        <p>创建虚拟火星基地，模拟人类移居火星的生活...</p>
+                        <span class="sticker-author">科技迷</span>
+                    </div>
+                </div>
+                <div class="wish-sticker" style="transform: rotate(-1deg);">
+                    <div class="sticker-content">
+                        <i class="fas fa-hand-holding-medical"></i>
+                        <h4>智能假肢</h4>
+                        <p>利用脑机接口技术控制的智能假肢...</p>
+                        <span class="sticker-author">创新者</span>
+                    </div>
+                </div>
+                <div class="wish-sticker" style="transform: rotate(4deg);">
+                    <div class="sticker-content">
+                        <i class="fas fa-brain"></i>
+                        <h4>AI作业辅导助手</h4>
+                        <p>个性化AI辅导，帮助学生解决学习难题...</p>
+                        <span class="sticker-author">学习达人</span>
+                    </div>
+                </div>
+                <div class="wish-sticker" style="transform: rotate(-2deg);">
+                    <div class="sticker-content">
+                        <i class="fas fa-leaf"></i>
+                        <h4>智能农业系统</h4>
+                        <p>利用物联网和AI技术实现自动化种植...</p>
+                        <span class="sticker-author">绿色創新</span>
+                    </div>
+                </div>
+                <div class="wish-sticker" style="transform: rotate(1deg);">
+                    <div class="sticker-content">
+                        <i class="fas fa-car"></i>
+                        <h4>自动驾驶轮椅</h4>
+                        <p>为行动不便人士设计的智能轮椅...</p>
+                        <span class="sticker-author">温暖科技</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 心愿详情弹窗 -->
+    <div class="modal" id="wishDetailModal">
+        <div class="modal-content wish-detail-content">
+            <span class="modal-close" onclick="closeWishDetailModal()">&times;</span>
+            <div class="wish-detail">
+                <div class="wish-detail-icon"><i class="fas fa-lightbulb"></i></div>
+                <h2 id="wishDetailTitle">创意标题</h2>
+                <p class="wish-detail-desc" id="wishDetailDesc">创意详细内容</p>
+                <div class="wish-detail-meta">
+                    <span><i class="fas fa-user"></i> <span id="wishDetailAuthor">作者</span></span>
+                    <span><i class="fas fa-clock"></i> <span id="wishDetailTime">发布时间</span></span>
+                </div>
+                
+                <!-- 投资意向留言 -->
+                <div class="wish-invest-section">
+                    <h3><i class="fas fa-comment-dollar"></i> 投资意向留言</h3>
+                    <div class="invest-list" id="investList">
+                        <!-- 留言列表 -->
+                    </div>
+                    <form id="investForm" onsubmit="submitInvest(event)">
+                        <div class="form-group">
+                            <textarea id="investMessage" rows="3" placeholder="如有投资意向，请留言说明..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交留言</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 发布心愿弹窗 -->
+    <div class="modal" id="postWishModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closePostWishModal()">&times;</span>
+            <h2>发布你的创意</h2>
+            <form id="postWishForm" onsubmit="handlePostWish(event)">
+                <div class="form-group">
+                    <label>创意标题</label>
+                    <input type="text" id="wishTitle" required placeholder="用一个酷炫的标题概括你的创意" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label>创意描述</label>
+                    <textarea id="wishDescription" rows="6" required placeholder="详细描述你的创意想法、实现方案、预期效果等..." maxlength="500"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>创意标签</label>
+                    <div class="wish-tags">
+                        <label class="wish-tag"><input type="checkbox" name="tag" value="AI"> AI人工智能</label>
+                        <label class="wish-tag"><input type="checkbox" name="tag" value="robot"> 机器人</label>
+                        <label class="wish-tag"><input type="checkbox" name="tag" value="medical"> 医疗健康</label>
+                        <label class="wish-tag"><input type="checkbox" name="tag" value="env"> 环保绿色</label>
+                        <label class="wish-tag"><input type="checkbox" name="tag" value="edu"> 教育科技</label>
+                        <label class="wish-tag"><input type="checkbox" name="tag" value="space"> 航天航空</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">发布创意</button>
+            </form>
+            <p class="modal-tip">创意提交后需要审核，审核通过后将在心愿墙展示</p>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-flask"></i> 沈阳嘉桐科技</h3>
+                    <p>专注于青少年科技创新教育</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">关于我们</a></li>
+                        <li><a href="services.html">产品服务</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>核心业务</h4>
+                    <ul>
+                        <li><a href="services.html">青少年研学</a></li>
+                        <li><a href="services.html">海外留学</a></li>
+                        <li><a href="services.html">科教仪器</a></li>
+                        <li><a href="services.html">师资培训</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 沈阳市</li>
+                        <li><i class="fas fa-phone"></i> 联系电话</li>
+                        <li><i class="fas fa-envelope"></i> service@jiatongtech.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 沈阳嘉桐科技有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+            <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></p>
+        </div>
+    </div>
+
+    <!-- 注册弹窗 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeRegisterModal()">&times;</span>
+            <h2>用户注册</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="registerUsername" required placeholder="请输入用户名" minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="registerEmail" required placeholder="请输入邮箱">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="registerPassword" required placeholder="请输入密码" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="registerConfirmPassword" required placeholder="请再次输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">注册</button>
+            </form>
+            <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a></p>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div class="toast" id="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        const app = tcb.init({
+            env: 'jt-0323-3gedkxnrd4787354'
+        });
+        checkLoginStatus();
+        loadWishes();
+    </script>
+</body>
+</html>

@@ -1,346 +1,385 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>产品服务 - 沈阳嘉桐科技有限公司</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品服务 - 沈阳嘉桐科技有限公司</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://imgcache.tencentcs.com/qcloud/tcb.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<!-- 导航栏 -->
-<header class="navbar" id="navbar">
-  <div class="container nav-inner">
-    <a href="index.html" class="logo">
-      <span class="logo-icon">⬡</span>
-      <span class="logo-text">嘉桐科技</span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html" class="nav-item">首页</a>
-      <a href="about.html" class="nav-item">关于我们</a>
-      <a href="services.html" class="nav-item active">产品服务</a>
-      <a href="contact.html" class="nav-item">联系我们</a>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-flask"></i>
+                <span>沈阳嘉桐科技</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="services.html" class="active">产品服务</a></li>
+                <li><a href="wishwall.html">科创心愿墙</a></li>
+                <li><a href="classes.html">研学班级</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <div class="nav-auth" id="navAuth">
+                <button class="btn-login" onclick="showLoginModal()">登录</button>
+                <button class="btn-register" onclick="showRegisterModal()">注册</button>
+            </div>
+            <div class="nav-user" id="navUser" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn-logout" onclick="logout()">退出</button>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
     </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
 
-<!-- 页面 Banner -->
-<section class="page-banner">
-  <div class="page-banner-bg"></div>
-  <div class="container page-banner-content">
-    <h1 class="animate-up">产品服务</h1>
-    <p class="animate-up delay-1">全方位科技教育服务体系，为青少年成长赋能</p>
-    <div class="breadcrumb animate-up delay-2">
-      <a href="index.html">首页</a> <span>/</span> <span>产品服务</span>
-    </div>
-  </div>
-</section>
-
-<!-- 服务导航 Tab -->
-<section class="section service-tabs-section">
-  <div class="container">
-    <div class="service-tabs" id="serviceTabs">
-      <button class="stab active" data-target="s1">青少年研学</button>
-      <button class="stab" data-target="s2">海外留学项目</button>
-      <button class="stab" data-target="s3">科教仪器研发</button>
-      <button class="stab" data-target="s4">科创师资培训</button>
-      <button class="stab" data-target="s5">技术服务</button>
-      <button class="stab" data-target="s6">科教仪器销售</button>
-    </div>
-
-    <!-- S1: 青少年研学 -->
-    <div class="service-panel active" id="s1">
-      <div class="sp-inner">
-        <div class="sp-text">
-          <div class="sp-badge" style="background:linear-gradient(135deg,#667eea,#764ba2)">青少年研学</div>
-          <h2>让学习走出课堂，走向世界</h2>
-          <p>嘉桐科技以"知行合一"为核心理念，精心设计多元化研学课程，帮助青少年在真实情境中感受科学魅力，培养探究精神与实践动手能力。</p>
-          <ul class="sp-list">
-            <li>🔭 科学主题研学营：天文、物理、化学、生物实验探索</li>
-            <li>🏛️ 科技场馆深度研学：科技馆、博物馆、高校实验室参观</li>
-            <li>🌿 生态自然研学：地质考察、生态保护、环境科学探究</li>
-            <li>🤖 STEM创客研学：编程、机器人、3D打印动手实践</li>
-            <li>📋 专业研学报告与成果展示指导</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">咨询定制方案</a>
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <h1>产品服务</h1>
+            <p>全方位科技创新服务，满足多元化需求</p>
         </div>
-        <div class="sp-visual">
-          <div class="sp-card-group">
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#667eea22,#764ba244)">
-              <span>🔭</span><p>科学探索</p>
+    </section>
+
+    <!-- 服务分类 -->
+    <section class="services-detail">
+        <div class="container">
+            <div class="services-tabs">
+                <button class="tab-btn active" data-tab="yanxue">
+                    <i class="fas fa-hiking"></i> 青少年研学
+                </button>
+                <button class="tab-btn" data-tab="liuxue">
+                    <i class="fas fa-plane-departure"></i> 海外留学
+                </button>
+                <button class="tab-btn" data-tab="yiqan">
+                    <i class="fas fa-microscope"></i> 科教仪器研发
+                </button>
+                <button class="tab-btn" data-tab="peixun">
+                    <i class="fas fa-user-graduate"></i> 科创师资培训
+                </button>
+                <button class="tab-btn" data-tab="jishu">
+                    <i class="fas fa-laptop-code"></i> 技术服务
+                </button>
+                <button class="tab-btn" data-tab="xiaoshou">
+                    <i class="fas fa-shopping-cart"></i> 科教仪器销售
+                </button>
             </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#4facfe22,#00f2fe44)">
-              <span>🤖</span><p>STEM创客</p>
+
+            <!-- 青少年研学 -->
+            <div class="tab-content active" id="yanxue">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content">
+                        <h2>青少年研学</h2>
+                        <p class="lead">探索科学奥秘，体验前沿科技，培养创新思维与实践能力</p>
+                        <p>我们的青少年研学项目涵盖人工智能、机器人、航天科技、生物科技等多个前沿领域。通过实地考察、实验操作、项目实践等方式，让青少年在玩中学、学中玩，激发对科学的热爱与探索欲。</p>
+                        <h3>项目特色</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> 接轨前沿科技，触摸未来脉搏</li>
+                            <li><i class="fas fa-check-circle"></i> 名校名师指导，拓展视野格局</li>
+                            <li><i class="fas fa-check-circle"></i> 实践操作为主，动手能力提升</li>
+                            <li><i class="fas fa-check-circle"></i> 团队协作项目，综合素养培养</li>
+                        </ul>
+                        <a href="contact.html?service=yanxue" class="btn btn-primary">咨询定制方案</a>
+                    </div>
+                    <div class="service-detail-image">
+                        <div class="image-frame">
+                            <i class="fas fa-hiking"></i>
+                            <span>青少年研学</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#43e97b22,#38f9d744)">
-              <span>🌿</span><p>生态自然</p>
+
+            <!-- 海外留学 -->
+            <div class="tab-content" id="liuxue">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content">
+                        <h2>海外留学项目实践</h2>
+                        <p class="lead">优质海外教育资源，专业的留学规划与全程跟踪服务</p>
+                        <p>我们与多所国际知名院校建立合作关系，为青少年提供优质的海外留学项目实践机会。从留学规划、申请指导、签证办理到海外接机、住宿安排，我们提供一站式全程服务。</p>
+                        <h3>服务内容</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> 个性化留学方案定制</li>
+                            <li><i class="fas fa-check-circle"></i> 多国院校资源对接</li>
+                            <li><i class="fas fa-check-circle"></i> 专业申请材料指导</li>
+                            <li><i class="fas fa-check-circle"></i> 海外全程跟踪服务</li>
+                        </ul>
+                        <a href="contact.html?service=liuxue" class="btn btn-primary">咨询定制方案</a>
+                    </div>
+                    <div class="service-detail-image">
+                        <div class="image-frame">
+                            <i class="fas fa-plane-departure"></i>
+                            <span>海外留学</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#fa709a22,#fee14044)">
-              <span>🏛️</span><p>科技场馆</p>
+
+            <!-- 科教仪器研发 -->
+            <div class="tab-content" id="yiqan">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content">
+                        <h2>科教仪器研发</h2>
+                        <p class="lead">自主研发教学科研设备，提供创新实验解决方案</p>
+                        <p>公司拥有一支专业的研发团队，致力于教学科研仪器的自主研发。我们可以根据学校、科研机构的实际需求，提供定制化的仪器设备解决方案，助力科技创新教育。</p>
+                        <h3>研发方向</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> 人工智能实验平台</li>
+                            <li><i class="fas fa-check-circle"></i> 机器人编程教学套件</li>
+                            <li><i class="fas fa-check-circle"></i> VR/AR 虚拟实验系统</li>
+                            <li><i class="fas fa-check-circle"></i> 科学探究实验仪器</li>
+                        </ul>
+                        <a href="contact.html?service=yiqan" class="btn btn-primary">咨询定制方案</a>
+                    </div>
+                    <div class="service-detail-image">
+                        <div class="image-frame">
+                            <i class="fas fa-microscope"></i>
+                            <span>科教仪器</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <!-- 科创师资培训 -->
+            <div class="tab-content" id="peixun">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content">
+                        <h2>科创师资培训</h2>
+                        <p class="lead">专业教师培养计划，提升科技创新教学能力</p>
+                        <p>我们为学校和培训机构提供专业的科创师资培训服务。通过系统的培训课程，帮助教师掌握最新的科技创新教育理念和教学方法，提升科技创新教学能力。</p>
+                        <h3>培训内容</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> 科技创新教育理念</li>
+                            <li><i class="fas fa-check-circle"></i> 课程设计方法论</li>
+                            <li><i class="fas fa-check-circle"></i> 实验教学操作规范</li>
+                            <li><i class="fas fa-check-circle"></i> 学生创新思维引导</li>
+                        </ul>
+                        <a href="contact.html?service=peixun" class="btn btn-primary">咨询定制方案</a>
+                    </div>
+                    <div class="service-detail-image">
+                        <div class="image-frame">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>师资培训</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技术服务 -->
+            <div class="tab-content" id="jishu">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content">
+                        <h2>技术服务</h2>
+                        <p class="lead">提供全方位技术支持，满足多元化科研教学需求</p>
+                        <p>我们提供全方位的技术服务，包括实验室建设咨询、设备维护保养、技术人员培训等。以专业的态度和高效的服务，为客户的科技创新活动保驾护航。</p>
+                        <h3>服务范围</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> 实验室建设规划</li>
+                            <li><i class="fas fa-check-circle"></i> 设备安装调试</li>
+                            <li><i class="fas fa-check-circle"></i> 定期维护保养</li>
+                            <li><i class="fas fa-check-circle"></i> 技术人员培训</li>
+                        </ul>
+                        <a href="contact.html?service=jishu" class="btn btn-primary">咨询定制方案</a>
+                    </div>
+                    <div class="service-detail-image">
+                        <div class="image-frame">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>技术服务</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 科教仪器销售 -->
+            <div class="tab-content" id="xiaoshou">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content">
+                        <h2>科教仪器销售</h2>
+                        <p class="lead">代理销售优质科教产品，提供完善的售后服务</p>
+                        <p>我们代理销售国内外优质科教仪器产品，涵盖物理、化学、生物、信息技术等多个学科领域。所有产品均经过严格筛选，保证质量的同时提供完善的售后服务。</p>
+                        <h3>产品类别</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> 基础实验仪器</li>
+                            <li><i class="fas fa-check-circle"></i> 数字化探究设备</li>
+                            <li><i class="fas fa-check-circle"></i> 编程机器人套件</li>
+                            <li><i class="fas fa-check-circle"></i> VR/AR 教育设备</li>
+                        </ul>
+                        <a href="contact.html?service=xiaoshou" class="btn btn-primary">咨询定制方案</a>
+                    </div>
+                    <div class="service-detail-image">
+                        <div class="image-frame">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>仪器销售</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- 服务流程 -->
+    <section class="service-process">
+        <div class="container">
+            <h2 class="section-title">服务流程</h2>
+            <p class="section-subtitle">规范流程，确保服务质量</p>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-phone-alt"></i></div>
+                    <h3>需求沟通</h3>
+                    <p>了解客户需求，提供专业建议</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>方案定制</h3>
+                    <p>根据需求制定个性化方案</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-file-signature"></i></div>
+                    <h3>合同签订</h3>
+                    <p>明确双方权利义务</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>项目执行</h3>
+                    <p>专业团队保质保量完成</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>验收交付</h3>
+                    <p>客户验收，后期维护跟进</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>定制您的专属方案</h2>
+            <p>告诉我们您的需求，我们为您提供专业服务</p>
+            <div class="cta-btns">
+                <a href="contact.html" class="btn btn-white">立即咨询</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-flask"></i> 沈阳嘉桐科技</h3>
+                    <p>专注于青少年科技创新教育</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">关于我们</a></li>
+                        <li><a href="services.html">产品服务</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>核心业务</h4>
+                    <ul>
+                        <li><a href="services.html">青少年研学</a></li>
+                        <li><a href="services.html">海外留学</a></li>
+                        <li><a href="services.html">科教仪器</a></li>
+                        <li><a href="services.html">师资培训</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 沈阳市</li>
+                        <li><i class="fas fa-phone"></i> 联系电话</li>
+                        <li><i class="fas fa-envelope"></i> service@jiatongtech.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 沈阳嘉桐科技有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+            <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></p>
+        </div>
     </div>
 
-    <!-- S2: 海外留学项目 -->
-    <div class="service-panel" id="s2">
-      <div class="sp-inner">
-        <div class="sp-text">
-          <div class="sp-badge" style="background:linear-gradient(135deg,#f093fb,#f5576c)">海外留学项目实践</div>
-          <h2>开拓国际视野，融入全球学习</h2>
-          <p>嘉桐科技与多个国家和地区的顶尖院校及教育机构建立合作，为有意向出国留学或参与国际交流的青少年提供专业的全程服务支持。</p>
-          <ul class="sp-list">
-            <li>🌍 海外名校短期交流项目规划与对接</li>
-            <li>📝 留学申请全程指导：选校、文书、面试</li>
-            <li>🏠 海外生活适应与安全保障体系</li>
-            <li>🎓 国际暑期学校与学术夏令营项目</li>
-            <li>🤝 回国后的持续跟踪与职业发展支持</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">咨询留学方案</a>
+    <!-- 注册弹窗 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeRegisterModal()">&times;</span>
+            <h2>用户注册</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="registerUsername" required placeholder="请输入用户名" minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="registerEmail" required placeholder="请输入邮箱">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="registerPassword" required placeholder="请输入密码" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="registerConfirmPassword" required placeholder="请再次输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">注册</button>
+            </form>
+            <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a></p>
         </div>
-        <div class="sp-visual">
-          <div class="sp-globe">
-            <div class="globe-ring"></div>
-            <div class="globe-ring r2"></div>
-            <div class="globe-center">🌏</div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- S3: 科教仪器研发 -->
-    <div class="service-panel" id="s3">
-      <div class="sp-inner">
-        <div class="sp-text">
-          <div class="sp-badge" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">科教仪器研发</div>
-          <h2>自主研发，引领科教装备升级</h2>
-          <p>公司拥有专业的研发团队，聚焦中小学及高校实验教学需求，自主研发多款具有核心竞争力的科教仪器产品，助力学校实验室建设。</p>
-          <ul class="sp-list">
-            <li>🧪 物理、化学、生物实验仪器研发</li>
-            <li>💻 智能化数字实验系统开发</li>
-            <li>🤖 STEM教育机器人套件设计</li>
-            <li>🎛️ 虚拟仿真实验平台搭建</li>
-            <li>📦 实验室整体解决方案定制</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">了解产品方案</a>
-        </div>
-        <div class="sp-visual">
-          <div class="sp-card-group">
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#4facfe22,#00f2fe44)">
-              <span>🧪</span><p>实验仪器</p>
-            </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#667eea22,#764ba244)">
-              <span>💻</span><p>数字系统</p>
-            </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#43e97b22,#38f9d744)">
-              <span>🤖</span><p>机器人套件</p>
-            </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#f093fb22,#f5576c44)">
-              <span>🎛️</span><p>仿真平台</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- 消息提示 -->
+    <div class="toast" id="toast">
+        <span class="toast-message"></span>
     </div>
 
-    <!-- S4: 科创师资培训 -->
-    <div class="service-panel" id="s4">
-      <div class="sp-inner">
-        <div class="sp-text">
-          <div class="sp-badge" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">科创师资培训</div>
-          <h2>赋能教师，引领科教变革</h2>
-          <p>嘉桐科技构建了系统完善的科创师资培训体系，汇聚高校专家与行业精英，通过线上线下结合的方式，全面提升教师科技素养与创新教学能力。</p>
-          <ul class="sp-list">
-            <li>👩‍🏫 科技课程设计与实施能力培训</li>
-            <li>🔧 实验仪器操作与维护专业培训</li>
-            <li>💡 STEM创客教育理念与方法培训</li>
-            <li>🏅 专业资质认证与证书颁发</li>
-            <li>🔄 持续学习社区与同伴支持网络</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">预约培训课程</a>
-        </div>
-        <div class="sp-visual">
-          <div class="training-stats">
-            <div class="ts-item">
-              <strong>500+</strong>
-              <span>培训教师</span>
-            </div>
-            <div class="ts-item">
-              <strong>20+</strong>
-              <span>课程模块</span>
-            </div>
-            <div class="ts-item">
-              <strong>98%</strong>
-              <span>满意度</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- S5: 技术服务 -->
-    <div class="service-panel" id="s5">
-      <div class="sp-inner">
-        <div class="sp-text">
-          <div class="sp-badge" style="background:linear-gradient(135deg,#fa709a,#fee140)">技术服务</div>
-          <h2>专业技术支持，助力数字化转型</h2>
-          <p>嘉桐科技提供全方位的技术服务，包括软件开发、系统集成、技术咨询等，帮助教育机构与企业实现高效的数字化运营。</p>
-          <ul class="sp-list">
-            <li>💻 教育管理信息系统定制开发</li>
-            <li>🌐 学校官网及招生平台建设</li>
-            <li>📊 数据分析与可视化系统搭建</li>
-            <li>🔐 网络安全与系统运维服务</li>
-            <li>📱 移动端应用开发与部署</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">获取技术方案</a>
-        </div>
-        <div class="sp-visual">
-          <div class="tech-stack">
-            <div class="ts-tag">软件开发</div>
-            <div class="ts-tag">系统集成</div>
-            <div class="ts-tag">数据分析</div>
-            <div class="ts-tag">移动应用</div>
-            <div class="ts-tag">网络安全</div>
-            <div class="ts-tag">云服务</div>
-            <div class="ts-tag">AI应用</div>
-            <div class="ts-tag">技术咨询</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- S6: 科教仪器销售 -->
-    <div class="service-panel" id="s6">
-      <div class="sp-inner">
-        <div class="sp-text">
-          <div class="sp-badge" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)">科教仪器销售</div>
-          <h2>优质产品，完善服务体系</h2>
-          <p>嘉桐科技代理及销售国内外多个知名品牌的科教仪器，涵盖物理、化学、生物、地理等多学科，提供从选型到售后的全流程专业服务。</p>
-          <ul class="sp-list">
-            <li>🔬 国内外品牌科教仪器代理销售</li>
-            <li>🏫 学校实验室整体配套采购方案</li>
-            <li>📋 专业选型咨询与解决方案设计</li>
-            <li>🚚 快速配送与专业安装调试</li>
-            <li>🛠️ 完善的售后维修与技术支持</li>
-          </ul>
-          <a href="contact.html" class="btn btn-primary">询价与采购</a>
-        </div>
-        <div class="sp-visual">
-          <div class="sp-card-group">
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#a18cd122,#fbc2eb44)">
-              <span>🔬</span><p>物理仪器</p>
-            </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#4facfe22,#00f2fe44)">
-              <span>⚗️</span><p>化学仪器</p>
-            </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#43e97b22,#38f9d744)">
-              <span>🌿</span><p>生物仪器</p>
-            </div>
-            <div class="sp-mini-card" style="background:linear-gradient(135deg,#fa709a22,#fee14044)">
-              <span>🌍</span><p>地理仪器</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- 服务流程 -->
-<section class="section process-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">服务流程</span>
-      <h2 class="section-title">透明高效的合作流程</h2>
-    </div>
-    <div class="process-steps">
-      <div class="ps-item">
-        <div class="ps-num">01</div>
-        <div class="ps-arrow">→</div>
-        <h4>需求沟通</h4>
-        <p>了解您的具体需求与目标，进行专业的初步评估</p>
-      </div>
-      <div class="ps-item">
-        <div class="ps-num">02</div>
-        <div class="ps-arrow">→</div>
-        <h4>方案设计</h4>
-        <p>根据需求量身定制专业解决方案与实施计划</p>
-      </div>
-      <div class="ps-item">
-        <div class="ps-num">03</div>
-        <div class="ps-arrow">→</div>
-        <h4>签约合作</h4>
-        <p>双方确认方案细节，签署正式合作协议</p>
-      </div>
-      <div class="ps-item">
-        <div class="ps-num">04</div>
-        <div class="ps-arrow">→</div>
-        <h4>执行交付</h4>
-        <p>专业团队全程跟进，确保高质量交付成果</p>
-      </div>
-      <div class="ps-item">
-        <div class="ps-num">05</div>
-        <div class="ps-arrow"></div>
-        <h4>持续服务</h4>
-        <p>完善的售后服务体系，持续为您提供支持</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="container cta-inner">
-    <h2 class="cta-title">找到适合您的服务方案</h2>
-    <p class="cta-desc">欢迎联系我们，专业顾问将为您提供一对一咨询服务</p>
-    <a href="contact.html" class="btn btn-white">立即咨询</a>
-  </div>
-</section>
-
-<!-- 页脚 -->
-<footer class="footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <a href="index.html" class="logo logo-light">
-        <span class="logo-icon">⬡</span>
-        <span class="logo-text">嘉桐科技</span>
-      </a>
-      <p class="footer-desc">沈阳嘉桐科技有限公司<br/>科技赋能教育，点亮青少年未来</p>
-    </div>
-    <div class="footer-links">
-      <h5>快速导航</h5>
-      <a href="index.html">首页</a>
-      <a href="about.html">关于我们</a>
-      <a href="services.html">产品服务</a>
-      <a href="contact.html">联系我们</a>
-    </div>
-    <div class="footer-services">
-      <h5>主营业务</h5>
-      <span>青少年研学</span>
-      <span>海外留学项目实践</span>
-      <span>科教仪器研发</span>
-      <span>科创师资培训</span>
-      <span>技术服务</span>
-      <span>科教仪器销售</span>
-    </div>
-    <div class="footer-contact">
-      <h5>联系方式</h5>
-      <p>📍 辽宁省沈阳市</p>
-      <p>📞 请联系我们获取电话</p>
-      <p>✉️ 请联系我们获取邮箱</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 沈阳嘉桐科技有限公司 版权所有</p>
-  </div>
-</footer>
-
-<script src="main.js"></script>
+    <script src="main.js"></script>
+    <script>
+        const app = tcb.init({
+            env: 'jt-0323-3gedkxnrd4787354'
+        });
+        checkLoginStatus();
+    </script>
 </body>
 </html>

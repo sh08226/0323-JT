@@ -1,254 +1,359 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>沈阳嘉桐科技有限公司</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沈阳嘉桐科技有限公司 - 青少年研学 | 海外留学 | 科教仪器</title>
+    <meta name="description" content="沈阳嘉桐科技主营青少年研学、海外留学项目实践、科教仪器研发、科创师资培训等">
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入腾讯云 CloudBase SDK -->
+    <script src="https://imgcache.tencentcs.com/qcloud/tcb.js"></script>
+    <!-- Font Awesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<!-- ====== 导航栏 ====== -->
-<header class="navbar" id="navbar">
-  <div class="container nav-inner">
-    <a href="index.html" class="logo">
-      <span class="logo-icon">⬡</span>
-      <span class="logo-text">嘉桐科技</span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html" class="nav-item active">首页</a>
-      <a href="about.html" class="nav-item">关于我们</a>
-      <a href="services.html" class="nav-item">产品服务</a>
-      <a href="contact.html" class="nav-item">联系我们</a>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-flask"></i>
+                <span>沈阳嘉桐科技</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="services.html">产品服务</a></li>
+                <li><a href="wishwall.html">科创心愿墙</a></li>
+                <li><a href="classes.html">研学班级</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <div class="nav-auth" id="navAuth">
+                <button class="btn-login" onclick="showLoginModal()">登录</button>
+                <button class="btn-register" onclick="showRegisterModal()">注册</button>
+            </div>
+            <div class="nav-user" id="navUser" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn-logout" onclick="logout()">退出</button>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
     </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
 
-<!-- ====== Hero 区域 ====== -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="container hero-content">
-    <p class="hero-sub animate-up">沈阳嘉桐科技有限公司</p>
-    <h1 class="hero-title animate-up delay-1">科技赋能教育<br/>点亮青少年未来</h1>
-    <p class="hero-desc animate-up delay-2">
-      专注青少年研学 · 海外留学项目实践 · 科教仪器研发与销售<br/>
-      科创师资培训 · 技术服务
-    </p>
-    <div class="hero-btns animate-up delay-3">
-      <a href="services.html" class="btn btn-primary">了解我们的服务</a>
-      <a href="contact.html" class="btn btn-outline">联系我们</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <span>向下滚动</span>
-    <div class="scroll-arrow"></div>
-  </div>
-</section>
-
-<!-- ====== 数据亮点 ====== -->
-<section class="stats-bar">
-  <div class="container stats-grid">
-    <div class="stat-item">
-      <span class="stat-num" data-target="500">0</span><span class="stat-unit">+</span>
-      <p class="stat-label">服务学生</p>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" data-target="50">0</span><span class="stat-unit">+</span>
-      <p class="stat-label">合作学校</p>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" data-target="20">0</span><span class="stat-unit">+</span>
-      <p class="stat-label">科教产品</p>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num" data-target="10">0</span><span class="stat-unit">+</span>
-      <p class="stat-label">年行业经验</p>
-    </div>
-  </div>
-</section>
-
-<!-- ====== 核心业务 ====== -->
-<section class="section services-section" id="services">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">核心业务</span>
-      <h2 class="section-title">我们提供全方位科教服务</h2>
-      <p class="section-desc">以科技为引擎，以教育为使命，致力于为青少年成长与发展提供全面支持</p>
-    </div>
-    <div class="cards-grid">
-      <div class="card card-hover">
-        <div class="card-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">科技创新</span>
+                <span class="title-line">引领未来</span>
+            </h1>
+            <p class="hero-subtitle">沈阳嘉桐科技有限公司</p>
+            <p class="hero-desc">青少年研学 | 海外留学 | 科教仪器研发 | 科创师资培训</p>
+            <div class="hero-btns">
+                <a href="services.html" class="btn btn-primary">了解服务</a>
+                <a href="contact.html" class="btn btn-outline">联系我们</a>
+            </div>
         </div>
-        <h3 class="card-title">青少年研学</h3>
-        <p class="card-desc">设计多元化研学课程，拓展青少年视野，培养探究精神与实践能力，让学习走出课堂。</p>
-        <a href="services.html" class="card-link">了解更多 →</a>
-      </div>
-      <div class="card card-hover">
-        <div class="card-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div class="hero-scroll">
+            <i class="fas fa-chevron-down"></i>
         </div>
-        <h3 class="card-title">海外留学项目实践</h3>
-        <p class="card-desc">对接全球优质教育资源，提供专业的海外留学项目规划、实践活动及全程服务支持。</p>
-        <a href="services.html" class="card-link">了解更多 →</a>
-      </div>
-      <div class="card card-hover">
-        <div class="card-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </section>
+
+    <!-- 数据亮点 -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="stat-number" data-target="5000">0</div>
+                    <div class="stat-label">研学学员</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">海外项目</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-microscope"></i></div>
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">科教仪器</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <div class="stat-number" data-target="200">0</div>
+                    <div class="stat-label">培训师资</div>
+                </div>
+            </div>
         </div>
-        <h3 class="card-title">科教仪器研发</h3>
-        <p class="card-desc">自主研发高品质科教仪器设备，融合前沿技术与教学需求，为实验教学提供专业解决方案。</p>
-        <a href="services.html" class="card-link">了解更多 →</a>
-      </div>
-      <div class="card card-hover">
-        <div class="card-icon" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </section>
+
+    <!-- 核心业务 -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">核心业务</h2>
+            <p class="section-subtitle">全方位科技创新服务，助力青少年成长</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-hiking"></i></div>
+                    <h3>青少年研学</h3>
+                    <p>探索科学奥秘，体验前沿科技，培养创新思维与实践能力</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-plane-departure"></i></div>
+                    <h3>海外留学</h3>
+                    <p>优质海外教育资源，专业的留学规划与全程跟踪服务</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>科教仪器研发</h3>
+                    <p>自主研发教学科研设备，提供创新实验解决方案</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>科创师资培训</h3>
+                    <p>专业教师培养计划，提升科技创新教学能力</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>技术服务</h3>
+                    <p>提供全方位技术支持，满足多元化科研教学需求</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>科教仪器销售</h3>
+                    <p>代理销售优质科教产品，提供完善的售后服务</p>
+                </div>
+            </div>
         </div>
-        <h3 class="card-title">科创师资培训</h3>
-        <p class="card-desc">专业的科创教师培训体系，提升教师科技素养与创新教学能力，打造高素质科教师资队伍。</p>
-        <a href="services.html" class="card-link">了解更多 →</a>
-      </div>
-      <div class="card card-hover">
-        <div class="card-icon" style="background:linear-gradient(135deg,#fa709a,#fee140)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    </section>
+
+    <!-- 科创心愿墙入口 -->
+    <section class="wishwall-section">
+        <div class="container">
+            <div class="wishwall-banner">
+                <div class="wishwall-content">
+                    <h2><i class="fas fa-lightbulb"></i> 科创心愿墙</h2>
+                    <p>分享你的科创想法，让创意照进现实</p>
+                    <p class="wishwall-tagline">发布创意 → 审核展示 → 投资对接</p>
+                    <a href="wishwall.html" class="btn btn-accent">进入心愿墙</a>
+                </div>
+                <div class="wishwall-preview">
+                    <div class="wish-sticker sticker-1">AI机器人</div>
+                    <div class="wish-sticker sticker-2">火星基地</div>
+                    <div class="wish-sticker sticker-3">智能义肢</div>
+                </div>
+            </div>
         </div>
-        <h3 class="card-title">技术服务</h3>
-        <p class="card-desc">提供定制化技术解决方案，涵盖软件开发、系统集成、技术咨询等，为企业数字化转型赋能。</p>
-        <a href="services.html" class="card-link">了解更多 →</a>
-      </div>
-      <div class="card card-hover">
-        <div class="card-icon" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </section>
+
+    <!-- 关于我们预览 -->
+    <section class="about-preview">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>关于嘉桐科技</h2>
+                    <p>沈阳嘉桐科技有限公司是一家专注于青少年科技创新教育的综合性服务企业。</p>
+                    <p>我们秉承"科技创新、教育为本"的理念，致力于为青少年提供优质的研学项目、海外留学机会以及先进的科教仪器与服务。</p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <i class="fas fa-bullseye"></i>
+                            <div>
+                                <h4>企业使命</h4>
+                                <p>培养科技创新人才，赋能青少年成长</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-eye"></i>
+                            <div>
+                                <h4>企业愿景</h4>
+                                <p>成为国内领先的青少年科技创新教育平台</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-heart"></i>
+                            <div>
+                                <h4>核心价值观</h4>
+                                <p>创新、专注、责任、共赢</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="about.html" class="btn btn-secondary">了解更多</a>
+                </div>
+                <div class="about-image">
+                    <div class="image-frame">
+                        <i class="fas fa-flask"></i>
+                        <span>科技创新</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h3 class="card-title">科教仪器销售</h3>
-        <p class="card-desc">代理及销售国内外知名品牌科教仪器，覆盖物理、化学、生物等多学科，品质可靠，服务专业。</p>
-        <a href="services.html" class="card-link">了解更多 →</a>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ====== 关于我们预览 ====== -->
-<section class="section about-preview">
-  <div class="container about-preview-inner">
-    <div class="about-img-wrap">
-      <div class="about-img-placeholder">
-        <svg viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="90" fill="#1a2744" opacity=".3"/><circle cx="100" cy="100" r="60" fill="#2563eb" opacity=".2"/><text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-size="48" fill="#60a5fa">🏢</text></svg>
-      </div>
-      <div class="about-badge">
-        <span class="badge-num">10<sup>+</sup></span>
-        <span class="badge-text">年深耕<br/>科教领域</span>
-      </div>
-    </div>
-    <div class="about-text">
-      <span class="section-tag">关于嘉桐</span>
-      <h2 class="section-title">以科技创新<br/>驱动教育未来</h2>
-      <p class="about-p">沈阳嘉桐科技有限公司成立于沈阳，是一家专注于科技教育领域的创新型企业。我们将科技研发与教育实践深度融合，致力于为青少年提供高质量的学习体验与成长平台。</p>
-      <p class="about-p">公司凭借专业的团队、完善的产品体系和优质的服务，已与众多学校、教育机构建立了长期稳定的合作关系，在青少年研学、海外交流、科教仪器等领域积累了丰富的行业经验。</p>
-      <div class="about-tags">
-        <span class="tag">专业可信</span>
-        <span class="tag">创新驱动</span>
-        <span class="tag">学生为本</span>
-        <span class="tag">质量第一</span>
-      </div>
-      <a href="about.html" class="btn btn-primary">了解更多</a>
-    </div>
-  </div>
-</section>
+    <!-- 研学班级入口 -->
+    <section class="classes-section">
+        <div class="container">
+            <h2 class="section-title">研学班级管理</h2>
+            <p class="section-subtitle">数字化班级管理，作业提交与AI智能评判</p>
+            <div class="classes-grid">
+                <div class="class-feature">
+                    <div class="feature-icon"><i class="fas fa-users-class"></i></div>
+                    <h3>班级管理</h3>
+                    <p>创建班级、授权学员、作品分享</p>
+                </div>
+                <div class="class-feature">
+                    <div class="feature-icon"><i class="fas fa-file-upload"></i></div>
+                    <h3>作业提交</h3>
+                    <p>支持图片、视频、文档多格式提交</p>
+                </div>
+                <div class="class-feature">
+                    <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI评判</h3>
+                    <p>智能分析作业，给出改进建议</p>
+                </div>
+                <div class="class-feature">
+                    <div class="feature-icon"><i class="fas fa-download"></i></div>
+                    <h3>作业下载</h3>
+                    <p>管理员一键导出所有学员作业</p>
+                </div>
+            </div>
+            <div class="classes-cta">
+                <a href="classes.html" class="btn btn-primary">进入班级系统</a>
+            </div>
+        </div>
+    </section>
 
-<!-- ====== 合作伙伴 / 特色 ====== -->
-<section class="section features-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">我们的优势</span>
-      <h2 class="section-title">为何选择嘉桐科技</h2>
-    </div>
-    <div class="features-grid">
-      <div class="feature-item">
-        <div class="feature-icon">🎯</div>
-        <h4>精准定制</h4>
-        <p>根据学校及学生需求量身定制科教方案，确保每个项目精准落地</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🌐</div>
-        <h4>全球资源</h4>
-        <p>对接国际顶尖教育机构与研究院，为学生打开全球视野的大门</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🔬</div>
-        <h4>自主研发</h4>
-        <p>拥有核心技术团队，持续投入科教仪器研发，保障产品领先性</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">👨‍🏫</div>
-        <h4>专业师资</h4>
-        <p>汇聚高校专家与行业精英，为培训与研学提供强大的智力支撑</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🏆</div>
-        <h4>品质保障</h4>
-        <p>严格的质量管理体系，每一项服务与产品都经过专业审核与把控</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">💡</div>
-        <h4>持续创新</h4>
-        <p>紧跟科技教育前沿，不断迭代优化，为客户带来最新最优的解决方案</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- CTA 区域 -->
+    <section class="cta">
+        <div class="container">
+            <h2>开启科技创新之旅</h2>
+            <p>与我们一起探索科技的无限可能</p>
+            <div class="cta-btns">
+                <a href="contact.html" class="btn btn-white">立即咨询</a>
+                <a href="services.html" class="btn btn-outline-white">查看服务</a>
+            </div>
+        </div>
+    </section>
 
-<!-- ====== CTA 区域 ====== -->
-<section class="cta-section">
-  <div class="container cta-inner">
-    <h2 class="cta-title">准备好开启科教合作之旅了吗？</h2>
-    <p class="cta-desc">无论您有什么需求，我们的专业团队随时为您提供咨询与解决方案</p>
-    <a href="contact.html" class="btn btn-white">立即联系我们</a>
-  </div>
-</section>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-flask"></i> 沈阳嘉桐科技</h3>
+                    <p>专注于青少年科技创新教育</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">关于我们</a></li>
+                        <li><a href="services.html">产品服务</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>核心业务</h4>
+                    <ul>
+                        <li><a href="services.html#yanxue">青少年研学</a></li>
+                        <li><a href="services.html#liuxue">海外留学</a></li>
+                        <li><a href="services.html#yIqan">科教仪器</a></li>
+                        <li><a href="services.html#peixun">师资培训</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 沈阳市</li>
+                        <li><i class="fas fa-phone"></i> 联系电话</li>
+                        <li><i class="fas fa-envelope"></i> service@jiatongtech.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 沈阳嘉桐科技有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
 
-<!-- ====== 页脚 ====== -->
-<footer class="footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <a href="index.html" class="logo logo-light">
-        <span class="logo-icon">⬡</span>
-        <span class="logo-text">嘉桐科技</span>
-      </a>
-      <p class="footer-desc">沈阳嘉桐科技有限公司<br/>科技赋能教育，点亮青少年未来</p>
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+            <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></p>
+        </div>
     </div>
-    <div class="footer-links">
-      <h5>快速导航</h5>
-      <a href="index.html">首页</a>
-      <a href="about.html">关于我们</a>
-      <a href="services.html">产品服务</a>
-      <a href="contact.html">联系我们</a>
-    </div>
-    <div class="footer-services">
-      <h5>主营业务</h5>
-      <span>青少年研学</span>
-      <span>海外留学项目实践</span>
-      <span>科教仪器研发</span>
-      <span>科创师资培训</span>
-      <span>技术服务</span>
-      <span>科教仪器销售</span>
-    </div>
-    <div class="footer-contact">
-      <h5>联系方式</h5>
-      <p>📍 辽宁省沈阳市</p>
-      <p>📞 请联系我们获取电话</p>
-      <p>✉️ 请联系我们获取邮箱</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 沈阳嘉桐科技有限公司 版权所有</p>
-  </div>
-</footer>
 
-<script src="main.js"></script>
+    <!-- 注册弹窗 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeRegisterModal()">&times;</span>
+            <h2>用户注册</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="registerUsername" required placeholder="请输入用户名" minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="registerEmail" required placeholder="请输入邮箱">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="registerPassword" required placeholder="请输入密码" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="registerConfirmPassword" required placeholder="请再次输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">注册</button>
+            </form>
+            <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a></p>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div class="toast" id="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // 初始化腾讯云 CloudBase
+        const app = tcb.init({
+            env: 'jt-0323-3gedkxnrd4787354'
+        });
+        
+        // 检查登录状态
+        checkLoginStatus();
+        
+        // 数字计数动画
+        window.addEventListener('scroll', () => {
+            const stats = document.querySelector('.stats');
+            if (stats && isElementInViewport(stats)) {
+                animateNumbers();
+            }
+        });
+    </script>
 </body>
 </html>

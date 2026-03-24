@@ -1,292 +1,297 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>联系我们 - 沈阳嘉桐科技有限公司</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 沈阳嘉桐科技有限公司</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://imgcache.tencentcs.com/qcloud/tcb.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<!-- 导航栏 -->
-<header class="navbar" id="navbar">
-  <div class="container nav-inner">
-    <a href="index.html" class="logo">
-      <span class="logo-icon">⬡</span>
-      <span class="logo-text">嘉桐科技</span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html" class="nav-item">首页</a>
-      <a href="about.html" class="nav-item">关于我们</a>
-      <a href="services.html" class="nav-item">产品服务</a>
-      <a href="contact.html" class="nav-item active">联系我们</a>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-flask"></i>
+                <span>沈阳嘉桐科技</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="services.html">产品服务</a></li>
+                <li><a href="wishwall.html">科创心愿墙</a></li>
+                <li><a href="classes.html">研学班级</a></li>
+                <li><a href="contact.html" class="active">联系我们</a></li>
+            </ul>
+            <div class="nav-auth" id="navAuth">
+                <button class="btn-login" onclick="showLoginModal()">登录</button>
+                <button class="btn-register" onclick="showRegisterModal()">注册</button>
+            </div>
+            <div class="nav-user" id="navUser" style="display: none;">
+                <span class="user-name" id="userName"></span>
+                <button class="btn-logout" onclick="logout()">退出</button>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
     </nav>
-    <button class="menu-btn" id="menuBtn" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
 
-<!-- 页面 Banner -->
-<section class="page-banner">
-  <div class="page-banner-bg"></div>
-  <div class="container page-banner-content">
-    <h1 class="animate-up">联系我们</h1>
-    <p class="animate-up delay-1">我们期待与您携手，共创科技教育的美好未来</p>
-    <div class="breadcrumb animate-up delay-2">
-      <a href="index.html">首页</a> <span>/</span> <span>联系我们</span>
-    </div>
-  </div>
-</section>
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <h1>联系我们</h1>
+            <p>期待与您携手，共创科技创新未来</p>
+        </div>
+    </section>
 
-<!-- 联系区域 -->
-<section class="section contact-section">
-  <div class="container contact-grid">
+    <!-- 联系方式 -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>联系我们</h2>
+                    <p>如果您对我们的服务感兴趣，或者有任何疑问，请随时与我们联系。我们将竭诚为您提供专业的咨询服务。</p>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h4>公司地址</h4>
+                                <p>辽宁省沈阳市</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <h4>联系电话</h4>
+                                <p>024-XXXXXXX</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4>电子邮箱</h4>
+                                <p>service@jiatongtech.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                            <div>
+                                <h4>工作时间</h4>
+                                <p>周一至周五 9:00-18:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-social">
+                        <a href="#" class="social-link"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-qq"></i></a>
+                        <a href="mailto:service@jiatongtech.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
 
-    <!-- 左侧联系信息 -->
-    <div class="contact-info">
-      <span class="section-tag">联系方式</span>
-      <h2 class="section-title">随时欢迎您的到来</h2>
-      <p class="about-p">无论您有业务合作、产品咨询还是其他需求，我们的专业团队将在最短时间内为您提供专业解答与服务。</p>
+                <!-- 在线留言表单 -->
+                <div class="contact-form-wrapper">
+                    <h2>在线留言</h2>
+                    <form id="contactForm" action="https://formsubmit.co/el/befupo" method="POST">
+                        <input type="hidden" name="_subject" value="嘉桐官网咨询">
+                        <input type="hidden" name="_captcha" value="false">
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input type="text" name="name" required placeholder="请输入您的姓名">
+                        </div>
+                        <div class="form-group">
+                            <label>联系电话</label>
+                            <input type="tel" name="phone" required placeholder="请输入您的联系电话">
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input type="email" name="email" required placeholder="请输入您的邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label>咨询类型</label>
+                            <select name="type" required>
+                                <option value="">请选择咨询类型</option>
+                                <option value="yanxue">青少年研学</option>
+                                <option value="liuxue">海外留学</option>
+                                <option value="yiqan">科教仪器</option>
+                                <option value="peixun">师资培训</option>
+                                <option value="jishu">技术服务</option>
+                                <option value="xiaoshou">仪器销售</option>
+                                <option value="qita">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>留言内容</label>
+                            <textarea name="message" rows="5" required placeholder="请详细描述您的需求..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">提交留言</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="contact-items">
-        <div class="contact-item">
-          <div class="ci-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">📍</div>
-          <div class="ci-text">
-            <strong>公司地址</strong>
-            <p>辽宁省沈阳市</p>
-          </div>
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">常见问题</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 你们提供哪些形式的研学项目？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A: 我们提供多种形式的研学项目，包括一日研学、多日研学、假期研学营等。项目涵盖人工智能、机器人、航天科技、生物科技等多个领域。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 海外留学项目的申请流程是怎样的？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A: 我们的海外留学服务包括：初步咨询 → 背景评估 → 院校选择 → 材料准备 → 申请提交 → 面试辅导 → 签证办理 → 行前指导，全流程一站式服务。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 科教仪器可以定制吗？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A: 可以的。我们可以根据学校或科研机构的具体需求，提供定制化的科教仪器设备解决方案，包括功能定制、外观定制等。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 师资培训的形式有哪些？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A: 我们提供线上培训、线下集中培训、到校指导等多种形式。具体形式可根据学校需求灵活安排。</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="contact-item">
-          <div class="ci-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">📞</div>
-          <div class="ci-text">
-            <strong>联系电话</strong>
-            <p>请填写您的联系电话</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">✉️</div>
-          <div class="ci-text">
-            <strong>电子邮箱</strong>
-            <p>请填写您的联系邮箱</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon" style="background:linear-gradient(135deg,#fa709a,#fee140)">🕐</div>
-          <div class="ci-text">
-            <strong>工作时间</strong>
-            <p>周一至周五 9:00 - 18:00</p>
-          </div>
-        </div>
-      </div>
+    </section>
 
-      <div class="wechat-box">
-        <div class="wechat-qr">
-          <div class="qr-placeholder">
-            <span>微信二维码</span>
-            <p>请替换为实际二维码</p>
-          </div>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-flask"></i> 沈阳嘉桐科技</h3>
+                    <p>专注于青少年科技创新教育</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">关于我们</a></li>
+                        <li><a href="services.html">产品服务</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>核心业务</h4>
+                    <ul>
+                        <li><a href="services.html">青少年研学</a></li>
+                        <li><a href="services.html">海外留学</a></li>
+                        <li><a href="services.html">科教仪器</a></li>
+                        <li><a href="services.html">师资培训</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 沈阳市</li>
+                        <li><i class="fas fa-phone"></i> 联系电话</li>
+                        <li><i class="fas fa-envelope"></i> service@jiatongtech.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 沈阳嘉桐科技有限公司 版权所有</p>
+            </div>
         </div>
-        <p>扫一扫，关注我们的微信公众号</p>
-      </div>
+    </footer>
+
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+            <h2>用户登录</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+            <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></p>
+        </div>
     </div>
 
-    <!-- 右侧表单 -->
-    <div class="contact-form-wrap">
-      <span class="section-tag">在线留言</span>
-      <h2 class="section-title">发送您的需求</h2>
-      <form class="contact-form" id="contactForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">您的姓名 <em>*</em></label>
-            <input type="text" id="name" placeholder="请输入姓名" required />
-          </div>
-          <div class="form-group">
-            <label for="phone">联系电话 <em>*</em></label>
-            <input type="tel" id="phone" placeholder="请输入电话" required />
-          </div>
+    <!-- 注册弹窗 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeRegisterModal()">&times;</span>
+            <h2>用户注册</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="registerUsername" required placeholder="请输入用户名" minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="registerEmail" required placeholder="请输入邮箱">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="registerPassword" required placeholder="请输入密码" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="registerConfirmPassword" required placeholder="请再次输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">注册</button>
+            </form>
+            <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a></p>
         </div>
-        <div class="form-group">
-          <label for="email">电子邮箱</label>
-          <input type="email" id="email" placeholder="请输入邮箱" />
-        </div>
-        <div class="form-group">
-          <label for="subject">咨询主题 <em>*</em></label>
-          <select id="subject" required>
-            <option value="">请选择咨询类型</option>
-            <option value="research">青少年研学</option>
-            <option value="overseas">海外留学项目实践</option>
-            <option value="equipment-rd">科教仪器研发</option>
-            <option value="training">科创师资培训</option>
-            <option value="tech">技术服务</option>
-            <option value="equipment-sale">科教仪器销售</option>
-            <option value="other">其他</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="message">留言内容 <em>*</em></label>
-          <textarea id="message" rows="5" placeholder="请详细描述您的需求，以便我们为您提供更精准的服务..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
-          <span>提交留言</span>
-        </button>
-        <div class="form-success" id="formSuccess">
-          ✅ 留言已提交！我们将在1个工作日内与您联系，感谢您的信任。
-        </div>
-      </form>
     </div>
 
-  </div>
-</section>
+    <!-- 消息提示 -->
+    <div class="toast" id="toast">
+        <span class="toast-message"></span>
+    </div>
 
-<!-- 地图区域 -->
-<section class="map-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">公司位置</span>
-      <h2 class="section-title">期待您的到访</h2>
-    </div>
-  </div>
-  <div class="map-placeholder">
-    <div class="map-overlay">
-      <div class="map-pin">📍</div>
-      <strong>沈阳嘉桐科技有限公司</strong>
-      <p>辽宁省沈阳市</p>
-    </div>
-    <svg class="map-bg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice">
-      <rect width="1200" height="400" fill="#0f1b35"/>
-      <!-- 网格线 -->
-      <g stroke="#1e3a6e" stroke-width="1" opacity="0.5">
-        <line x1="0" y1="50" x2="1200" y2="50"/><line x1="0" y1="100" x2="1200" y2="100"/>
-        <line x1="0" y1="150" x2="1200" y2="150"/><line x1="0" y1="200" x2="1200" y2="200"/>
-        <line x1="0" y1="250" x2="1200" y2="250"/><line x1="0" y1="300" x2="1200" y2="300"/>
-        <line x1="0" y1="350" x2="1200" y2="350"/>
-        <line x1="100" y1="0" x2="100" y2="400"/><line x1="200" y1="0" x2="200" y2="400"/>
-        <line x1="300" y1="0" x2="300" y2="400"/><line x1="400" y1="0" x2="400" y2="400"/>
-        <line x1="500" y1="0" x2="500" y2="400"/><line x1="600" y1="0" x2="600" y2="400"/>
-        <line x1="700" y1="0" x2="700" y2="400"/><line x1="800" y1="0" x2="800" y2="400"/>
-        <line x1="900" y1="0" x2="900" y2="400"/><line x1="1000" y1="0" x2="1000" y2="400"/>
-        <line x1="1100" y1="0" x2="1100" y2="400"/>
-      </g>
-      <!-- 道路 -->
-      <rect x="0" y="180" width="1200" height="40" fill="#1a3a6a" rx="2"/>
-      <rect x="550" y="0" width="40" height="400" fill="#1a3a6a" rx="2"/>
-      <rect x="0" y="300" width="1200" height="30" fill="#152d56" rx="2"/>
-      <rect x="300" y="0" width="30" height="400" fill="#152d56" rx="2"/>
-      <rect x="900" y="0" width="30" height="400" fill="#152d56" rx="2"/>
-      <!-- 建筑块 -->
-      <rect x="50" y="50" width="80" height="100" fill="#0d2240" rx="4"/>
-      <rect x="160" y="70" width="100" height="80" fill="#0d2240" rx="4"/>
-      <rect x="650" y="50" width="80" height="100" fill="#0d2240" rx="4"/>
-      <rect x="750" y="70" width="100" height="80" fill="#0d2240" rx="4"/>
-      <rect x="50" y="250" width="90" height="30" fill="#0d2240" rx="4"/>
-      <rect x="160" y="240" width="80" height="40" fill="#0d2240" rx="4"/>
-      <rect x="650" y="250" width="90" height="30" fill="#0d2240" rx="4"/>
-      <rect x="750" y="240" width="80" height="40" fill="#0d2240" rx="4"/>
-      <!-- 中心标记 -->
-      <circle cx="570" cy="200" r="20" fill="#2563eb" opacity="0.8"/>
-      <circle cx="570" cy="200" r="8" fill="#60a5fa"/>
-      <circle cx="570" cy="200" r="35" fill="none" stroke="#2563eb" stroke-width="2" opacity="0.4"/>
-    </svg>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section faq-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">常见问题</span>
-      <h2 class="section-title">您可能想了解的</h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span>研学项目如何报名参与？</span>
-          <span class="faq-arrow">+</span>
-        </button>
-        <div class="faq-a">
-          您可以通过本页面在线留言或致电我们，我们的专业顾问会联系您，了解具体需求后为您提供定制化的研学方案，包括课程内容、行程安排和费用明细。
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span>科教仪器是否支持批量采购与定制？</span>
-          <span class="faq-arrow">+</span>
-        </button>
-        <div class="faq-a">
-          是的，我们支持学校及机构的批量采购，可提供优惠的团购价格。同时，我们也提供定制化产品研发服务，根据您的教学需求进行专属设计与生产。
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span>师资培训课程多久能完成？是否提供证书？</span>
-          <span class="faq-arrow">+</span>
-        </button>
-        <div class="faq-a">
-          培训课程根据模块不同，时长从1天到数周不等，可线上线下灵活安排。完成培训并通过考核后，将颁发由嘉桐科技出具的专业培训认证证书。
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span>海外留学项目适合什么年龄段的学生？</span>
-          <span class="faq-arrow">+</span>
-        </button>
-        <div class="faq-a">
-          我们的海外项目覆盖初中、高中及大学阶段的学生，不同年龄段有相应的项目设计。短期交流项目适合初高中生，长期留学申请服务主要面向高中及以上学生。
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span>如何与嘉桐科技建立长期合作关系？</span>
-          <span class="faq-arrow">+</span>
-        </button>
-        <div class="faq-a">
-          欢迎通过本页联系我们，或直接来访公司洽谈。我们为长期合作伙伴提供专属的合作政策、优先服务资源及定期回访支持，期待与您建立互利共赢的合作关系。
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 页脚 -->
-<footer class="footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <a href="index.html" class="logo logo-light">
-        <span class="logo-icon">⬡</span>
-        <span class="logo-text">嘉桐科技</span>
-      </a>
-      <p class="footer-desc">沈阳嘉桐科技有限公司<br/>科技赋能教育，点亮青少年未来</p>
-    </div>
-    <div class="footer-links">
-      <h5>快速导航</h5>
-      <a href="index.html">首页</a>
-      <a href="about.html">关于我们</a>
-      <a href="services.html">产品服务</a>
-      <a href="contact.html">联系我们</a>
-    </div>
-    <div class="footer-services">
-      <h5>主营业务</h5>
-      <span>青少年研学</span>
-      <span>海外留学项目实践</span>
-      <span>科教仪器研发</span>
-      <span>科创师资培训</span>
-      <span>技术服务</span>
-      <span>科教仪器销售</span>
-    </div>
-    <div class="footer-contact">
-      <h5>联系方式</h5>
-      <p>📍 辽宁省沈阳市</p>
-      <p>📞 请联系我们获取电话</p>
-      <p>✉️ 请联系我们获取邮箱</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 沈阳嘉桐科技有限公司 版权所有</p>
-  </div>
-</footer>
-
-<script src="main.js"></script>
+    <script src="main.js"></script>
+    <script>
+        const app = tcb.init({
+            env: 'jt-0323-3gedkxnrd4787354'
+        });
+        checkLoginStatus();
+        
+        // 表单提交后显示提示
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            // 让表单正常提交到 FormSubmit
+            setTimeout(() => {
+                showToast('留言提交成功！我们会尽快与您联系。', 'success');
+            }, 500);
+        });
+    </script>
 </body>
 </html>
