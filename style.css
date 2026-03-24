@@ -191,35 +191,11 @@ img {
     color: var(--primary-color);
 }
 
-/* 六边形 Logo - 宽比例设计 */
-.logo-hex {
-    width: 44px;
-    height: 38px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* 六边形边框 */
-.logo-hex::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 2.5px solid var(--primary-color);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    background: transparent;
-}
-
-.logo-jt {
-    position: relative;
-    z-index: 1;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--primary-color);
-    letter-spacing: -1px;
-    font-family: 'Arial', 'Noto Sans SC', sans-serif;
+/* Logo 图片样式 */
+.nav-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
 }
 
 .nav-brand i {
