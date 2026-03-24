@@ -328,7 +328,40 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">注册</button>
             </form>
-            <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a></p>
+            <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a> | <a href="#" onclick="showTeacherRegisterModal()">教师注册</a></p>
+        </div>
+    </div>
+
+    <!-- 教师注册弹窗 -->
+    <div class="modal" id="teacherRegisterModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeTeacherRegisterModal()">&times;</span>
+            <h2>教师注册</h2>
+            <form id="teacherRegisterForm" onsubmit="handleTeacherRegister(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="teacherUsername" required placeholder="请输入用户名" minlength="2">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="teacherEmail" required placeholder="请输入邮箱">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="teacherPassword" required placeholder="请输入密码" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="teacherConfirmPassword" required placeholder="请再次输入密码">
+                </div>
+                <div class="form-group">
+                    <label>教师码</label>
+                    <input type="text" id="teacherCode" required placeholder="请输入教师码">
+                    <small style="color: #999; font-size: 12px;">如无教师码请联系管理员</small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">注册教师账号</button>
+            </form>
+            <p class="modal-tip"><a href="#" onclick="switchToRegister()">返回学员注册</a></p>
         </div>
     </div>
 
