@@ -18,7 +18,9 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-brand">
-                <i class="fas fa-flask"></i>
+                <div class="logo-hex">
+                    <span class="logo-jt">JT</span>
+                </div>
                 <span>沈阳嘉桐科技</span>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -300,7 +302,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">登录</button>
             </form>
-            <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></p>
+            <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a> | <a href="#" onclick="showAdminLoginModal()">管理员登录</a></p>
         </div>
     </div>
 
@@ -362,6 +364,59 @@
                 <button type="submit" class="btn btn-primary btn-block">注册教师账号</button>
             </form>
             <p class="modal-tip"><a href="#" onclick="switchToRegister()">返回学员注册</a></p>
+        </div>
+    </div>
+
+    <!-- 管理员登录弹窗 -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAdminLoginModal()">&times;</span>
+            <h2>管理员登录</h2>
+            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                <div class="form-group">
+                    <label>管理员账号</label>
+                    <input type="text" id="adminUsername" required placeholder="请输入管理员账号">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="adminPassword" required placeholder="请输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">管理员登录</button>
+            </form>
+            <p class="modal-tip"><a href="#" onclick="showAdminRegisterModal()">申请成为管理员</a> | <a href="#" onclick="switchToLogin()">普通用户登录</a></p>
+        </div>
+    </div>
+
+    <!-- 管理员注册弹窗 -->
+    <div class="modal" id="adminRegisterModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAdminRegisterModal()">&times;</span>
+            <h2>申请成为管理员</h2>
+            <form id="adminRegisterForm" onsubmit="handleAdminRegister(event)">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="adminRegUsername" required placeholder="请输入用户名" minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <input type="email" id="adminRegEmail" required placeholder="请输入邮箱">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="adminRegPassword" required placeholder="请输入密码" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" id="adminRegConfirmPassword" required placeholder="请再次输入密码">
+                </div>
+                <div class="form-group">
+                    <label>邀请码</label>
+                    <input type="text" id="adminInviteCode" required placeholder="请输入邀请码">
+                    <small style="color: #999; font-size: 12px;">请联系网站所有者获取邀请码</small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">提交申请</button>
+            </form>
+            <p class="modal-tip"><a href="#" onclick="showAdminLoginModal()">返回管理员登录</a></p>
         </div>
     </div>
 

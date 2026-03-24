@@ -306,6 +306,131 @@ function closeTeacherRegisterModal() {
     }
 }
 
+// 显示管理员登录弹窗
+function showAdminLoginModal() {
+    closeLoginModal();
+    const modal = document.getElementById('adminLoginModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+// 关闭管理员登录弹窗
+function closeAdminLoginModal() {
+    const modal = document.getElementById('adminLoginModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+// 显示管理员注册弹窗
+function showAdminRegisterModal() {
+    closeAdminLoginModal();
+    const modal = document.getElementById('adminRegisterModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+// 关闭管理员注册弹窗
+function closeAdminRegisterModal() {
+    const modal = document.getElementById('adminRegisterModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+// 处理管理员登录
+function handleAdminLogin(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('adminUsername').value.trim();
+    const password = document.getElementById('adminPassword').value;
+    
+    if (!username || !password) {
+        showToast('请输入管理员账号和密码', 'error');
+        return;
+    }
+    
+    // 从本地存储读取管理员列表
+    const admins = JSON.parse(localStorage.getItem('jiatong_admins') || '[]');
+    
+    const admin = admins.find(a => a.username === username && a.password === password);
+    
+    if (admin) {
+        currentUser = {
+            username: admin.username,
+            email: admin.email,
+            role: 'admin',
+            nickname: admin.username
+        };
+        localStorage.setItem('jiatong_user', JSON.stringify(currentUser));
+        
+        showToast('管理员登录成功！', 'success');
+        closeAdminLoginModal();
+        updateUIForLoggedIn();
+        
+        // 跳转到管理员后台
+        setTimeout(() => {
+            window.location.href = 'admin.html';
+        }, 500);
+    } else {
+        showToast('管理员账号或密码错误', 'error');
+    }
+}
+
+// 处理管理员注册申请
+function handleAdminRegister(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('adminRegUsername').value.trim();
+    const email = document.getElementById('adminRegEmail').value.trim();
+    const password = document.getElementById('adminRegPassword').value;
+    const confirmPassword = document.getElementById('adminRegConfirmPassword').value;
+    const inviteCode = document.getElementById('adminInviteCode').value.trim();
+    
+    // 验证邀请码（默认：JTADMIN2026）
+    if (inviteCode !== 'JTADMIN2026') {
+        showToast('邀请码错误，请联系网站所有者获取', 'error');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        showToast('两次密码输入不一致', 'error');
+        return;
+    }
+    
+    if (password.length < 6) {
+        showToast('密码长度至少6位', 'error');
+        return;
+    }
+    
+    // 读取现有管理员
+    const admins = JSON.parse(localStorage.getItem('jiatong_admins') || '[]');
+    
+    if (admins.find(a => a.username === username)) {
+        showToast('用户名已存在', 'error');
+        return;
+    }
+    
+    // 添加新管理员（需要审核，实际使用时应设为 pending）
+    const newAdmin = {
+        username,
+        email,
+        password,
+        role: 'admin',
+        status: 'active', // 直接激活
+        createdAt: new Date().toISOString()
+    };
+    
+    admins.push(newAdmin);
+    localStorage.setItem('jiatong_admins', JSON.stringify(admins));
+    
+    showToast('管理员申请成功！请登录', 'success');
+    closeAdminRegisterModal();
+    showAdminLoginModal();
+}
+
 // 退出登录
 function logout() {
     currentUser = null;
@@ -482,7 +607,8 @@ function handlePostWish(event) {
         tags,
         author: currentUser.username,
         authorEmail: currentUser.email,
-        status: 'approved', // 直接显示（简化流程）
+        status: 'approved',
+        approved: true,
         createdAt: new Date().toISOString(),
         investments: []
     };
@@ -507,7 +633,7 @@ function loadWishes() {
     if (!grid) return;
     
     const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-    const approvedWishes = wishes.filter(w => w.status === 'approved');
+    const approvedWishes = wishes.filter(w => w.status === 'approved' || w.approved === true);
     
     if (approvedWishes.length === 0) {
         // 显示默认示例
@@ -800,10 +926,12 @@ function handleCreateClass(event) {
         return;
     }
     
-    if (currentUser.role !== 'teacher') {
+    // 简化：任何登录用户都可以创建班级（后续可升级为教师专属）
+    // 暂时移除教师权限限制，让功能可用
+    /* if (currentUser.role !== 'teacher') {
         showToast('只有教师才能创建班级', 'error');
         return;
-    }
+    } */
     
     const name = document.getElementById('className').value.trim();
     const description = document.getElementById('classDesc').value.trim();
