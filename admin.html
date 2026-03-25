@@ -3,533 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理后台 - 沈阳嘉桐科技有限公司</title>
-    <link rel="stylesheet" href="style.css">
+    <title>管理后台 - 嘉桐科技</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #7c3aed;
-            --success-color: #10b981;
-            --danger-color: #ef4444;
-            --warning-color: #f59e0b;
-            --bg-light: #f8fafc;
-            --text-dark: #1e293b;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background: var(--bg-light);
-            min-height: 100vh;
-        }
-        
-        .admin-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .admin-header h1 {
-            font-size: 1.5rem;
-        }
-        
-        .admin-header .admin-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .admin-container {
-            display: flex;
-            min-height: calc(100vh - 70px);
-        }
-        
-        .admin-sidebar {
-            width: 250px;
-            background: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            padding: 1rem 0;
-        }
-        
-        .admin-sidebar ul {
-            list-style: none;
-        }
-        
-        .admin-sidebar li a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 1.5rem;
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .admin-sidebar li a:hover,
-        .admin-sidebar li a.active {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-        }
-        
-        .admin-main {
-            flex: 1;
-            padding: 2rem;
-        }
-        
-        .admin-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .admin-card h2 {
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .stat-card .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        .stat-card .stat-label {
-            color: #64748b;
-            margin-top: 0.5rem;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .data-table th,
-        .data-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .data-table th {
-            background: #f8fafc;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        
-        .data-table tr:hover {
-            background: #f8fafc;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        
-        .badge-success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .badge-warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        
-        .badge-danger {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-        
-        .btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-success {
-            background: var(--success-color);
-            color: white;
-        }
-        
-        .btn-danger {
-            background: var(--danger-color);
-            color: white;
-        }
-        
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: #64748b;
-        }
-        
-        .action-btns {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .back-home {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        .back-home:hover {
-            text-decoration: underline;
-        }
-        
-        .logout-btn {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Noto Sans SC',sans-serif;background:#f0f2f5;min-height:100vh;color:#1e293b;}
+        a{text-decoration:none;color:inherit;}
+
+        /* 顶部栏 */
+        .admin-topbar{background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:60px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+        .admin-topbar-left{display:flex;align-items:center;gap:1rem;}
+        .admin-topbar-left img{height:32px;}
+        .admin-topbar-left h1{font-size:1.1rem;font-weight:700;}
+        .admin-topbar-right{display:flex;align-items:center;gap:1rem;font-size:0.9rem;}
+        .topbar-back{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:0.4rem 1rem;border-radius:6px;cursor:pointer;font-size:0.85rem;}
+        .topbar-back:hover{background:rgba(255,255,255,0.25);}
+
+        /* 布局 */
+        .admin-layout{display:flex;margin-top:60px;min-height:calc(100vh - 60px);}
+
+        /* 侧边栏 */
+        .admin-sidebar{width:220px;background:#fff;box-shadow:2px 0 8px rgba(0,0,0,0.06);padding:1.5rem 0;position:fixed;top:60px;bottom:0;overflow-y:auto;}
+        .sidebar-section{margin-bottom:0.5rem;}
+        .sidebar-label{font-size:0.75rem;color:#94a3b8;font-weight:600;letter-spacing:1px;padding:0.75rem 1.5rem 0.25rem;}
+        .admin-sidebar-link{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1.5rem;color:#475569;font-size:0.9rem;cursor:pointer;transition:all 0.2s;}
+        .admin-sidebar-link i{width:18px;text-align:center;}
+        .admin-sidebar-link:hover{background:#f8fafc;color:#1d4ed8;}
+        .admin-sidebar-link.active{background:linear-gradient(135deg,#eff6ff,#f5f3ff);color:#1d4ed8;border-right:3px solid #1d4ed8;font-weight:600;}
+        .badge-count{background:#ef4444;color:#fff;border-radius:20px;padding:1px 7px;font-size:0.75rem;margin-left:auto;}
+
+        /* 主内容 */
+        .admin-main{margin-left:220px;flex:1;padding:2rem;}
+
+        /* 统计卡片 */
+        .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+        .stat-card{background:#fff;border-radius:12px;padding:1.25rem 1.5rem;box-shadow:0 1px 6px rgba(0,0,0,0.06);display:flex;align-items:center;gap:1rem;}
+        .stat-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+        .stat-icon.blue{background:#eff6ff;color:#1d4ed8;}
+        .stat-icon.purple{background:#f5f3ff;color:#7c3aed;}
+        .stat-icon.green{background:#f0fdf4;color:#059669;}
+        .stat-icon.orange{background:#fffbeb;color:#d97706;}
+        .stat-val{font-size:1.75rem;font-weight:700;color:#1e293b;line-height:1;}
+        .stat-lbl{font-size:0.8rem;color:#94a3b8;margin-top:0.25rem;}
+
+        /* 内容卡片 */
+        .content-card{background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,0.06);margin-bottom:1.5rem;overflow:hidden;}
+        .card-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid #f1f5f9;}
+        .card-header h3{font-size:1rem;font-weight:600;display:flex;align-items:center;gap:0.5rem;}
+        .card-body{padding:0;}
+
+        /* 表格 */
+        table{width:100%;border-collapse:collapse;}
+        th{background:#f8fafc;padding:0.75rem 1rem;text-align:left;font-size:0.8rem;color:#64748b;font-weight:600;letter-spacing:0.5px;}
+        td{padding:0.875rem 1rem;border-bottom:1px solid #f1f5f9;font-size:0.875rem;color:#334155;vertical-align:middle;}
+        tr:last-child td{border-bottom:none;}
+        tr:hover td{background:#fafafa;}
+        .empty-cell{text-align:center;padding:2rem;color:#94a3b8;}
+
+        /* 角色徽章 */
+        .role-badge{display:inline-flex;align-items:center;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.75rem;font-weight:500;}
+        .role-admin{background:#fef3c7;color:#92400e;}
+        .role-teacher{background:#d1fae5;color:#065f46;}
+        .role-student{background:#e0e7ff;color:#3730a3;}
+        .status-badge{display:inline-flex;align-items:center;gap:4px;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.75rem;font-weight:500;}
+        .status-pending{background:#fef9c3;color:#854d0e;}
+        .status-approved{background:#dcfce7;color:#166534;}
+        .status-rejected{background:#fee2e2;color:#991b1b;}
+
+        /* 按钮 */
+        .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 0.9rem;border:none;border-radius:6px;cursor:pointer;font-size:0.8rem;font-weight:500;transition:all 0.2s;}
+        .btn:hover{transform:translateY(-1px);}
+        .btn-success{background:#10b981;color:#fff;}
+        .btn-success:hover{background:#059669;}
+        .btn-danger{background:#ef4444;color:#fff;}
+        .btn-danger:hover{background:#dc2626;}
+        .btn-primary{background:#1d4ed8;color:#fff;}
+        .btn-primary:hover{background:#1e40af;}
+        .btn-ghost{background:transparent;color:#64748b;border:1px solid #e2e8f0;}
+        .btn-ghost:hover{background:#f8fafc;}
+        .action-btns{display:flex;gap:0.4rem;}
+
+        /* Tab标签页 */
+        .admin-tab-content{display:none;}
+        .admin-tab-content.active{display:block;}
+
+        /* Toast */
+        .toast{position:fixed;bottom:2rem;right:2rem;padding:0.875rem 1.25rem;border-radius:10px;color:#fff;font-size:0.9rem;font-weight:500;opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:9999;display:flex;align-items:center;gap:0.5rem;max-width:320px;}
+        .toast.show{opacity:1;transform:translateY(0);}
+        .toast-success{background:#10b981;}
+        .toast-error{background:#ef4444;}
+        .toast-warning{background:#f59e0b;}
+        .toast-info{background:#3b82f6;}
+
+        @media(max-width:768px){
+            .admin-sidebar{display:none;}
+            .admin-main{margin-left:0;}
+            .stats-row{grid-template-columns:repeat(2,1fr);}
         }
     </style>
 </head>
 <body>
-    <!-- 管理后台头部 -->
-    <header class="admin-header">
-        <h1><i class="fas fa-cog"></i> 管理后台</h1>
-        <div class="admin-info">
-            <a href="index.html" class="back-home"><i class="fas fa-home"></i> 返回首页</a>
-            <span id="adminName">管理员</span>
-            <button class="logout-btn" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> 退出</button>
+
+<!-- 顶部栏 -->
+<div class="admin-topbar">
+    <div class="admin-topbar-left">
+        <img src="logo.png" alt="嘉桐科技">
+        <h1>管理后台</h1>
+    </div>
+    <div class="admin-topbar-right">
+        <span id="adminName">管理员</span>
+        <button class="topbar-back" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> 返回前台</button>
+        <button class="topbar-back" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出</button>
+    </div>
+</div>
+
+<div class="admin-layout">
+    <!-- 侧边栏 -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">概览</div>
+            <div class="admin-sidebar-link active" data-tab="tab-dashboard" onclick="switchAdminTab('tab-dashboard',this)">
+                <i class="fas fa-tachometer-alt"></i> 数据概览
+            </div>
         </div>
-    </header>
-    
-    <div class="admin-container">
-        <!-- 侧边栏 -->
-        <aside class="admin-sidebar">
-            <ul>
-                <li><a href="#" class="active" onclick="switchTab('dashboard')"><i class="fas fa-tachometer-alt"></i> 数据概览</a></li>
-                <li><a href="#" onclick="switchTab('wishes')"><i class="fas fa-lightbulb"></i> 心愿墙管理</a></li>
-                <li><a href="#" onclick="switchTab('classes')"><i class="fas fa-users"></i> 班级管理</a></li>
-                <li><a href="#" onclick="switchTab('users')"><i class="fas fa-user-cog"></i> 用户管理</a></li>
-            </ul>
-        </aside>
-        
-        <!-- 主内容区 -->
-        <main class="admin-main">
-            <!-- 数据概览 -->
-            <div class="tab-content active" id="dashboard">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="statWishes">0</div>
-                        <div class="stat-label">创意总数</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="statClasses">0</div>
-                        <div class="stat-label">班级数量</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="statUsers">0</div>
-                        <div class="stat-label">用户总数</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="statPending">0</div>
-                        <div class="stat-label">待审核</div>
-                    </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">审核管理</div>
+            <div class="admin-sidebar-link" data-tab="tab-wishes" onclick="switchAdminTab('tab-wishes',this)">
+                <i class="fas fa-lightbulb"></i> 心愿墙审核
+                <span class="badge-count" id="wishPendingCount">0</span>
+            </div>
+            <div class="admin-sidebar-link" data-tab="tab-classes" onclick="switchAdminTab('tab-classes',this)">
+                <i class="fas fa-users"></i> 班级审批
+                <span class="badge-count" id="classPendingCount">0</span>
+            </div>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">数据管理</div>
+            <div class="admin-sidebar-link" data-tab="tab-users" onclick="switchAdminTab('tab-users',this)">
+                <i class="fas fa-user-cog"></i> 用户管理
+            </div>
+            <div class="admin-sidebar-link" data-tab="tab-messages" onclick="switchAdminTab('tab-messages',this)">
+                <i class="fas fa-envelope"></i> 咨询留言
+            </div>
+        </div>
+    </aside>
+
+    <!-- 主内容 -->
+    <main class="admin-main">
+
+        <!-- 数据概览 -->
+        <div class="admin-tab-content active" id="tab-dashboard">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-lightbulb"></i></div>
+                    <div><div class="stat-val" id="statPendingWishes">-</div><div class="stat-lbl">待审核创意</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fas fa-users"></i></div>
+                    <div><div class="stat-val" id="statPendingClasses">-</div><div class="stat-lbl">待审批班级</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-user"></i></div>
+                    <div><div class="stat-val" id="statTotalUsers">-</div><div class="stat-lbl">注册用户</div></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fas fa-envelope"></i></div>
+                    <div><div class="stat-val" id="statTotalMessages">-</div><div class="stat-lbl">咨询留言</div></div>
                 </div>
             </div>
-            
-            <!-- 心愿墙管理 -->
-            <div class="tab-content" id="wishes">
-                <div class="admin-card">
-                    <h2><i class="fas fa-lightbulb"></i> 创意管理</h2>
-                    <table class="data-table" id="wishesTable">
+            <div class="content-card">
+                <div class="card-header"><h3><i class="fas fa-clock"></i> 快速操作</h3></div>
+                <div style="padding:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="switchAdminTab('tab-wishes',document.querySelector('[data-tab=tab-wishes]'))">
+                        <i class="fas fa-lightbulb"></i> 审核心愿墙
+                    </button>
+                    <button class="btn btn-primary" onclick="switchAdminTab('tab-classes',document.querySelector('[data-tab=tab-classes]'))">
+                        <i class="fas fa-users"></i> 审批班级
+                    </button>
+                    <button class="btn btn-ghost" onclick="switchAdminTab('tab-messages',document.querySelector('[data-tab=tab-messages]'))">
+                        <i class="fas fa-envelope"></i> 查看留言
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 心愿墙审核 -->
+        <div class="admin-tab-content" id="tab-wishes">
+            <div class="content-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-lightbulb"></i> 心愿墙审核</h3>
+                    <button class="btn btn-ghost" onclick="loadAdminDashboard()"><i class="fas fa-sync"></i> 刷新</button>
+                </div>
+                <div class="card-body">
+                    <table>
                         <thead>
-                            <tr>
-                                <th>标题</th>
-                                <th>作者</th>
-                                <th>发布时间</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
+                            <tr><th>创意标题</th><th>作者</th><th>内容摘要</th><th>提交时间</th><th>操作</th></tr>
                         </thead>
                         <tbody id="wishesTableBody">
-                            <!-- 动态加载 -->
+                            <tr><td colspan="5" class="empty-cell">加载中...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
-            <!-- 班级管理 -->
-            <div class="tab-content" id="classes">
-                <div class="admin-card">
-                    <h2><i class="fas fa-users"></i> 班级管理</h2>
-                    <table class="data-table" id="classesTable">
+        </div>
+
+        <!-- 班级审批 -->
+        <div class="admin-tab-content" id="tab-classes">
+            <div class="content-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-users"></i> 班级申请审批</h3>
+                    <button class="btn btn-ghost" onclick="loadAdminDashboard()"><i class="fas fa-sync"></i> 刷新</button>
+                </div>
+                <div class="card-body">
+                    <table>
                         <thead>
-                            <tr>
-                                <th>班级名称</th>
-                                <th>创建者</th>
-                                <th>成员数</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
-                            </tr>
+                            <tr><th>班级名称</th><th>申请教师</th><th>科目</th><th>介绍</th><th>操作</th></tr>
                         </thead>
                         <tbody id="classesTableBody">
-                            <!-- 动态加载 -->
+                            <tr><td colspan="5" class="empty-cell">加载中...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
-            <!-- 用户管理 -->
-            <div class="tab-content" id="users">
-                <div class="admin-card">
-                    <h2><i class="fas fa-user-cog"></i> 用户管理</h2>
-                    <table class="data-table" id="usersTable">
+        </div>
+
+        <!-- 用户管理 -->
+        <div class="admin-tab-content" id="tab-users">
+            <div class="content-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-user-cog"></i> 用户管理</h3>
+                    <button class="btn btn-ghost" onclick="loadAdminDashboard()"><i class="fas fa-sync"></i> 刷新</button>
+                </div>
+                <div class="card-body">
+                    <table>
                         <thead>
-                            <tr>
-                                <th>用户名</th>
-                                <th>邮箱</th>
-                                <th>角色</th>
-                                <th>注册时间</th>
-                                <th>操作</th>
-                            </tr>
+                            <tr><th>用户名</th><th>邮箱</th><th>角色</th><th>注册时间</th><th>操作</th></tr>
                         </thead>
                         <tbody id="usersTableBody">
-                            <!-- 动态加载 -->
+                            <tr><td colspan="5" class="empty-cell">加载中...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </main>
-    </div>
-    
-    <script src="main.js"></script>
-    <script>
-        // 检查是否是管理员
-        document.addEventListener('DOMContentLoaded', function() {
-            const user = JSON.parse(localStorage.getItem('jiatong_user') || '{}');
-            if (!user || user.role !== 'admin') {
-                alert('请先登录管理员账号');
-                window.location.href = 'index.html';
-                return;
-            }
-            
-            document.getElementById('adminName').textContent = user.username;
-            loadDashboardStats();
-            loadWishesForAdmin();
-            loadClassesForAdmin();
-            loadUsersForAdmin();
-        });
-        
-        // 切换标签页
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.admin-sidebar a').forEach(a => a.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            event.target.closest('a').classList.add('active');
-        }
-        
-        // 加载统计数据
-        function loadDashboardStats() {
-            const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-            const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-            const users = JSON.parse(localStorage.getItem('jiatong_users') || '[]');
-            const pending = wishes.filter(w => w.status !== 'approved' && w.approved !== true).length;
-            
-            document.getElementById('statWishes').textContent = wishes.length;
-            document.getElementById('statClasses').textContent = classes.length;
-            document.getElementById('statUsers').textContent = users.length;
-            document.getElementById('statPending').textContent = pending;
-        }
-        
-        // 加载心愿墙数据
-        function loadWishesForAdmin() {
-            const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-            const tbody = document.getElementById('wishesTableBody');
-            
-            if (wishes.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无创意数据</td></tr>';
-                return;
-            }
-            
-            tbody.innerHTML = wishes.map(wish => `
-                <tr>
-                    <td>${wish.title}</td>
-                    <td>${wish.author}</td>
-                    <td>${new Date(wish.createdAt).toLocaleDateString()}</td>
-                    <td>
-                        <span class="badge ${wish.status === 'approved' || wish.approved ? 'badge-success' : 'badge-warning'}">
-                            ${wish.status === 'approved' || wish.approved ? '已通过' : '待审核'}
-                        </span>
-                    </td>
-                    <td class="action-btns">
-                        ${wish.status !== 'approved' && wish.approved !== true ? 
-                            `<button class="btn btn-success" onclick="approveWish('${wish.id}')">通过</button>` : ''}
-                        <button class="btn btn-danger" onclick="deleteWish('${wish.id}')">删除</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        
-        // 批准创意
-        function approveWish(id) {
-            const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-            const wish = wishes.find(w => w.id === id);
-            if (wish) {
-                wish.status = 'approved';
-                wish.approved = true;
-                localStorage.setItem('jiatong_wishes', JSON.stringify(wishes));
-                showToast('审核通过', 'success');
-                loadWishesForAdmin();
-                loadDashboardStats();
-            }
-        }
-        
-        // 删除创意
-        function deleteWish(id) {
-            if (!confirm('确定要删除这条创意吗？')) return;
-            
-            let wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-            wishes = wishes.filter(w => w.id !== id);
-            localStorage.setItem('jiatong_wishes', JSON.stringify(wishes));
-            showToast('删除成功', 'success');
-            loadWishesForAdmin();
-            loadDashboardStats();
-        }
-        
-        // 加载班级数据
-        function loadClassesForAdmin() {
-            const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-            const tbody = document.getElementById('classesTableBody');
-            
-            if (classes.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无班级数据</td></tr>';
-                return;
-            }
-            
-            tbody.innerHTML = classes.map(cls => `
-                <tr>
-                    <td>${cls.name}</td>
-                    <td>${cls.creator}</td>
-                    <td>${cls.members ? cls.members.length : 0}</td>
-                    <td>${new Date(cls.createdAt).toLocaleDateString()}</td>
-                    <td class="action-btns">
-                        <button class="btn btn-danger" onclick="deleteClass('${cls.id}')">删除</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        
-        // 删除班级
-        function deleteClass(id) {
-            if (!confirm('确定要删除这个班级吗？')) return;
-            
-            let classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-            classes = classes.filter(c => c.id !== id);
-            localStorage.setItem('jiatong_classes', JSON.stringify(classes));
-            showToast('删除成功', 'success');
-            loadClassesForAdmin();
-            loadDashboardStats();
-        }
-        
-        // 加载用户数据
-        function loadUsersForAdmin() {
-            const users = JSON.parse(localStorage.getItem('jiatong_users') || '[]');
-            const tbody = document.getElementById('usersTableBody');
-            
-            if (users.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无用户数据</td></tr>';
-                return;
-            }
-            
-            tbody.innerHTML = users.map(user => `
-                <tr>
-                    <td>${user.username}</td>
-                    <td>${user.email}</td>
-                    <td>
-                        <span class="badge ${user.role === 'teacher' ? 'badge-success' : 'badge-warning'}">
-                            ${user.role === 'teacher' ? '教师' : '学员'}
-                        </span>
-                    </td>
-                    <td>${new Date(user.createdAt).toLocaleDateString()}</td>
-                    <td class="action-btns">
-                        <button class="btn btn-danger" onclick="deleteUser('${user.username}')">删除</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        
-        // 删除用户
-        function deleteUser(username) {
-            if (!confirm('确定要删除这个用户吗？')) return;
-            
-            let users = JSON.parse(localStorage.getItem('jiatong_users') || '[]');
-            users = users.filter(u => u.username !== username);
-            localStorage.setItem('jiatong_users', JSON.stringify(users));
-            showToast('删除成功', 'success');
-            loadUsersForAdmin();
-            loadDashboardStats();
-        }
-        
-        // 管理员退出
-        function adminLogout() {
-            localStorage.removeItem('jiatong_user');
-            window.location.href = 'index.html';
-        }
-    </script>
+        </div>
+
+        <!-- 咨询留言 -->
+        <div class="admin-tab-content" id="tab-messages">
+            <div class="content-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-envelope"></i> 咨询留言</h3>
+                    <button class="btn btn-ghost" onclick="loadAdminDashboard()"><i class="fas fa-sync"></i> 刷新</button>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr><th>姓名</th><th>联系方式</th><th>咨询类型</th><th>内容摘要</th><th>时间</th></tr>
+                        </thead>
+                        <tbody id="messagesTableBody">
+                            <tr><td colspan="5" class="empty-cell">加载中...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="cloudbase.js"></script>
+<script src="main.js"></script>
+<script>
+function switchAdminTab(tabId, el) {
+    document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-sidebar-link').forEach(a => a.classList.remove('active'));
+    const tab = document.getElementById(tabId);
+    if (tab) tab.classList.add('active');
+    if (el) el.classList.add('active');
+}
+
+// 更新待处理数量徽章
+function updateBadges(pendingWishes, pendingClasses) {
+    const wb = document.getElementById('wishPendingCount');
+    const cb = document.getElementById('classPendingCount');
+    if (wb) wb.textContent = pendingWishes;
+    if (cb) cb.textContent = pendingClasses;
+    if (wb) wb.style.display = pendingWishes > 0 ? 'inline' : 'none';
+    if (cb) cb.style.display = pendingClasses > 0 ? 'inline' : 'none';
+}
+
+// 覆盖 loadAdminDashboard 加上徽章更新
+const _origLoad = window.loadAdminDashboard;
+window.loadAdminDashboard = async function() {
+    const [pw, pc] = await Promise.all([getPendingWishes(), getPendingClasses()]);
+    updateBadges(pw.length, pc.length);
+    await _origLoad();
+};
+</script>
 </body>
 </html>

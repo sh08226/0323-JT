@@ -1,24 +1,33 @@
-/* ========================================
-   沈阳嘉桐科技有限公司 - 官网交互逻辑（修复版）
-   ======================================== */
+/* ================================================
+   沈阳嘉桐科技有限公司 - 主交互逻辑
+   嘉心筑梦，桐启新章
+   ================================================ */
 
-// 全局变量
-let currentUser = null;
+let currentUser = null; // 当前登录用户
 
 // ==================== 初始化 ====================
 
-document.addEventListener('DOMContentLoaded', function() {
-    initApp();
-});
-
-function initApp() {
+document.addEventListener('DOMContentLoaded', async function () {
+    const ok = initCloudBase();
+    if (!ok) {
+        showToast('网络初始化失败，部分功能不可用', 'error');
+    }
     initNavbar();
     initMobileMenu();
     initTabs();
     initFAQ();
+    await checkAndRestoreLogin();
+    initPageSpecific();
+});
+
+// 各页面专属初始化
+function initPageSpecific() {
+    const page = location.pathname.split('/').pop() || 'index.html';
+    if (page === 'wishwall.html') loadWishwall();
+    if (page === 'classes.html') loadClasses();
+    if (page === 'contact.html') initContactForm();
+    if (page === 'admin.html') initAdminPage();
     initStatsAnimation();
-    initClassTabs();
-    checkLoginStatus();
 }
 
 // ==================== 导航栏 ====================
@@ -26,1226 +35,642 @@ function initApp() {
 function initNavbar() {
     const navbar = document.getElementById('navbar');
     if (!navbar) return;
-    
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 }
 
 function initMobileMenu() {
     const toggle = document.getElementById('navToggle');
-    const menu = document.getElementById('navMenu');
-    
+    const menu   = document.getElementById('navMenu');
     if (toggle && menu) {
-        toggle.addEventListener('click', function() {
-            menu.classList.toggle('active');
-        });
+        toggle.addEventListener('click', () => menu.classList.toggle('active'));
     }
 }
 
-// ==================== 用户系统 ====================
+// ==================== 登录状态恢复 ====================
 
-// 检查登录状态
-function checkLoginStatus() {
-    // 从本地存储读取用户
-    const savedUser = localStorage.getItem('jiatong_user');
-    if (savedUser) {
-        try {
-            currentUser = JSON.parse(savedUser);
-            updateUIForLoggedIn();
-        } catch (e) {
-            localStorage.removeItem('jiatong_user');
+async function checkAndRestoreLogin() {
+    try {
+        const user = await getLoginState();
+        if (user) {
+            currentUser = user;
+            renderNavUser();
         }
-    }
-    
-    // 刷新页面
-    loadClasses();
-    loadWishes();
+    } catch (e) { /* 未登录 */ }
 }
 
-// 更新已登录状态的 UI
-function updateUIForLoggedIn() {
+function renderNavUser() {
     const navAuth = document.getElementById('navAuth');
     const navUser = document.getElementById('navUser');
-    const userName = document.getElementById('userName');
-    
-    if (navAuth && navUser && userName && currentUser) {
+    const userNameEl = document.getElementById('userName');
+    if (!navAuth || !navUser) return;
+
+    if (currentUser) {
         navAuth.style.display = 'none';
         navUser.style.display = 'flex';
-        userName.textContent = currentUser.nickname || currentUser.username || '用户';
-    }
-}
-
-// 显示登录弹窗
-function showLoginModal() {
-    const modal = document.getElementById('loginModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-// 关闭登录弹窗
-function closeLoginModal() {
-    const modal = document.getElementById('loginModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-// 显示注册弹窗
-function showRegisterModal() {
-    const modal = document.getElementById('registerModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-// 关闭注册弹窗
-function closeRegisterModal() {
-    const modal = document.getElementById('registerModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-// 切换到注册
-function switchToRegister() {
-    closeLoginModal();
-    showRegisterModal();
-}
-
-// 切换到登录
-function switchToLogin() {
-    closeRegisterModal();
-    showLoginModal();
-}
-
-// 处理登录
-function handleLogin(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value;
-    
-    if (!username || !password) {
-        showToast('请输入用户名和密码', 'error');
-        return;
-    }
-    
-    // 从本地存储读取用户列表
-    const users = JSON.parse(localStorage.getItem('jiatong_users') || '[]');
-    
-    // 查找用户（支持用户名或邮箱登录）
-    const user = users.find(u => 
-        (u.username === username || u.email === username) && u.password === password
-    );
-    
-    if (user) {
-        // 保存当前用户信息
-        currentUser = {
-            username: user.username,
-            email: user.email,
-            role: user.role || 'student', // student 或 teacher
-            nickname: user.nickname || user.username
-        };
-        localStorage.setItem('jiatong_user', JSON.stringify(currentUser));
-        
-        showToast('登录成功！', 'success');
-        closeLoginModal();
-        updateUIForLoggedIn();
-        
-        // 刷新页面
-        setTimeout(() => location.reload(), 500);
+        if (userNameEl) {
+            const roleTag = currentUser.role === 'admin' ? ' 👑' : currentUser.role === 'teacher' ? ' 🎓' : '';
+            userNameEl.textContent = (currentUser.username || currentUser.email) + roleTag;
+        }
+        // 管理员显示后台入口
+        const adminLink = document.getElementById('adminLink');
+        if (adminLink) adminLink.style.display = currentUser.role === 'admin' ? 'inline-block' : 'none';
     } else {
-        showToast('用户名或密码错误', 'error');
-    }
-}
-
-// 处理注册
-function handleRegister(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('registerUsername').value.trim();
-    const email = document.getElementById('registerEmail').value.trim();
-    const password = document.getElementById('registerPassword').value;
-    const confirmPassword = document.getElementById('registerConfirmPassword').value;
-    
-    // 验证
-    if (!username || !email || !password) {
-        showToast('请填写所有字段', 'error');
-        return;
-    }
-    
-    if (password !== confirmPassword) {
-        showToast('两次密码输入不一致', 'error');
-        return;
-    }
-    
-    if (password.length < 6) {
-        showToast('密码长度至少6位', 'error');
-        return;
-    }
-    
-    if (username.length < 2) {
-        showToast('用户名至少2个字符', 'error');
-        return;
-    }
-    
-    // 读取现有用户
-    const users = JSON.parse(localStorage.getItem('jiatong_users') || '[]');
-    
-    // 检查用户名是否已存在
-    if (users.find(u => u.username === username)) {
-        showToast('用户名已存在', 'error');
-        return;
-    }
-    
-    // 检查邮箱是否已注册
-    if (users.find(u => u.email === email)) {
-        showToast('邮箱已被注册', 'error');
-        return;
-    }
-    
-    // 添加新用户（默认普通学员）
-    const newUser = {
-        username,
-        email,
-        password,
-        role: 'student', // 默认学员
-        createdAt: new Date().toISOString()
-    };
-    
-    users.push(newUser);
-    localStorage.setItem('jiatong_users', JSON.stringify(users));
-    
-    showToast('注册成功！请登录', 'success');
-    closeRegisterModal();
-    switchToLogin();
-}
-
-// 教师注册（独立入口）
-function handleTeacherRegister(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('teacherUsername').value.trim();
-    const email = document.getElementById('teacherEmail').value.trim();
-    const password = document.getElementById('teacherPassword').value;
-    const confirmPassword = document.getElementById('teacherConfirmPassword').value;
-    const code = document.getElementById('teacherCode').value.trim();
-    
-    // 验证
-    if (!username || !email || !password || !code) {
-        showToast('请填写所有字段', 'error');
-        return;
-    }
-    
-    // 验证教师码（可自定义）
-    if (code !== 'JT2026') {
-        showToast('教师码错误，如需注册请联系管理员', 'error');
-        return;
-    }
-    
-    if (password !== confirmPassword) {
-        showToast('两次密码输入不一致', 'error');
-        return;
-    }
-    
-    if (password.length < 6) {
-        showToast('密码长度至少6位', 'error');
-        return;
-    }
-    
-    // 读取现有用户
-    const users = JSON.parse(localStorage.getItem('jiatong_users') || '[]');
-    
-    if (users.find(u => u.username === username)) {
-        showToast('用户名已存在', 'error');
-        return;
-    }
-    
-    if (users.find(u => u.email === email)) {
-        showToast('邮箱已被注册', 'error');
-        return;
-    }
-    
-    // 添加教师用户
-    const newUser = {
-        username,
-        email,
-        password,
-        role: 'teacher', // 教师角色
-        createdAt: new Date().toISOString()
-    };
-    
-    users.push(newUser);
-    localStorage.setItem('jiatong_users', JSON.stringify(users));
-    
-    showToast('教师账号注册成功！请登录', 'success');
-    closeTeacherRegisterModal();
-    switchToLogin();
-}
-
-// 显示教师注册弹窗
-function showTeacherRegisterModal() {
-    closeRegisterModal();
-    const modal = document.getElementById('teacherRegisterModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-// 关闭教师注册弹窗
-function closeTeacherRegisterModal() {
-    const modal = document.getElementById('teacherRegisterModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-// 显示管理员登录弹窗
-function showAdminLoginModal() {
-    closeLoginModal();
-    const modal = document.getElementById('adminLoginModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-// 关闭管理员登录弹窗
-function closeAdminLoginModal() {
-    const modal = document.getElementById('adminLoginModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-// 显示管理员注册弹窗
-function showAdminRegisterModal() {
-    closeAdminLoginModal();
-    const modal = document.getElementById('adminRegisterModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-// 关闭管理员注册弹窗
-function closeAdminRegisterModal() {
-    const modal = document.getElementById('adminRegisterModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-// 处理管理员登录
-function handleAdminLogin(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('adminUsername').value.trim();
-    const password = document.getElementById('adminPassword').value;
-    
-    if (!username || !password) {
-        showToast('请输入管理员账号和密码', 'error');
-        return;
-    }
-    
-    // 从本地存储读取管理员列表
-    const admins = JSON.parse(localStorage.getItem('jiatong_admins') || '[]');
-    
-    const admin = admins.find(a => a.username === username && a.password === password);
-    
-    if (admin) {
-        currentUser = {
-            username: admin.username,
-            email: admin.email,
-            role: 'admin',
-            nickname: admin.username
-        };
-        localStorage.setItem('jiatong_user', JSON.stringify(currentUser));
-        
-        showToast('管理员登录成功！', 'success');
-        closeAdminLoginModal();
-        updateUIForLoggedIn();
-        
-        // 跳转到管理员后台
-        setTimeout(() => {
-            window.location.href = 'admin.html';
-        }, 500);
-    } else {
-        showToast('管理员账号或密码错误', 'error');
-    }
-}
-
-// 处理管理员注册申请
-function handleAdminRegister(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('adminRegUsername').value.trim();
-    const email = document.getElementById('adminRegEmail').value.trim();
-    const password = document.getElementById('adminRegPassword').value;
-    const confirmPassword = document.getElementById('adminRegConfirmPassword').value;
-    const inviteCode = document.getElementById('adminInviteCode').value.trim();
-    
-    // 验证邀请码（默认：JTADMIN2026）
-    if (inviteCode !== 'JTADMIN2026') {
-        showToast('邀请码错误，请联系网站所有者获取', 'error');
-        return;
-    }
-    
-    if (password !== confirmPassword) {
-        showToast('两次密码输入不一致', 'error');
-        return;
-    }
-    
-    if (password.length < 6) {
-        showToast('密码长度至少6位', 'error');
-        return;
-    }
-    
-    // 读取现有管理员
-    const admins = JSON.parse(localStorage.getItem('jiatong_admins') || '[]');
-    
-    if (admins.find(a => a.username === username)) {
-        showToast('用户名已存在', 'error');
-        return;
-    }
-    
-    // 添加新管理员（需要审核，实际使用时应设为 pending）
-    const newAdmin = {
-        username,
-        email,
-        password,
-        role: 'admin',
-        status: 'active', // 直接激活
-        createdAt: new Date().toISOString()
-    };
-    
-    admins.push(newAdmin);
-    localStorage.setItem('jiatong_admins', JSON.stringify(admins));
-    
-    showToast('管理员申请成功！请登录', 'success');
-    closeAdminRegisterModal();
-    showAdminLoginModal();
-}
-
-// 退出登录
-function logout() {
-    currentUser = null;
-    localStorage.removeItem('jiatong_user');
-    
-    const navAuth = document.getElementById('navAuth');
-    const navUser = document.getElementById('navUser');
-    
-    if (navAuth && navUser) {
         navAuth.style.display = 'flex';
         navUser.style.display = 'none';
     }
-    
-    showToast('已退出登录', 'success');
-    
-    setTimeout(() => location.reload(), 500);
 }
 
-// ==================== 消息提示 ====================
+// ==================== 登录弹窗 ====================
 
-function showToast(message, type = 'info') {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    
-    const messageEl = toast.querySelector('.toast-message');
-    messageEl.textContent = message;
-    
-    toast.className = 'toast show';
-    if (type) {
-        toast.classList.add(type);
-    }
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
+function showLoginModal() {
+    openModal('loginModal');
+}
+function closeLoginModal() {
+    closeModal('loginModal');
+}
+function showRegisterModal() {
+    closeModal('loginModal');
+    openModal('registerModal');
+}
+function closeRegisterModal() {
+    closeModal('registerModal');
+}
+function switchToLogin() {
+    closeModal('registerModal');
+    closeModal('teacherRegisterModal');
+    openModal('loginModal');
+}
+function switchToRegister() {
+    closeModal('loginModal');
+    openModal('registerModal');
+}
+function showTeacherRegisterModal() {
+    closeModal('registerModal');
+    openModal('teacherRegisterModal');
+}
+function closeTeacherRegisterModal() {
+    closeModal('teacherRegisterModal');
 }
 
-// ==================== Tab 切换 ====================
+// 处理登录
+async function handleLogin(event) {
+    event.preventDefault();
+    const email    = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    if (!email || !password) { showToast('请输入邮箱和密码', 'error'); return; }
 
-function initTabs() {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const tabId = this.dataset.tab;
-            
-            tabBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                }
-            });
-        });
-    });
-}
+    showLoadingBtn('loginSubmitBtn', '登录中...');
+    const res = await loginUser(email, password);
+    hideLoadingBtn('loginSubmitBtn', '登录');
 
-// ==================== FAQ ====================
-
-function initFAQ() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', function() {
-            faqItems.forEach(i => {
-                if (i !== item) {
-                    i.classList.remove('active');
-                }
-            });
-            item.classList.toggle('active');
-        });
-    });
-}
-
-// ==================== 数字动画 ====================
-
-function initStatsAnimation() {
-    const stats = document.querySelector('.stats');
-    if (stats && isElementInViewport(stats)) {
-        animateNumbers();
-    }
-    
-    window.addEventListener('scroll', function() {
-        const stats = document.querySelector('.stats');
-        if (stats && isElementInViewport(stats)) {
-            animateNumbers();
+    if (res.success) {
+        currentUser = res.user;
+        renderNavUser();
+        closeModal('loginModal');
+        showToast(`欢迎回来，${currentUser.username || '用户'}！`, 'success');
+        // 管理员跳后台
+        if (currentUser.role === 'admin') {
+            setTimeout(() => { window.location.href = 'admin.html'; }, 800);
+        } else {
+            setTimeout(() => location.reload(), 500);
         }
-    });
+    } else {
+        showToast(res.message || '登录失败', 'error');
+    }
 }
 
-function isElementInViewport(el) {
-    const rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+// 处理学员注册
+async function handleRegister(event) {
+    event.preventDefault();
+    const username  = document.getElementById('registerUsername').value.trim();
+    const email     = document.getElementById('registerEmail').value.trim();
+    const password  = document.getElementById('registerPassword').value;
+    const password2 = document.getElementById('registerConfirmPassword').value;
+
+    if (!username || !email || !password) { showToast('请填写所有字段', 'error'); return; }
+    if (password !== password2) { showToast('两次密码不一致', 'error'); return; }
+    if (password.length < 6)   { showToast('密码至少6位', 'error'); return; }
+
+    showLoadingBtn('registerSubmitBtn', '注册中...');
+    const res = await registerUser(email, password, username, 'student');
+    hideLoadingBtn('registerSubmitBtn', '注册');
+
+    if (res.success) {
+        showToast('注册成功！请登录', 'success');
+        closeModal('registerModal');
+        openModal('loginModal');
+    } else {
+        showToast(res.message || '注册失败', 'error');
+    }
 }
 
-function animateNumbers() {
-    const numbers = document.querySelectorAll('.stat-number[data-target]');
-    
-    numbers.forEach(num => {
-        if (num.dataset.animated) return;
-        
-        const target = parseInt(num.dataset.target);
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        
-        num.dataset.animated = 'true';
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                num.textContent = target + '+';
-                clearInterval(timer);
-            } else {
-                num.textContent = Math.floor(current) + '+';
-            }
-        }, 16);
-    });
+// 处理教师注册
+async function handleTeacherRegister(event) {
+    event.preventDefault();
+    const username  = document.getElementById('teacherUsername').value.trim();
+    const email     = document.getElementById('teacherEmail').value.trim();
+    const password  = document.getElementById('teacherPassword').value;
+    const password2 = document.getElementById('teacherConfirmPassword').value;
+    const code      = document.getElementById('teacherCode').value.trim();
+
+    if (code !== 'JT2026') { showToast('教师码错误，请联系管理员获取', 'error'); return; }
+    if (!username || !email || !password) { showToast('请填写所有字段', 'error'); return; }
+    if (password !== password2) { showToast('两次密码不一致', 'error'); return; }
+    if (password.length < 6)   { showToast('密码至少6位', 'error'); return; }
+
+    showLoadingBtn('teacherRegisterBtn', '注册中...');
+    const res = await registerUser(email, password, username, 'teacher');
+    hideLoadingBtn('teacherRegisterBtn', '教师注册');
+
+    if (res.success) {
+        showToast('教师账号注册成功！请登录', 'success');
+        closeModal('teacherRegisterModal');
+        openModal('loginModal');
+    } else {
+        showToast(res.message || '注册失败', 'error');
+    }
+}
+
+// 退出登录
+async function logout() {
+    await logoutUser();
+    currentUser = null;
+    renderNavUser();
+    showToast('已退出登录', 'success');
+    setTimeout(() => { window.location.href = 'index.html'; }, 600);
 }
 
 // ==================== 心愿墙 ====================
 
-function checkAndPostWish() {
-    if (!currentUser) {
-        showToast('请先登录后再发布创意', 'error');
-        showLoginModal();
-        return;
-    }
-    
-    const modal = document.getElementById('postWishModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-function closePostWishModal() {
-    const modal = document.getElementById('postWishModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-function handlePostWish(event) {
-    event.preventDefault();
-    
-    if (!currentUser) {
-        showToast('请先登录', 'error');
-        return;
-    }
-    
-    const title = document.getElementById('wishTitle').value.trim();
-    const description = document.getElementById('wishDescription').value.trim();
-    
-    if (!title || !description) {
-        showToast('请填写标题和描述', 'error');
-        return;
-    }
-    
-    const tags = Array.from(document.querySelectorAll('input[name="tag"]:checked')).map(cb => cb.value);
-    
-    const wish = {
-        id: 'wish_' + Date.now(),
-        title,
-        description,
-        tags,
-        author: currentUser.username,
-        authorEmail: currentUser.email,
-        status: 'approved',
-        approved: true,
-        createdAt: new Date().toISOString(),
-        investments: []
-    };
-    
-    // 保存到本地存储
-    const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-    wishes.unshift(wish);
-    localStorage.setItem('jiatong_wishes', JSON.stringify(wishes));
-    
-    showToast('创意发布成功！', 'success');
-    closePostWishModal();
-    
-    // 清空表单
-    document.getElementById('postWishForm').reset();
-    
-    // 刷新心愿墙
-    loadWishes();
-}
-
-function loadWishes() {
+async function loadWishwall() {
     const grid = document.getElementById('wishwallGrid');
     if (!grid) return;
-    
-    const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-    const approvedWishes = wishes.filter(w => w.status === 'approved' || w.approved === true);
-    
-    if (approvedWishes.length === 0) {
-        // 显示默认示例
-        grid.innerHTML = `
-            <div class="wish-sticker" style="transform: rotate(-3deg);">
-                <div class="sticker-content">
-                    <i class="fas fa-robot"></i>
-                    <h4>智能垃圾分类机器人</h4>
-                    <p>利用AI图像识别技术，自动识别并分类垃圾...</p>
-                    <span class="sticker-author">示例创意</span>
-                </div>
-            </div>
-            <div class="wish-sticker" style="transform: rotate(2deg);">
-                <div class="sticker-content">
-                    <i class="fas fa-rocket"></i>
-                    <h4>火星基地模拟器</h4>
-                    <p>创建虚拟火星基地，模拟人类移居火星的生活...</p>
-                    <span class="sticker-author">示例创意</span>
-                </div>
-            </div>
-            <div class="wish-sticker" style="transform: rotate(-1deg);">
-                <div class="sticker-content">
-                    <i class="fas fa-hand-holding-medical"></i>
-                    <h4>智能假肢</h4>
-                    <p>利用脑机接口技术控制的智能假肢...</p>
-                    <span class="sticker-author">示例创意</span>
-                </div>
-            </div>
-            <div class="wish-sticker" style="transform: rotate(4deg);">
-                <div class="sticker-content">
-                    <i class="fas fa-brain"></i>
-                    <h4>AI作业辅导助手</h4>
-                    <p>个性化AI辅导，帮助学生解决学习难题...</p>
-                    <span class="sticker-author">示例创意</span>
-                </div>
-            </div>
-        `;
+    grid.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>';
+
+    const wishes = await getApprovedWishes();
+    if (wishes.length === 0) {
+        grid.innerHTML = '<div class="empty-tip"><i class="fas fa-lightbulb"></i><p>还没有创意，快来第一个发布吧！</p></div>';
         return;
     }
-    
-    // 渲染心愿贴纸
-    const icons = ['fa-rocket', 'fa-robot', 'fa-brain', 'fa-lightbulb', 'fa-microscope', 'fa-heartbeat'];
-    const colors = ['#ff6b35', '#4caf50', '#2196f3', '#9c27b0', '#00bcd4', '#ff9800'];
-    
-    grid.innerHTML = approvedWishes.map((wish, index) => {
-        const icon = icons[index % icons.length];
-        const color = colors[index % colors.length];
-        const rotation = (Math.random() * 6 - 3).toFixed(1);
-        
+
+    const icons  = ['fa-rocket','fa-robot','fa-brain','fa-lightbulb','fa-microscope','fa-dna','fa-satellite','fa-microchip'];
+    const colors = ['#2563eb','#7c3aed','#059669','#d97706','#dc2626','#0891b2'];
+
+    grid.innerHTML = wishes.map((wish, i) => {
+        const icon  = icons[i % icons.length];
+        const color = colors[i % colors.length];
+        const rot   = ((i % 5) - 2) * 1.5;
+        const date  = wish.createdAt ? new Date(wish.createdAt).toLocaleDateString('zh-CN') : '';
+        const tags  = (wish.tags || []).map(t => `<span class="wish-tag">${t}</span>`).join('');
         return `
-            <div class="wish-sticker" style="transform: rotate(${rotation}deg);" onclick="showWishDetail('${wish.id}')">
-                <div class="sticker-content">
-                    <i class="fas ${icon}" style="color: ${color};"></i>
-                    <h4>${wish.title}</h4>
-                    <p>${wish.description.substring(0, 40)}...</p>
-                    <span class="sticker-author">${wish.author}</span>
-                </div>
+        <div class="wish-sticker" style="--rot:${rot}deg" onclick="showWishDetail('${wish._id}')">
+            <div class="sticker-icon" style="color:${color}"><i class="fas ${icon}"></i></div>
+            <h4 class="sticker-title">${wish.title}</h4>
+            <p class="sticker-desc">${wish.content.substring(0, 60)}${wish.content.length > 60 ? '...' : ''}</p>
+            <div class="sticker-tags">${tags}</div>
+            <div class="sticker-footer">
+                <span class="sticker-author"><i class="fas fa-user"></i> ${wish.authorName}</span>
+                <span class="sticker-date">${date}</span>
             </div>
-        `;
+        </div>`;
     }).join('');
 }
 
-function showWishDetail(wishId) {
-    const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-    const wish = wishes.find(w => w.id === wishId);
-    
-    if (!wish) {
-        showToast('创意不存在', 'error');
-        return;
-    }
-    
-    const modal = document.getElementById('wishDetailModal');
-    if (!modal) return;
-    
-    document.getElementById('wishDetailTitle').textContent = wish.title;
-    document.getElementById('wishDetailDesc').textContent = wish.description;
-    document.getElementById('wishDetailAuthor').textContent = wish.author;
-    document.getElementById('wishDetailTime').textContent = new Date(wish.createdAt).toLocaleDateString();
-    
-    // 加载投资留言
-    const investList = document.getElementById('investList');
-    if (investList && wish.investments) {
-        if (wish.investments.length === 0) {
-            investList.innerHTML = '<p style="color: #999; text-align: center;">暂无投资意向留言</p>';
-        } else {
-            investList.innerHTML = wish.investments.map(inv => `
-                <div class="invest-item">
-                    <strong>${inv.author}</strong>: ${inv.message}
-                    <br><small style="color: #999;">${new Date(inv.createdAt).toLocaleString()}</small>
-                </div>
-            `).join('');
-        }
-    }
-    
-    modal.classList.add('active');
-}
-
-function closeWishDetailModal() {
-    const modal = document.getElementById('wishDetailModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-function submitInvest(event) {
-    event.preventDefault();
-    
+function checkAndPostWish() {
     if (!currentUser) {
-        showToast('请先登录', 'error');
+        showToast('请先登录后再发布创意', 'warning');
         showLoginModal();
         return;
     }
-    
-    const message = document.getElementById('investMessage').value.trim();
-    if (!message) {
-        showToast('请输入留言内容', 'error');
-        return;
-    }
-    
-    const invest = {
-        author: currentUser.username,
-        message: message,
-        createdAt: new Date().toISOString()
-    };
-    
-    // 获取当前查看的心愿ID
-    const modal = document.getElementById('wishDetailModal');
-    const title = document.getElementById('wishDetailTitle').textContent;
-    
-    const wishes = JSON.parse(localStorage.getItem('jiatong_wishes') || '[]');
-    const wishIndex = wishes.findIndex(w => w.title === title);
-    
-    if (wishIndex > -1) {
-        if (!wishes[wishIndex].investments) {
-            wishes[wishIndex].investments = [];
-        }
-        wishes[wishIndex].investments.push(invest);
-        localStorage.setItem('jiatong_wishes', JSON.stringify(wishes));
-        
-        // 刷新留言列表
-        const investList = document.getElementById('investList');
-        if (investList) {
-            const newItem = document.createElement('div');
-            newItem.className = 'invest-item';
-            newItem.innerHTML = `
-                <strong>${invest.author}</strong>: ${invest.message}
-                <br><small style="color: #999;">${new Date().toLocaleString()}</small>
-            `;
-            investList.appendChild(newItem);
-        }
-        
-        showToast('留言提交成功！', 'success');
-        document.getElementById('investForm').reset();
-    }
+    openModal('postWishModal');
 }
 
-// ==================== 班级管理 ====================
+function closePostWishModal() { closeModal('postWishModal'); }
 
-function loadClasses() {
-    const loginTip = document.getElementById('classesLoginTip');
-    const container = document.getElementById('classesContainer');
-    const teacherPanel = document.getElementById('teacherPanel');
-    const studentPanel = document.getElementById('studentPanel');
-    
-    if (!currentUser) {
-        if (loginTip && container) {
-            loginTip.style.display = 'block';
-            container.style.display = 'none';
-        }
-        return;
-    }
-    
-    if (loginTip && container) {
-        loginTip.style.display = 'none';
-        container.style.display = 'block';
-    }
-    
-    // 根据角色显示不同面板
-    if (currentUser.role === 'teacher') {
-        if (teacherPanel) teacherPanel.style.display = 'block';
-        if (studentPanel) studentPanel.style.display = 'none';
-        loadTeacherClasses();
+async function handlePostWish(event) {
+    event.preventDefault();
+    if (!currentUser) { showToast('请先登录', 'error'); return; }
+
+    const title   = document.getElementById('wishTitle').value.trim();
+    const content = document.getElementById('wishContent').value.trim();
+    const tags    = Array.from(document.querySelectorAll('input[name="tag"]:checked')).map(c => c.value);
+
+    if (!title || !content) { showToast('请填写标题和内容', 'error'); return; }
+
+    showLoadingBtn('wishSubmitBtn', '提交中...');
+    const res = await addWish(title, content, tags, currentUser.username || currentUser.email);
+    hideLoadingBtn('wishSubmitBtn', '发布创意');
+
+    if (res.success) {
+        showToast('创意发布成功！等待管理员审核后将公开展示 🎉', 'success');
+        closeModal('postWishModal');
+        document.getElementById('postWishForm').reset();
     } else {
-        if (teacherPanel) teacherPanel.style.display = 'none';
-        if (studentPanel) studentPanel.style.display = 'block';
-        loadStudentClasses();
+        showToast(res.message || '发布失败', 'error');
     }
 }
 
-function loadTeacherClasses() {
-    const container = document.getElementById('teacherClasses');
+async function showWishDetail(id) {
+    // 简单弹窗展示详情
+    const res = await db.collection('wishes').doc(id).get();
+    if (!res.data) return;
+    const w = res.data;
+    const tags = (w.tags || []).map(t => `<span class="wish-tag">${t}</span>`).join('');
+    document.getElementById('wishDetailTitle').textContent = w.title;
+    document.getElementById('wishDetailContent').textContent = w.content;
+    document.getElementById('wishDetailTags').innerHTML = tags;
+    document.getElementById('wishDetailAuthor').textContent = w.authorName;
+    document.getElementById('wishDetailDate').textContent = w.createdAt ? new Date(w.createdAt).toLocaleDateString('zh-CN') : '';
+    openModal('wishDetailModal');
+}
+function closeWishDetailModal() { closeModal('wishDetailModal'); }
+
+// ==================== 班级系统 ====================
+
+async function loadClasses() {
+    const container = document.getElementById('classesContainer');
     if (!container) return;
-    
-    const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-    const myClasses = classes.filter(c => c.teacher === currentUser?.username);
-    
-    if (myClasses.length === 0) {
+
+    if (!currentUser) {
         container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: #999;">
-                <i class="fas fa-folder-open" style="font-size: 48px; margin-bottom: 16px;"></i>
-                <p>还没有创建班级，点击上方按钮创建</p>
-            </div>
-        `;
+        <div class="login-required">
+            <i class="fas fa-lock"></i>
+            <p>请登录后查看研学班级</p>
+            <button class="btn btn-primary" onclick="showLoginModal()">立即登录</button>
+        </div>`;
         return;
     }
-    
-    container.innerHTML = myClasses.map(cls => `
-        <div class="class-card" onclick="openClassDetail('${cls.id}')">
-            <h3>${cls.name}</h3>
-            <p>${cls.description || '暂无描述'}</p>
-            <div class="class-card-meta">
-                <span><i class="fas fa-users"></i> ${cls.members?.length || 0} 人</span>
-                <span>${new Date(cls.createdAt).toLocaleDateString()}</span>
+
+    container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>';
+    const classes = await getApprovedClasses();
+
+    if (classes.length === 0) {
+        container.innerHTML = `
+        <div class="empty-tip">
+            <i class="fas fa-users"></i>
+            <p>暂无开放班级</p>
+            ${currentUser.role === 'teacher' ? '<button class="btn btn-primary" onclick="showApplyClassModal()">申请创建班级</button>' : ''}
+        </div>`;
+        return;
+    }
+
+    container.innerHTML = classes.map(cls => `
+        <div class="class-card">
+            <div class="class-header">
+                <div class="class-subject-badge">${cls.subject || '综合'}</div>
+                <h3>${cls.name}</h3>
             </div>
+            <p class="class-desc">${cls.description || '暂无描述'}</p>
+            <div class="class-info">
+                <span><i class="fas fa-chalkboard-teacher"></i> ${cls.teacherName}</span>
+                <span><i class="fas fa-users"></i> ${(cls.members || []).length} 人</span>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="showJoinClassModal('${cls._id}')">
+                <i class="fas fa-sign-in-alt"></i> 加入班级
+            </button>
         </div>
     `).join('');
 }
 
-function loadStudentClasses() {
-    const container = document.getElementById('studentClasses');
-    if (!container) return;
-    
-    const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-    const myClasses = classes.filter(c => 
-        c.members && c.members.some(m => m.username === currentUser?.username)
-    );
-    
-    if (myClasses.length === 0) {
-        container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: #999;">
-                <i class="fas fa-folder-open" style="font-size: 48px; margin-bottom: 16px;"></i>
-                <p>还没有加入班级，点击上方按钮加入班级</p>
-            </div>
-        `;
+function showApplyClassModal() {
+    if (!currentUser) { showToast('请先登录', 'error'); showLoginModal(); return; }
+    if (currentUser.role === 'student') {
+        showToast('只有教师账号才能申请创建班级', 'warning');
         return;
     }
-    
-    container.innerHTML = myClasses.map(cls => `
-        <div class="class-card" onclick="openClassDetail('${cls.id}')">
-            <h3>${cls.name}</h3>
-            <p>${cls.description || '暂无描述'}</p>
-            <div class="class-card-meta">
-                <span><i class="fas fa-chalkboard-teacher"></i> ${cls.teacher}</span>
-                <span>${cls.members?.length || 0} 人</span>
-            </div>
-        </div>
-    `).join('');
+    openModal('applyClassModal');
+}
+function closeApplyClassModal() { closeModal('applyClassModal'); }
+
+async function handleApplyClass(event) {
+    event.preventDefault();
+    const name    = document.getElementById('className').value.trim();
+    const subject = document.getElementById('classSubject').value;
+    const desc    = document.getElementById('classDesc').value.trim();
+
+    if (!name || !subject) { showToast('请填写班级名称和科目', 'error'); return; }
+
+    showLoadingBtn('applyClassBtn', '提交中...');
+    const res = await applyCreateClass(name, desc, subject, currentUser.username || currentUser.email);
+    hideLoadingBtn('applyClassBtn', '提交申请');
+
+    if (res.success) {
+        showToast('申请已提交！等待管理员审批 🎉', 'success');
+        closeModal('applyClassModal');
+        document.getElementById('applyClassForm').reset();
+    } else {
+        showToast(res.message || '申请失败', 'error');
+    }
 }
 
-function initClassTabs() {
-    const tabBtns = document.querySelectorAll('.class-tab-btn');
-    const tabContents = document.querySelectorAll('.class-tab-content');
-    
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const tabId = this.dataset.classTab;
-            
-            tabBtns.forEach(b => b.classList.remove('active'));
+function showJoinClassModal(classId) {
+    if (!currentUser) { showToast('请先登录', 'error'); showLoginModal(); return; }
+    document.getElementById('joinClassId').value = classId;
+    openModal('joinClassModal');
+}
+function closeJoinClassModal() { closeModal('joinClassModal'); }
+
+async function handleJoinClass(event) {
+    event.preventDefault();
+    const classId   = document.getElementById('joinClassId').value;
+    const classCode = document.getElementById('joinClassCode').value.trim();
+
+    if (!classCode) { showToast('请输入班级码', 'error'); return; }
+
+    showLoadingBtn('joinClassBtn', '加入中...');
+    const res = await joinClass(classId, classCode);
+    hideLoadingBtn('joinClassBtn', '加入班级');
+
+    if (res.success) {
+        showToast('加入班级成功！', 'success');
+        closeModal('joinClassModal');
+        loadClasses();
+    } else {
+        showToast(res.message || '加入失败', 'error');
+    }
+}
+
+// ==================== 联系表单 ====================
+
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const name    = form.querySelector('[name="name"]').value.trim();
+        const phone   = form.querySelector('[name="phone"]').value.trim();
+        const email   = form.querySelector('[name="email"]').value.trim();
+        const type    = form.querySelector('[name="type"]').value;
+        const content = form.querySelector('[name="message"]').value.trim();
+
+        if (!name || !email || !content) { showToast('请填写必要信息', 'error'); return; }
+
+        showLoadingBtn('contactSubmitBtn', '提交中...');
+        const res = await submitMessage(name, phone, email, type, content);
+        hideLoadingBtn('contactSubmitBtn', '提交留言');
+
+        if (res.success) {
+            showToast('留言提交成功！我们将尽快与您联系 ✉️', 'success');
+            form.reset();
+        } else {
+            showToast('提交失败，请稍后重试', 'error');
+        }
+    });
+}
+
+// ==================== 管理员后台 ====================
+
+async function initAdminPage() {
+    if (!currentUser || currentUser.role !== 'admin') {
+        document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:1rem;">
+            <i class="fas fa-lock" style="font-size:3rem;color:#ef4444;"></i>
+            <h2>无权访问</h2>
+            <p>请使用管理员账号登录</p>
+            <a href="index.html" class="btn btn-primary">返回首页</a>
+        </div>`;
+        return;
+    }
+    loadAdminDashboard();
+}
+
+async function loadAdminDashboard() {
+    const [pendingWishes, pendingClasses, allUsers, allMessages] = await Promise.all([
+        getPendingWishes(),
+        getPendingClasses(),
+        getAllUsers(),
+        getAllMessages()
+    ]);
+
+    // 统计数据
+    setEl('statPendingWishes', pendingWishes.length);
+    setEl('statPendingClasses', pendingClasses.length);
+    setEl('statTotalUsers', allUsers.length);
+    setEl('statTotalMessages', allMessages.length);
+
+    // 渲染待审核心愿
+    renderAdminWishes(pendingWishes);
+    // 渲染待审批班级
+    renderAdminClasses(pendingClasses);
+    // 渲染用户列表
+    renderAdminUsers(allUsers);
+    // 渲染留言列表
+    renderAdminMessages(allMessages);
+}
+
+function renderAdminWishes(wishes) {
+    const tbody = document.getElementById('wishesTableBody');
+    if (!tbody) return;
+    if (wishes.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-cell">暂无待审核创意</td></tr>';
+        return;
+    }
+    tbody.innerHTML = wishes.map(w => `
+        <tr>
+            <td>${w.title}</td>
+            <td>${w.authorName || '-'}</td>
+            <td>${w.content ? w.content.substring(0, 40) + '...' : '-'}</td>
+            <td>${w.createdAt ? new Date(w.createdAt).toLocaleDateString('zh-CN') : '-'}</td>
+            <td class="action-btns">
+                <button class="btn btn-success btn-xs" onclick="adminApproveWish('${w._id}')"><i class="fas fa-check"></i> 通过</button>
+                <button class="btn btn-danger btn-xs" onclick="adminRejectWish('${w._id}')"><i class="fas fa-times"></i> 拒绝</button>
+            </td>
+        </tr>`).join('');
+}
+
+function renderAdminClasses(classes) {
+    const tbody = document.getElementById('classesTableBody');
+    if (!tbody) return;
+    if (classes.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-cell">暂无待审批班级</td></tr>';
+        return;
+    }
+    tbody.innerHTML = classes.map(c => `
+        <tr>
+            <td>${c.name}</td>
+            <td>${c.teacherName || '-'}</td>
+            <td>${c.subject || '-'}</td>
+            <td>${c.description ? c.description.substring(0, 40) : '-'}</td>
+            <td class="action-btns">
+                <button class="btn btn-success btn-xs" onclick="adminApproveClass('${c._id}')"><i class="fas fa-check"></i> 批准</button>
+                <button class="btn btn-danger btn-xs" onclick="adminRejectClass('${c._id}')"><i class="fas fa-times"></i> 拒绝</button>
+            </td>
+        </tr>`).join('');
+}
+
+function renderAdminUsers(users) {
+    const tbody = document.getElementById('usersTableBody');
+    if (!tbody) return;
+    if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-cell">暂无用户数据</td></tr>';
+        return;
+    }
+    const roleMap = { admin:'管理员', teacher:'教师', student:'学员' };
+    tbody.innerHTML = users.map(u => `
+        <tr>
+            <td>${u.username || '-'}</td>
+            <td>${u.email || '-'}</td>
+            <td><span class="role-badge role-${u.role}">${roleMap[u.role] || u.role}</span></td>
+            <td>${u.createdAt ? new Date(u.createdAt).toLocaleDateString('zh-CN') : '-'}</td>
+            <td class="action-btns">
+                ${u.role !== 'admin' ? `<button class="btn btn-primary btn-xs" onclick="adminSetAdmin('${u.uid}')">设为管理员</button>` : ''}
+            </td>
+        </tr>`).join('');
+}
+
+function renderAdminMessages(messages) {
+    const tbody = document.getElementById('messagesTableBody');
+    if (!tbody) return;
+    if (messages.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-cell">暂无留言</td></tr>';
+        return;
+    }
+    tbody.innerHTML = messages.map(m => `
+        <tr>
+            <td>${m.name || '-'}</td>
+            <td>${m.phone || '-'}</td>
+            <td>${m.type || '-'}</td>
+            <td>${m.content ? m.content.substring(0, 40) : '-'}</td>
+            <td>${m.createdAt ? new Date(m.createdAt).toLocaleDateString('zh-CN') : '-'}</td>
+        </tr>`).join('');
+}
+
+async function adminApproveWish(id) {
+    await reviewWish(id, 'approve');
+    showToast('已通过审核', 'success');
+    loadAdminDashboard();
+}
+async function adminRejectWish(id) {
+    if (!confirm('确定拒绝并删除这条创意吗？')) return;
+    await reviewWish(id, 'reject');
+    showToast('已拒绝', 'success');
+    loadAdminDashboard();
+}
+async function adminApproveClass(id) {
+    await reviewClass(id, 'approve');
+    showToast('班级已批准', 'success');
+    loadAdminDashboard();
+}
+async function adminRejectClass(id) {
+    if (!confirm('确定拒绝这个班级申请吗？')) return;
+    await reviewClass(id, 'reject');
+    showToast('已拒绝', 'success');
+    loadAdminDashboard();
+}
+async function adminSetAdmin(uid) {
+    if (!confirm('确定将该用户设为管理员吗？')) return;
+    const res = await setUserAdmin(uid);
+    if (res.success) { showToast('已设置为管理员', 'success'); loadAdminDashboard(); }
+    else showToast(res.message, 'error');
+}
+
+// 切换后台标签页
+function switchAdminTab(tabId) {
+    document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-sidebar-link').forEach(a => a.classList.remove('active'));
+    const target = document.getElementById(tabId);
+    if (target) target.classList.add('active');
+    const link = document.querySelector(`[data-tab="${tabId}"]`);
+    if (link) link.classList.add('active');
+}
+
+// ==================== 工具函数 ====================
+
+function openModal(id) {
+    const m = document.getElementById(id);
+    if (m) { m.classList.add('active'); document.body.style.overflow = 'hidden'; }
+}
+function closeModal(id) {
+    const m = document.getElementById(id);
+    if (m) { m.classList.remove('active'); document.body.style.overflow = ''; }
+}
+
+function setEl(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+}
+
+function showLoadingBtn(id, text) {
+    const btn = document.getElementById(id);
+    if (btn) { btn.disabled = true; btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${text}`; }
+}
+function hideLoadingBtn(id, text) {
+    const btn = document.getElementById(id);
+    if (btn) { btn.disabled = false; btn.textContent = text; }
+}
+
+function showToast(message, type = 'info') {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        document.body.appendChild(toast);
+    }
+    const icons = { success:'fa-check-circle', error:'fa-times-circle', warning:'fa-exclamation-circle', info:'fa-info-circle' };
+    toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${message}`;
+    toast.className = `toast toast-${type} show`;
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// 关闭弹窗点击背景
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('modal')) {
+        e.target.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Tab 切换
+function initTabs() {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const group = this.closest('.tab-group') || document;
+            group.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === 'class' + tabId.charAt(0).toUpperCase() + tabId.slice(1)) {
-                    content.classList.add('active');
-                }
-            });
+            const targetId = this.dataset.tab;
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            const panel = document.getElementById(targetId);
+            if (panel) panel.classList.add('active');
         });
     });
 }
 
-function showCreateClassModal() {
-    const modal = document.getElementById('createClassModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-function closeCreateClassModal() {
-    const modal = document.getElementById('createClassModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-function handleCreateClass(event) {
-    event.preventDefault();
-    
-    if (!currentUser) {
-        showToast('请先登录', 'error');
-        return;
-    }
-    
-    // 简化：任何登录用户都可以创建班级（后续可升级为教师专属）
-    // 暂时移除教师权限限制，让功能可用
-    /* if (currentUser.role !== 'teacher') {
-        showToast('只有教师才能创建班级', 'error');
-        return;
-    } */
-    
-    const name = document.getElementById('className').value.trim();
-    const description = document.getElementById('classDesc').value.trim();
-    const password = document.getElementById('classPassword').value;
-    
-    if (!name) {
-        showToast('请输入班级名称', 'error');
-        return;
-    }
-    
-    const classItem = {
-        id: 'cls_' + Date.now(),
-        name,
-        description,
-        password,
-        teacher: currentUser.username,
-        members: [],
-        homeworks: [],
-        works: [],
-        createdAt: new Date().toISOString()
-    };
-    
-    const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-    classes.push(classItem);
-    localStorage.setItem('jiatong_classes', JSON.stringify(classes));
-    
-    showToast('班级创建成功！', 'success');
-    closeCreateClassModal();
-    loadTeacherClasses();
-    
-    document.getElementById('createClassForm').reset();
-}
-
-function showJoinClassModal() {
-    const modal = document.getElementById('joinClassModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-function closeJoinClassModal() {
-    const modal = document.getElementById('joinClassModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-}
-
-function handleJoinClass(event) {
-    event.preventDefault();
-    
-    if (!currentUser) {
-        showToast('请先登录', 'error');
-        return;
-    }
-    
-    const code = document.getElementById('joinClassCode').value.trim();
-    const password = document.getElementById('joinClassPassword').value;
-    
-    if (!code) {
-        showToast('请输入班级编号', 'error');
-        return;
-    }
-    
-    const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-    const classItem = classes.find(c => c.id === code);
-    
-    if (!classItem) {
-        showToast('班级编号不存在', 'error');
-        return;
-    }
-    
-    if (classItem.password && classItem.password !== password) {
-        showToast('班级密码错误', 'error');
-        return;
-    }
-    
-    if (!classItem.members) {
-        classItem.members = [];
-    }
-    
-    if (classItem.members.some(m => m.username === currentUser.username)) {
-        showToast('您已经是班级成员', 'info');
-        return;
-    }
-    
-    classItem.members.push({
-        username: currentUser.username,
-        role: 'student',
-        joinedAt: new Date().toISOString()
+// FAQ
+function initFAQ() {
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const item = this.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        });
     });
-    
-    localStorage.setItem('jiatong_classes', JSON.stringify(classes));
-    
-    showToast('加入班级成功！', 'success');
-    closeJoinClassModal();
-    loadStudentClasses();
-    
-    document.getElementById('joinClassForm').reset();
 }
 
-let currentClassId = null;
-
-function openClassDetail(classId) {
-    currentClassId = classId;
-    
-    const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-    const classItem = classes.find(c => c.id === classId);
-    
-    if (!classItem) {
-        showToast('班级不存在', 'error');
-        return;
-    }
-    
-    const modal = document.getElementById('classDetailModal');
-    if (!modal) return;
-    
-    document.getElementById('classDetailName').textContent = classItem.name;
-    document.getElementById('classDetailDesc').textContent = classItem.description || '暂无描述';
-    
-    modal.classList.add('active');
-    
-    loadHomeworkList(classItem);
-    loadMembersList(classItem);
-    loadWorksGallery(classItem);
+// 数字动画
+function initStatsAnimation() {
+    const nums = document.querySelectorAll('.stat-num[data-target]');
+    if (nums.length === 0) return;
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateNum(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    nums.forEach(n => observer.observe(n));
 }
-
-function closeClassDetailModal() {
-    const modal = document.getElementById('classDetailModal');
-    if (modal) {
-        modal.classList.remove('active');
-    }
-    currentClassId = null;
-}
-
-function loadHomeworkList(classItem) {
-    const container = document.getElementById('homeworkList');
-    if (!container) return;
-    
-    const homeworks = classItem.homeworks || [];
-    
-    if (homeworks.length === 0) {
-        container.innerHTML = '<p style="color: #999; text-align: center;">暂无作业提交</p>';
-        return;
-    }
-    
-    container.innerHTML = homeworks.map(hw => `
-        <div class="homework-item">
-            <h4>${hw.title}</h4>
-            <p>${hw.description || ''}</p>
-            ${hw.aiComment ? `<p style="color: #4caf50; margin-top: 8px;"><i class="fas fa-robot"></i> AI评价: ${hw.aiComment}</p>` : ''}
-            <small style="color: #999;">提交人: ${hw.author} | ${new Date(hw.createdAt).toLocaleString()}</small>
-        </div>
-    `).join('');
-}
-
-function loadMembersList(classItem) {
-    const container = document.getElementById('membersList');
-    if (!container) return;
-    
-    const members = classItem.members || [];
-    
-    if (members.length === 0) {
-        container.innerHTML = '<p style="color: #999; text-align: center;">暂无成员</p>';
-        return;
-    }
-    
-    container.innerHTML = members.map(member => `
-        <div class="member-item">
-            <div class="member-avatar"><i class="fas fa-user"></i></div>
-            <div class="member-info">
-                <h4>${member.username}</h4>
-                <span>${member.role === 'teacher' ? '教师' : '学生'}</span>
-            </div>
-        </div>
-    `).join('');
-}
-
-function loadWorksGallery(classItem) {
-    const container = document.getElementById('worksGallery');
-    if (!container) return;
-    
-    const works = classItem.works || [];
-    
-    if (works.length === 0) {
-        container.innerHTML = '<p style="color: #999; text-align: center;">暂无作品展示</p>';
-        return;
-    }
-    
-    container.innerHTML = works.map(work => `
-        <div class="homework-item">
-            <h4>${work.title}</h4>
-            <p>${work.description || ''}</p>
-            <small style="color: #999;">作者: ${work.author} | ${new Date(work.createdAt).toLocaleDateString()}</small>
-        </div>
-    `).join('');
-}
-
-function submitHomework(event) {
-    event.preventDefault();
-    
-    if (!currentUser) {
-        showToast('请先登录', 'error');
-        showLoginModal();
-        return;
-    }
-    
-    const title = document.getElementById('homeworkTitle').value.trim();
-    const description = document.getElementById('homeworkDesc').value.trim();
-    
-    if (!title) {
-        showToast('请输入作业标题', 'error');
-        return;
-    }
-    
-    const homework = {
-        id: 'hw_' + Date.now(),
-        title,
-        description,
-        author: currentUser.username,
-        files: [],
-        aiComment: null,
-        createdAt: new Date().toISOString()
-    };
-    
-    // 保存到班级
-    const classes = JSON.parse(localStorage.getItem('jiatong_classes') || '[]');
-    const classIndex = classes.findIndex(c => c.id === currentClassId);
-    
-    if (classIndex > -1) {
-        if (!classes[classIndex].homeworks) {
-            classes[classIndex].homeworks = [];
-        }
-        classes[classIndex].homeworks.push(homework);
-        localStorage.setItem('jiatong_classes', JSON.stringify(classes));
-        
-        showToast('作业提交成功！', 'success');
-        loadHomeworkList(classes[classIndex]);
-        
-        document.getElementById('homeworkForm').reset();
-    }
-}
-
-function sendAIMessage(event) {
-    event.preventDefault();
-    
-    const input = document.getElementById('aiMessage');
-    const message = input.value.trim();
-    
-    if (!message) return;
-    
-    const chat = document.getElementById('aiChat');
-    
-    // 用户消息
-    const userMsg = document.createElement('div');
-    userMsg.className = 'ai-message';
-    userMsg.style.flexDirection = 'row-reverse';
-    userMsg.innerHTML = `
-        <div class="ai-avatar" style="background: var(--accent-color);"><i class="fas fa-user"></i></div>
-        <div class="ai-content" style="background: var(--primary-color); color: #fff;">
-            ${message}
-        </div>
-    `;
-    chat.appendChild(userMsg);
-    
-    // 模拟 AI 回复
-    setTimeout(() => {
-        const aiResponses = [
-            "感谢你的提问！让我来分析一下你的作业内容...",
-            "根据你描述的情况，我给出以下建议：",
-            "这是一个很好的想法！建议可以从以下几个角度进一步完善："
-        ];
-        
-        const aiMsg = document.createElement('div');
-        aiMsg.className = 'ai-message';
-        aiMsg.innerHTML = `
-            <div class="ai-avatar"><i class="fas fa-robot"></i></div>
-            <div class="ai-content">
-                <p>${aiResponses[Math.floor(Math.random() * aiResponses.length)]}</p>
-                <ul style="margin: 10px 0 0 20px;">
-                    <li>整体思路清晰，继续保持</li>
-                    <li>建议增加具体案例来说明观点</li>
-                    <li>可以尝试用图表更直观地展示数据</li>
-                    <li>注意检查语法和格式</li>
-                </ul>
-                <p style="margin-top: 10px;">如果需要更详细的分析，请继续提问！</p>
-            </div>
-        `;
-        chat.appendChild(aiMsg);
-        chat.scrollTop = chat.scrollHeight;
-    }, 1000);
-    
-    input.value = '';
-    
-    setTimeout(() => {
-        chat.scrollTop = chat.scrollHeight;
-    }, 100);
-}
-
-// ==================== URL 参数处理 ====================
-
-function handleURLParams() {
-    const params = new URLSearchParams(window.location.search);
-    const service = params.get('service');
-    
-    if (service) {
-        const tabBtn = document.querySelector(`[data-tab="${service}"]`);
-        if (tabBtn) {
-            tabBtn.click();
-        }
-    }
-}
-
-if (document.readyState === 'complete') {
-    handleURLParams();
-} else {
-    window.addEventListener('load', handleURLParams);
+function animateNum(el) {
+    const target = parseInt(el.dataset.target);
+    let current = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current) + (el.dataset.suffix || '+');
+        if (current >= target) clearInterval(timer);
+    }, 16);
 }
