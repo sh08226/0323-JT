@@ -1,467 +1,207 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>研学班级 - 沈阳嘉桐科技</title>
+    <title>研学班级 - 沈阳嘉桐科技有限公司</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
 </head>
 <body>
-
-<nav class="navbar" id="navbar">
-    <div class="container">
-        <a href="index.html" class="nav-brand">
-            <img src="logo.png" alt="嘉桐科技" class="nav-logo">
-            <span class="brand-name">沈阳嘉桐科技</span>
-        </a>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html">关于我们</a></li>
-            <li><a href="services.html">产品服务</a></li>
-            <li><a href="wishwall.html">科创心愿墙</a></li>
-            <li><a href="classes.html" class="active">研学班级</a></li>
-            <li><a href="contact.html">联系我们</a></li>
-        </ul>
-        <div class="nav-right">
-            <div class="nav-auth" id="navAuth">
-                <button class="btn-login" onclick="showLoginModal()"><i class="fas fa-sign-in-alt"></i> 登录</button>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="嘉桐科技" class="nav-logo">
+                <span class="logo-text">嘉桐科技</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="services.html">服务项目</a></li>
+                <li><a href="classes.html" class="active">研学班级</a></li>
+                <li><a href="wishwall.html">心愿墙</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-login" onclick="showLoginModal()">登录</button>
                 <button class="btn-register" onclick="showRegisterModal()">注册</button>
             </div>
-            <div class="nav-user" id="navUser" style="display:none;">
-                <span class="user-name" id="userName"></span>
-                <a href="admin.html" id="adminLink" class="btn-admin" style="display:none;"><i class="fas fa-cog"></i> 后台</a>
-                <button class="btn-logout" onclick="logout()">退出</button>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
-            <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- 页头 -->
-<section class="page-hero classes-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container">
-        <h1><i class="fas fa-users"></i> 研学班级</h1>
-        <p>加入专属研学班级，和同学们一起探索科技的奥秘</p>
-    </div>
-</section>
+    <!-- 页面头部 -->
+    <header class="page-header">
+        <div class="container">
+            <h1>研学班级</h1>
+            <p>加入班级，和志同道合的同学一起学习成长</p>
+        </div>
+    </header>
 
-<!-- 操作栏 -->
-<section class="classes-action-bar">
-    <div class="container">
-        <div class="classes-action-content">
-            <div class="action-tips">
-                <div class="tip-item">
-                    <i class="fas fa-user-graduate"></i>
-                    <div><strong>学员</strong>：输入班级码加入班级</div>
+    <!-- 班级内容 -->
+    <section class="classes-section">
+        <div class="container">
+            <!-- 教师创建班级 -->
+            <div class="create-class-section">
+                <button class="btn-primary" onclick="showCreateClassModal()">
+                    <i class="fas fa-plus"></i> 创建班级
+                </button>
+            </div>
+
+            <!-- 班级列表 -->
+            <div class="classes-grid" id="classesList">
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3>Python 编程入门班</h3>
+                        <span class="badge badge-success">已通过</span>
+                    </div>
+                    <div class="class-info">
+                        <p><i class="fas fa-user"></i> 教师：张老师</p>
+                        <p><i class="fas fa-users"></i> 学员：12人</p>
+                        <p><i class="fas fa-clock"></i> 周六 14:00-16:00</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 沈阳市和平区</p>
+                    </div>
+                    <div class="class-actions">
+                        <button class="btn-secondary" onclick="joinClass('class1')">加入班级</button>
+                    </div>
                 </div>
-                <div class="tip-item">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <div><strong>教师</strong>：申请创建班级，审批后可获得班级码</div>
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3>机器人创意工坊</h3>
+                        <span class="badge badge-warning">审核中</span>
+                    </div>
+                    <div class="class-info">
+                        <p><i class="fas fa-user"></i> 教师：李老师</p>
+                        <p><i class="fas fa-users"></i> 学员：8人</p>
+                        <p><i class="fas fa-clock"></i> 周日 10:00-12:00</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 沈阳市铁西区</p>
+                    </div>
+                    <div class="class-actions">
+                        <button class="btn-secondary" onclick="joinClass('class2')">加入班级</button>
+                    </div>
+                </div>
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3>3D打印设计基础</h3>
+                        <span class="badge badge-success">已通过</span>
+                    </div>
+                    <div class="class-info">
+                        <p><i class="fas fa-user"></i> 教师：王老师</p>
+                        <p><i class="fas fa-users"></i> 学员：6人</p>
+                        <p><i class="fas fa-clock"></i> 周五 16:00-18:00</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 沈阳市皇姑区</p>
+                    </div>
+                    <div class="class-actions">
+                        <button class="btn-secondary" onclick="joinClass('class3')">加入班级</button>
+                    </div>
                 </div>
             </div>
-            <div class="action-btns" id="classActionBtns">
-                <!-- 动态渲染 -->
-            </div>
+        </div>
+    </section>
+
+    <!-- 创建班级弹窗 -->
+    <div class="modal" id="createClassModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('createClassModal')">&times;</span>
+            <h2>创建班级</h2>
+            <form id="createClassForm" onsubmit="submitCreateClass(event)">
+                <div class="form-group">
+                    <label>班级名称</label>
+                    <input type="text" id="className" required placeholder="请输入班级名称">
+                </div>
+                <div class="form-group">
+                    <label>教师姓名</label>
+                    <input type="text" id="teacherName" required placeholder="请输入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label>上课时间</label>
+                    <input type="text" id="classTime" required placeholder="如：周六 14:00-16:00">
+                </div>
+                <div class="form-group">
+                    <label>上课地点</label>
+                    <input type="text" id="classLocation" required placeholder="请输入上课地点">
+                </div>
+                <div class="form-group">
+                    <label>班级简介</label>
+                    <textarea id="classDesc" rows="4" placeholder="请介绍班级的学习内容"></textarea>
+                </div>
+                <button type="submit" class="btn-primary btn-block">提交申请</button>
+            </form>
         </div>
     </div>
-</section>
 
-<!-- 班级列表 -->
-<section class="classes-section">
-    <div class="container">
-        <div id="classesContainer">
-            <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>嘉桐科技</h4>
+                    <p>嘉心筑梦，桐启新章</p>
+                    <p>专注于青少年科创教育</p>
+                </div>
+                <div class="footer-section">
+                    <h4>联系方式</h4>
+                    <p><i class="fas fa-envelope"></i> 69506408@qq.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>关注我们</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 沈阳嘉桐科技有限公司. All rights reserved.</p>
+            </div>
         </div>
-    </div>
-</section>
+    </footer>
 
-<!-- 申请创建班级弹窗 -->
-<div class="modal" id="applyClassModal">
-    <div class="modal-content modal-lg">
-        <span class="modal-close" onclick="closeApplyClassModal()">&times;</span>
-        <h2><i class="fas fa-plus-circle"></i> 申请创建班级</h2>
-        <p class="modal-desc">申请提交后将由管理员审批，审批通过后您将获得班级码并可开始教学。</p>
-        <form id="applyClassForm" onsubmit="handleApplyClass(event)">
-            <div class="form-group">
-                <label>班级名称 <span class="required">*</span></label>
-                <input type="text" id="className" required placeholder="如：2026春季AI研学班">
-            </div>
-            <div class="form-group">
-                <label>研学科目 <span class="required">*</span></label>
-                <select id="classSubject" required>
-                    <option value="">请选择科目</option>
-                    <option value="人工智能">人工智能</option>
-                    <option value="机器人">机器人</option>
-                    <option value="航天科技">航天科技</option>
-                    <option value="生物科技">生物科技</option>
-                    <option value="编程">编程</option>
-                    <option value="综合科创">综合科创</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>班级介绍</label>
-                <textarea id="classDesc" rows="4" placeholder="介绍班级目标、课程安排、适合人群等..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="applyClassBtn">
-                <i class="fas fa-paper-plane"></i> 提交申请
-            </button>
-        </form>
-    </div>
-</div>
+    <script src="main.js"></script>
+    <script src="cloudbase.js"></script>
+    <script>
+        // 创建班级
+        async function submitCreateClass(e) {
+            e.preventDefault();
+            
+            const user = JSON.parse(localStorage.getItem('jt_user') || '{}');
+            if (!user.role || user.role !== 'teacher') {
+                alert('请先登录教师账号');
+                return;
+            }
 
-<!-- 加入班级弹窗 -->
-<div class="modal" id="joinClassModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeJoinClassModal()">&times;</span>
-        <h2><i class="fas fa-sign-in-alt"></i> 加入班级</h2>
-        <form id="joinClassForm" onsubmit="handleJoinClass(event)">
-            <input type="hidden" id="joinClassId">
-            <div class="form-group">
-                <label>班级码 <span class="required">*</span></label>
-                <input type="text" id="joinClassCode" required placeholder="请输入教师提供的班级码">
-                <small>班级码由教师提供，请向任课教师索取</small>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="joinClassBtn">
-                <i class="fas fa-sign-in-alt"></i> 加入班级
-            </button>
-        </form>
-    </div>
-</div>
+            const classData = {
+                name: document.getElementById('className').value,
+                teacher: document.getElementById('teacherName').value,
+                time: document.getElementById('classTime').value,
+                location: document.getElementById('classLocation').value,
+                description: document.getElementById('classDesc').value,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                creatorId: user._id
+            };
 
-<!-- 登录弹窗 -->
-<div class="modal" id="loginModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('loginModal')">&times;</span>
-        <div class="modal-header"><h2>欢迎回来</h2></div>
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label>邮箱</label>
-                <input type="email" id="loginEmail" required placeholder="请输入注册邮箱">
-            </div>
-            <div class="form-group">
-                <label>密码</label>
-                <input type="password" id="loginPassword" required placeholder="请输入密码">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="loginSubmitBtn">登录</button>
-        </form>
-        <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></p>
-    </div>
-</div>
+            // 模拟提交（需要 CloudBase 配置完成后实际保存）
+            alert('班级创建申请已提交，等待管理员审核！');
+            closeModal('createClassModal');
+            document.getElementById('createClassForm').reset();
+        }
 
-<!-- 注册弹窗 -->
-<div class="modal" id="registerModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('registerModal')">&times;</span>
-        <div class="modal-header"><h2>学员注册</h2></div>
-        <form id="registerForm" onsubmit="handleRegister(event)">
-            <div class="form-group">
-                <label>用户名</label>
-                <input type="text" id="registerUsername" required placeholder="请输入用户名" minlength="2">
-            </div>
-            <div class="form-group">
-                <label>邮箱</label>
-                <input type="email" id="registerEmail" required placeholder="请输入邮箱">
-            </div>
-            <div class="form-group">
-                <label>密码</label>
-                <input type="password" id="registerPassword" required placeholder="至少6位密码" minlength="6">
-            </div>
-            <div class="form-group">
-                <label>确认密码</label>
-                <input type="password" id="registerConfirmPassword" required placeholder="再次输入密码">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="registerSubmitBtn">注册</button>
-        </form>
-        <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a> | <a href="#" onclick="showTeacherRegisterModal()">教师注册</a></p>
-    </div>
-</div>
+        function joinClass(classId) {
+            alert('请先登录学员账号，然后加入班级');
+        }
 
-<!-- 教师注册 -->
-<div class="modal" id="teacherRegisterModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('teacherRegisterModal')">&times;</span>
-        <div class="modal-header"><h2>教师注册</h2></div>
-        <form id="teacherRegisterForm" onsubmit="handleTeacherRegister(event)">
-            <div class="form-group">
-                <label>姓名</label>
-                <input type="text" id="teacherUsername" required placeholder="请输入真实姓名">
-            </div>
-            <div class="form-group">
-                <label>邮箱</label>
-                <input type="email" id="teacherEmail" required placeholder="请输入邮箱">
-            </div>
-            <div class="form-group">
-                <label>密码</label>
-                <input type="password" id="teacherPassword" required placeholder="至少6位密码" minlength="6">
-            </div>
-            <div class="form-group">
-                <label>确认密码</label>
-                <input type="password" id="teacherConfirmPassword" required placeholder="再次输入密码">
-            </div>
-            <div class="form-group">
-                <label>教师码</label>
-                <input type="text" id="teacherCode" required placeholder="请输入教师码">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="teacherRegisterBtn">教师注册</button>
-        </form>
-        <p class="modal-tip"><a href="#" onclick="switchToLogin()">返回登录</a></p>
-    </div>
-</div>
-
-<div class="toast" id="toast"></div>
-<script src="cloudbase.js"></script>
-<script src="main.js"></script>
-<script>
-// 动态渲染班级操作按钮
-document.addEventListener('DOMContentLoaded', async function() {
-    await new Promise(r => setTimeout(r, 800)); // 等登录状态
-    const btns = document.getElementById('classActionBtns');
-    if (!btns) return;
-    if (!currentUser) {
-        btns.innerHTML = `<button class="btn btn-primary" onclick="showLoginModal()"><i class="fas fa-sign-in-alt"></i> 登录后参与</button>`;
-    } else if (currentUser.role === 'teacher' || currentUser.role === 'admin') {
-        btns.innerHTML = `<button class="btn btn-primary" onclick="showApplyClassModal()"><i class="fas fa-plus"></i> 申请创建班级</button>`;
-    }
-});
-</script>
+        function showCreateClassModal() {
+            const user = JSON.parse(localStorage.getItem('jt_user') || '{}');
+            if (!user.role || user.role !== 'teacher') {
+                alert('只有教师才能创建班级');
+                return;
+            }
+            document.getElementById('createClassModal').style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>研学班级 - 沈阳嘉桐科技</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
-</head>
-<body>
-
-<nav class="navbar" id="navbar">
-    <div class="container">
-        <a href="index.html" class="nav-brand">
-            <img src="logo.png" alt="嘉桐科技" class="nav-logo">
-            <span class="brand-name">沈阳嘉桐科技</span>
-        </a>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html">关于我们</a></li>
-            <li><a href="services.html">产品服务</a></li>
-            <li><a href="wishwall.html">科创心愿墙</a></li>
-            <li><a href="classes.html" class="active">研学班级</a></li>
-            <li><a href="contact.html">联系我们</a></li>
-        </ul>
-        <div class="nav-right">
-            <div class="nav-auth" id="navAuth">
-                <button class="btn-login" onclick="showLoginModal()"><i class="fas fa-sign-in-alt"></i> 登录</button>
-                <button class="btn-register" onclick="showRegisterModal()">注册</button>
-            </div>
-            <div class="nav-user" id="navUser" style="display:none;">
-                <span class="user-name" id="userName"></span>
-                <a href="admin.html" id="adminLink" class="btn-admin" style="display:none;"><i class="fas fa-cog"></i> 后台</a>
-                <button class="btn-logout" onclick="logout()">退出</button>
-            </div>
-            <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
-        </div>
-    </div>
-</nav>
-
-<!-- 页头 -->
-<section class="page-hero classes-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container">
-        <h1><i class="fas fa-users"></i> 研学班级</h1>
-        <p>加入专属研学班级，和同学们一起探索科技的奥秘</p>
-    </div>
-</section>
-
-<!-- 操作栏 -->
-<section class="classes-action-bar">
-    <div class="container">
-        <div class="classes-action-content">
-            <div class="action-tips">
-                <div class="tip-item">
-                    <i class="fas fa-user-graduate"></i>
-                    <div><strong>学员</strong>：输入班级码加入班级</div>
-                </div>
-                <div class="tip-item">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <div><strong>教师</strong>：申请创建班级，审批后可获得班级码</div>
-                </div>
-            </div>
-            <div class="action-btns" id="classActionBtns">
-                <!-- 动态渲染 -->
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 班级列表 -->
-<section class="classes-section">
-    <div class="container">
-        <div id="classesContainer">
-            <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>
-        </div>
-    </div>
-</section>
-
-<!-- 申请创建班级弹窗 -->
-<div class="modal" id="applyClassModal">
-    <div class="modal-content modal-lg">
-        <span class="modal-close" onclick="closeApplyClassModal()">&times;</span>
-        <h2><i class="fas fa-plus-circle"></i> 申请创建班级</h2>
-        <p class="modal-desc">申请提交后将由管理员审批，审批通过后您将获得班级码并可开始教学。</p>
-        <form id="applyClassForm" onsubmit="handleApplyClass(event)">
-            <div class="form-group">
-                <label>班级名称 <span class="required">*</span></label>
-                <input type="text" id="className" required placeholder="如：2026春季AI研学班">
-            </div>
-            <div class="form-group">
-                <label>研学科目 <span class="required">*</span></label>
-                <select id="classSubject" required>
-                    <option value="">请选择科目</option>
-                    <option value="人工智能">人工智能</option>
-                    <option value="机器人">机器人</option>
-                    <option value="航天科技">航天科技</option>
-                    <option value="生物科技">生物科技</option>
-                    <option value="编程">编程</option>
-                    <option value="综合科创">综合科创</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>班级介绍</label>
-                <textarea id="classDesc" rows="4" placeholder="介绍班级目标、课程安排、适合人群等..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="applyClassBtn">
-                <i class="fas fa-paper-plane"></i> 提交申请
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- 加入班级弹窗 -->
-<div class="modal" id="joinClassModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeJoinClassModal()">&times;</span>
-        <h2><i class="fas fa-sign-in-alt"></i> 加入班级</h2>
-        <form id="joinClassForm" onsubmit="handleJoinClass(event)">
-            <input type="hidden" id="joinClassId">
-            <div class="form-group">
-                <label>班级码 <span class="required">*</span></label>
-                <input type="text" id="joinClassCode" required placeholder="请输入教师提供的班级码">
-                <small>班级码由教师提供，请向任课教师索取</small>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="joinClassBtn">
-                <i class="fas fa-sign-in-alt"></i> 加入班级
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- 登录弹窗 -->
-<div class="modal" id="loginModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('loginModal')">&times;</span>
-        <div class="modal-header"><h2>欢迎回来</h2></div>
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label>邮箱</label>
-                <input type="email" id="loginEmail" required placeholder="请输入注册邮箱">
-            </div>
-            <div class="form-group">
-                <label>密码</label>
-                <input type="password" id="loginPassword" required placeholder="请输入密码">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="loginSubmitBtn">登录</button>
-        </form>
-        <p class="modal-tip">还没有账号？<a href="#" onclick="switchToRegister()">立即注册</a></p>
-    </div>
-</div>
-
-<!-- 注册弹窗 -->
-<div class="modal" id="registerModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('registerModal')">&times;</span>
-        <div class="modal-header"><h2>学员注册</h2></div>
-        <form id="registerForm" onsubmit="handleRegister(event)">
-            <div class="form-group">
-                <label>用户名</label>
-                <input type="text" id="registerUsername" required placeholder="请输入用户名" minlength="2">
-            </div>
-            <div class="form-group">
-                <label>邮箱</label>
-                <input type="email" id="registerEmail" required placeholder="请输入邮箱">
-            </div>
-            <div class="form-group">
-                <label>密码</label>
-                <input type="password" id="registerPassword" required placeholder="至少6位密码" minlength="6">
-            </div>
-            <div class="form-group">
-                <label>确认密码</label>
-                <input type="password" id="registerConfirmPassword" required placeholder="再次输入密码">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="registerSubmitBtn">注册</button>
-        </form>
-        <p class="modal-tip">已有账号？<a href="#" onclick="switchToLogin()">立即登录</a> | <a href="#" onclick="showTeacherRegisterModal()">教师注册</a></p>
-    </div>
-</div>
-
-<!-- 教师注册 -->
-<div class="modal" id="teacherRegisterModal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('teacherRegisterModal')">&times;</span>
-        <div class="modal-header"><h2>教师注册</h2></div>
-        <form id="teacherRegisterForm" onsubmit="handleTeacherRegister(event)">
-            <div class="form-group">
-                <label>姓名</label>
-                <input type="text" id="teacherUsername" required placeholder="请输入真实姓名">
-            </div>
-            <div class="form-group">
-                <label>邮箱</label>
-                <input type="email" id="teacherEmail" required placeholder="请输入邮箱">
-            </div>
-            <div class="form-group">
-                <label>密码</label>
-                <input type="password" id="teacherPassword" required placeholder="至少6位密码" minlength="6">
-            </div>
-            <div class="form-group">
-                <label>确认密码</label>
-                <input type="password" id="teacherConfirmPassword" required placeholder="再次输入密码">
-            </div>
-            <div class="form-group">
-                <label>教师码</label>
-                <input type="text" id="teacherCode" required placeholder="请输入教师码">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="teacherRegisterBtn">教师注册</button>
-        </form>
-        <p class="modal-tip"><a href="#" onclick="switchToLogin()">返回登录</a></p>
-    </div>
-</div>
-
-<div class="toast" id="toast"></div>
-<script src="cloudbase.js"></script>
-<script src="main.js"></script>
-<script>
-// 动态渲染班级操作按钮
-document.addEventListener('DOMContentLoaded', async function() {
-    await new Promise(r => setTimeout(r, 800)); // 等登录状态
-    const btns = document.getElementById('classActionBtns');
-    if (!btns) return;
-    if (!currentUser) {
-        btns.innerHTML = `<button class="btn btn-primary" onclick="showLoginModal()"><i class="fas fa-sign-in-alt"></i> 登录后参与</button>`;
-    } else if (currentUser.role === 'teacher' || currentUser.role === 'admin') {
-        btns.innerHTML = `<button class="btn btn-primary" onclick="showApplyClassModal()"><i class="fas fa-plus"></i> 申请创建班级</button>`;
-    }
-});
-</script>
-</body>
-</html>
->>>>>>> b969fbcb6ccd51040f9cb3170350694f0e755c51

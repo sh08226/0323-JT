@@ -1,1133 +1,199 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>产品服务 - 沈阳嘉桐科技有限公司</title>
-    <meta name="description" content="沈阳嘉桐科技有限公司提供机器人编程、创客教育、人工智能、科技研学等青少年科创教育服务">
+    <title>服务项目 - 沈阳嘉桐科技有限公司</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- 导航栏 -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo-link">
+            <a href="index.html" class="logo">
                 <img src="logo.png" alt="嘉桐科技" class="nav-logo">
-                <span class="nav-brand">嘉桐科技</span>
+                <span class="logo-text">嘉桐科技</span>
             </a>
-            <button class="nav-toggle" id="navToggle" aria-label="打开菜单">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu">
                 <li><a href="index.html">首页</a></li>
                 <li><a href="about.html">关于我们</a></li>
-                <li><a href="services.html" class="active">产品服务</a></li>
+                <li><a href="services.html" class="active">服务项目</a></li>
                 <li><a href="classes.html">研学班级</a></li>
-                <li><a href="wishwall.html">科创心愿墙</a></li>
+                <li><a href="wishwall.html">心愿墙</a></li>
                 <li><a href="contact.html">联系我们</a></li>
             </ul>
             <div class="nav-actions">
-                <button class="btn btn-outline" id="loginBtn">登录</button>
-                <button class="btn btn-primary" id="registerBtn">注册</button>
+                <button class="btn-login" onclick="showLoginModal()">登录</button>
+                <button class="btn-register" onclick="showRegisterModal()">注册</button>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </nav>
 
-    <!-- 页面标题区 -->
-    <section class="page-header">
+    <!-- 页面头部 -->
+    <header class="page-header">
         <div class="container">
-            <h1>产品服务</h1>
-            <p class="page-subtitle">全方位科创教育解决方案，激发孩子的创新潜能</p>
+            <h1>服务项目</h1>
+            <p>专业的科创教育服务，助力每一位学员的成长</p>
         </div>
-    </section>
+    </header>
 
-    <!-- 核心服务 -->
-    <section class="section services-detail">
+    <!-- 服务内容 -->
+    <section class="services-section">
         <div class="container">
-            <h2 class="section-title text-center">核心课程体系</h2>
-            <div class="services-list">
-                <!-- 机器人编程 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
                     </div>
-                    <div class="service-detail-content">
-                        <h3>机器人编程</h3>
-                        <p class="service-tagline">从积木搭建到代码控制，开启智能创造之旅</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>乐高机器人</h4>
-                                <p>适合6-10岁，通过乐高积木搭建与图形化编程，培养空间思维与逻辑能力</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>Arduino创客</h4>
-                                <p>适合10-14岁，学习电子电路与C语言编程，制作智能作品</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>VEX机器人竞赛</h4>
-                                <p>适合12-18岁，团队协作完成复杂工程挑战，备战国内外赛事</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                课程周期：12-48周
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：6-18岁
-                            </span>
-                        </div>
-                    </div>
+                    <h3>机器人编程</h3>
+                    <p>学习机器人结构、编程控制和智能感应，培养工程思维和动手能力。</p>
+                    <ul>
+                        <li>乐高机器人</li>
+                        <li>Arduino创客</li>
+                        <li>人形机器人</li>
+                    </ul>
                 </div>
-
-                <!-- 创客教育 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
                     </div>
-                    <div class="service-detail-content">
-                        <h3>创客教育</h3>
-                        <p class="service-tagline">动手实践，将创意变为现实</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>3D打印设计</h4>
-                                <p>学习3D建模软件，设计并打印自己的创意作品</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>激光切割</h4>
-                                <p>掌握矢量图形设计，使用激光切割机制作精密结构</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>创意工坊</h4>
-                                <p>综合材料与工具使用，完成从设计到成品的全流程</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                课程周期：8-24周
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：8-16岁
-                            </span>
-                        </div>
-                    </div>
+                    <h3>编程教育</h3>
+                    <p>从基础到进阶的系统编程学习，培养计算思维和解决问题的能力。</p>
+                    <ul>
+                        <li>Python入门</li>
+                        <li>Scratch创意编程</li>
+                        <li>C++信息竞赛</li>
+                    </ul>
                 </div>
-
-                <!-- 人工智能 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.387-1 1.732V7h1a7 7 0 0 1 7 7v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-4a7 7 0 0 1 7-7h1V5.732A2.001 2.001 0 0 1 12 2z"/></svg>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microchip"></i>
                     </div>
-                    <div class="service-detail-content">
-                        <h3>人工智能启蒙</h3>
-                        <p class="service-tagline">探索AI奥秘，培养未来科技人才</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>Python编程</h4>
-                                <p>从零开始学习Python，掌握编程基础与算法思维</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>机器学习入门</h4>
-                                <p>了解机器学习原理，使用可视化工具训练简单模型</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>AI应用开发</h4>
-                                <p>调用AI接口开发智能应用，如图像识别、语音助手</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                课程周期：16-32周
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：10-18岁
-                            </span>
-                        </div>
-                    </div>
+                    <h3>科技创新</h3>
+                    <p>结合 STEAM 教育理念，培养创新思维和跨学科综合能力。</p>
+                    <ul>
+                        <li>3D打印设计</li>
+                        <li>无人机飞行</li>
+                        <li>人工智能入门</li>
+                    </ul>
                 </div>
-
-                <!-- 科技研学 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flask"></i>
                     </div>
-                    <div class="service-detail-content">
-                        <h3>科技研学</h3>
-                        <p class="service-tagline">走出课堂，在真实场景中探索科技</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>科研院所参访</h4>
-                                <p>走进大学实验室、科研院所，近距离感受前沿科技</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>企业科技行</h4>
-                                <p>参观高新技术企业，了解科技成果如何转化为产品</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>科技夏令营</h4>
-                                <p>沉浸式科技体验，项目式学习，培养团队协作能力</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                活动周期：1-7天
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：6-16岁
-                            </span>
-                        </div>
+                    <h3>科学实验</h3>
+                    <p>有趣的科学实验课程，探索物理、化学、生物的奇妙世界。</p>
+                    <ul>
+                        <li>趣味化学</li>
+                        <li>物理探索</li>
+                        <li>生物观察</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
                     </div>
+                    <h3>创意设计</h3>
+                    <p>培养艺术审美和创意表达能力，让想法变成现实。</p>
+                    <ul>
+                        <li>平面设计基础</li>
+                        <li>视频剪辑</li>
+                        <li>数字绘画</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>研学活动</h3>
+                    <p>走出课堂，深入科技企业、研究院所，体验真实的科研环境。</p>
+                    <ul>
+                        <li>高校实验室参观</li>
+                        <li>科技企业研学</li>
+                        <li>创客空间体验</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 课程特色 -->
-    <section class="section features-section">
+    <!-- 为什么选择我们 -->
+    <section class="why-choose-section">
         <div class="container">
-            <h2 class="section-title text-center">课程特色</h2>
+            <h2 class="section-title">为什么选择嘉桐科技？</h2>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-item">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <i class="fas fa-user-graduate"></i>
                     </div>
-                    <h3>PBL项目式学习</h3>
-                    <p>以真实项目为载体，在解决问题的过程中学习知识、培养能力</p>
+                    <h4>专业师资</h4>
+                    <p>名校背景，资深教学经验</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-item">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
+                        <i class="fas fa-certificate"></i>
                     </div>
-                    <h3>小班制教学</h3>
-                    <p>每班不超过12人，确保每位学员都能得到充分的关注和指导</p>
+                    <h4>权威认证</h4>
+                    <p>官方认证，品质有保障</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-item">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        <i class="fas fa-heart"></i>
                     </div>
-                    <h3>专业师资团队</h3>
-                    <p>教师均具备相关专业背景和丰富教学经验，持证上岗</p>
+                    <h4>用心服务</h4>
+                    <p>全程跟进，因材施教</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-item">
                     <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <i class="fas fa-award"></i>
                     </div>
-                    <h3>赛事认证体系</h3>
-                    <p>课程对接教育部白名单赛事，学员可获得权威证书认证</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    </div>
-                    <h3>线上线下融合</h3>
-                    <p>线上平台辅助学习，线下实践深化理解，学习效果更有保障</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <h3>成长档案追踪</h3>
-                    <p>记录学员学习历程，定期反馈成长报告，见证每一步进步</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 学习路径 -->
-    <section class="section path-section">
-        <div class="container">
-            <h2 class="section-title text-center">学习成长路径</h2>
-            <div class="learning-path">
-                <div class="path-stage">
-                    <div class="path-number">01</div>
-                    <div class="path-content">
-                        <h3>启蒙阶段</h3>
-                        <p class="path-age">6-8岁</p>
-                        <ul>
-                            <li>乐高积木搭建</li>
-                            <li>图形化编程入门</li>
-                            <li>科学实验探索</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="path-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </div>
-                <div class="path-stage">
-                    <div class="path-number">02</div>
-                    <div class="path-content">
-                        <h3>基础阶段</h3>
-                        <p class="path-age">8-10岁</p>
-                        <ul>
-                            <li>机器人结构与传动</li>
-                            <li>Scratch进阶编程</li>
-                            <li>创客工具使用</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="path-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </div>
-                <div class="path-stage">
-                    <div class="path-number">03</div>
-                    <div class="path-content">
-                        <h3>进阶阶段</h3>
-                        <p class="path-age">10-14岁</p>
-                        <ul>
-                            <li>Arduino硬件编程</li>
-                            <li>Python语言学习</li>
-                            <li>3D设计与打印</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="path-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </div>
-                <div class="path-stage">
-                    <div class="path-number">04</div>
-                    <div class="path-content">
-                        <h3>高阶阶段</h3>
-                        <p class="path-age">14-18岁</p>
-                        <ul>
-                            <li>人工智能应用</li>
-                            <li>竞赛项目实战</li>
-                            <li>科研课题研究</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 价格方案 -->
-    <section class="section pricing-section">
-        <div class="container">
-            <h2 class="section-title text-center">课程方案</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>体验课</h3>
-                        <div class="pricing-price">
-                            <span class="currency">¥</span>
-                            <span class="amount">0</span>
-                            <span class="period">/次</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li>90分钟精品体验</li>
-                            <li>专业教师1对1指导</li>
-                            <li>作品可带回家</li>
-                            <li>学习能力评估报告</li>
-                        </ul>
-                    </div>
-                    <a href="contact.html" class="btn btn-outline btn-block">预约体验</a>
-                </div>
-                <div class="pricing-card popular">
-                    <div class="pricing-badge">最受欢迎</div>
-                    <div class="pricing-header">
-                        <h3>学期班</h3>
-                        <div class="pricing-price">
-                            <span class="currency">¥</span>
-                            <span class="amount">3,980</span>
-                            <span class="period">/期</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li>16次系统课程</li>
-                            <li>小班制教学（≤12人）</li>
-                            <li>全套学习材料</li>
-                            <li>专属学习档案</li>
-                            <li>家长定期反馈</li>
-                        </ul>
-                    </div>
-                    <a href="contact.html" class="btn btn-primary btn-block">立即报名</a>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>年度会员</h3>
-                        <div class="pricing-price">
-                            <span class="currency">¥</span>
-                            <span class="amount">12,800</span>
-                            <span class="period">/年</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li>全年不限次课程</li>
-                            <li>寒暑假集训营</li>
-                            <li>赛事辅导优先权</li>
-                            <li>研学活动8折</li>
-                            <li>1对1学习规划</li>
-                            <li>VIP专属服务</li>
-                        </ul>
-                    </div>
-                    <a href="contact.html" class="btn btn-outline btn-block">咨询详情</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 学员成果 -->
-    <section class="section achievements-section">
-        <div class="container">
-            <h2 class="section-title text-center">学员成果展示</h2>
-            <div class="achievements-grid">
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <div class="image-placeholder">作品展示</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h4>智能垃圾分类机器人</h4>
-                        <p class="achievement-author">学员：张小明 | 12岁</p>
-                        <p class="achievement-desc">使用图像识别技术自动分类垃圾，获市级青少年科技创新大赛一等奖</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <div class="image-placeholder">作品展示</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h4>智能家居控制系统</h4>
-                        <p class="achievement-author">学员：李小红 | 14岁</p>
-                        <p class="achievement-desc">基于物联网的家居自动化方案，可通过手机APP远程控制</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <div class="image-placeholder">作品展示</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h4>自动浇花装置</h4>
-                        <p class="achievement-author">学员：王小强 | 10岁</p>
-                        <p class="achievement-desc">根据土壤湿度自动浇水，解决假期无人照顾植物的问题</p>
-                    </div>
+                    <h4>成果显著</h4>
+                    <p>获奖众多，升学助力</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="section cta-section">
+    <section class="cta-section">
         <div class="container">
-            <div class="cta-content">
-                <h2>开启孩子的科创之旅</h2>
-                <p>预约免费体验课，让孩子感受科技的魅力</p>
-                <div class="cta-buttons">
-                    <a href="contact.html" class="btn btn-primary btn-lg">预约体验</a>
-                    <a href="classes.html" class="btn btn-outline btn-lg">查看班级</a>
-                </div>
-            </div>
+            <h2>开启孩子的科创之旅</h2>
+            <p>立即咨询，了解更多课程详情</p>
+            <a href="contact.html" class="btn-primary">联系我们</a>
         </div>
     </section>
 
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="logo.png" alt="嘉桐科技" class="footer-logo-img">
-                        <span>嘉桐科技</span>
-                    </div>
-                    <p class="footer-slogan">嘉心筑梦，桐启新章</p>
-                    <p class="footer-desc">专注青少年科创教育，培养面向未来的创新型人才</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>嘉桐科技</h4>
+                    <p>嘉心筑梦，桐启新章</p>
+                    <p>专注于青少年科创教育</p>
                 </div>
-                <div class="footer-links">
-                    <h4>快速链接</h4>
-                    <ul>
-                        <li><a href="about.html">关于我们</a></li>
-                        <li><a href="services.html">产品服务</a></li>
-                        <li><a href="classes.html">研学班级</a></li>
-                        <li><a href="wishwall.html">科创心愿墙</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>帮助中心</h4>
-                    <ul>
-                        <li><a href="#">常见问题</a></li>
-                        <li><a href="#">使用指南</a></li>
-                        <li><a href="contact.html">联系我们</a></li>
-                        <li><a href="#">隐私政策</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
+                <div class="footer-section">
                     <h4>联系方式</h4>
-                    <p>邮箱：69506408@qq.com</p>
-                    <p>地址：沈阳市浑南区</p>
-                    <p>网址：www.jt-education.ltd</p>
+                    <p><i class="fas fa-envelope"></i> 69506408@qq.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>关注我们</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 沈阳嘉桐科技有限公司 版权所有</p>
+                <p>&copy; 2026 沈阳嘉桐科技有限公司. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- 登录弹窗 -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeLoginModal">&times;</button>
-            <h2>用户登录</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">邮箱</label>
-                    <input type="email" id="loginEmail" required placeholder="请输入邮箱">
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">密码</label>
-                    <input type="password" id="loginPassword" required placeholder="请输入密码">
-                </div>
-                <div class="form-group admin-code-group" style="display:none;">
-                    <label for="adminCode">管理员邀请码</label>
-                    <input type="text" id="adminCode" placeholder="管理员登录请输入邀请码">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">登录</button>
-            </form>
-            <p class="form-footer">还没有账号？<a href="#" id="switchToRegister">立即注册</a></p>
-        </div>
-    </div>
-
-    <!-- 注册弹窗 -->
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeRegisterModal">&times;</button>
-            <h2>学员注册</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="registerName">姓名</label>
-                    <input type="text" id="registerName" required placeholder="请输入姓名">
-                </div>
-                <div class="form-group">
-                    <label for="registerEmail">邮箱</label>
-                    <input type="email" id="registerEmail" required placeholder="请输入邮箱">
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword">密码</label>
-                    <input type="password" id="registerPassword" required placeholder="请设置密码（至少6位）" minlength="6">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">注册</button>
-            </form>
-            <p class="form-footer">已有账号？<a href="#" id="switchToLogin">立即登录</a></p>
-            <p class="form-footer"><a href="#" id="teacherRegisterLink">教师注册</a></p>
-        </div>
-    </div>
-
-    <!-- 教师注册弹窗 -->
-    <div class="modal" id="teacherRegisterModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeTeacherModal">&times;</button>
-            <h2>教师注册</h2>
-            <form id="teacherRegisterForm">
-                <div class="form-group">
-                    <label for="teacherName">姓名</label>
-                    <input type="text" id="teacherName" required placeholder="请输入姓名">
-                </div>
-                <div class="form-group">
-                    <label for="teacherEmail">邮箱</label>
-                    <input type="email" id="teacherEmail" required placeholder="请输入邮箱">
-                </div>
-                <div class="form-group">
-                    <label for="teacherPassword">密码</label>
-                    <input type="password" id="teacherPassword" required placeholder="请设置密码（至少6位）" minlength="6">
-                </div>
-                <div class="form-group">
-                    <label for="teacherCode">教师邀请码</label>
-                    <input type="text" id="teacherCode" required placeholder="请输入教师邀请码">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">注册</button>
-            </form>
-            <p class="form-footer"><a href="#" id="backToRegister">返回学员注册</a></p>
-        </div>
-    </div>
-
-    <!-- Toast 提示 -->
-    <div class="toast" id="toast"></div>
-
-    <!-- 引入 CloudBase SDK -->
-    <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
-    <script src="cloudbase.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>产品服务 - 沈阳嘉桐科技有限公司</title>
-    <meta name="description" content="沈阳嘉桐科技有限公司提供机器人编程、创客教育、人工智能、科技研学等青少年科创教育服务">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo-link">
-                <img src="logo.png" alt="嘉桐科技" class="nav-logo">
-                <span class="nav-brand">嘉桐科技</span>
-            </a>
-            <button class="nav-toggle" id="navToggle" aria-label="打开菜单">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="about.html">关于我们</a></li>
-                <li><a href="services.html" class="active">产品服务</a></li>
-                <li><a href="classes.html">研学班级</a></li>
-                <li><a href="wishwall.html">科创心愿墙</a></li>
-                <li><a href="contact.html">联系我们</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="btn btn-outline" id="loginBtn">登录</button>
-                <button class="btn btn-primary" id="registerBtn">注册</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 页面标题区 -->
-    <section class="page-header">
-        <div class="container">
-            <h1>产品服务</h1>
-            <p class="page-subtitle">全方位科创教育解决方案，激发孩子的创新潜能</p>
-        </div>
-    </section>
-
-    <!-- 核心服务 -->
-    <section class="section services-detail">
-        <div class="container">
-            <h2 class="section-title text-center">核心课程体系</h2>
-            <div class="services-list">
-                <!-- 机器人编程 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
-                    </div>
-                    <div class="service-detail-content">
-                        <h3>机器人编程</h3>
-                        <p class="service-tagline">从积木搭建到代码控制，开启智能创造之旅</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>乐高机器人</h4>
-                                <p>适合6-10岁，通过乐高积木搭建与图形化编程，培养空间思维与逻辑能力</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>Arduino创客</h4>
-                                <p>适合10-14岁，学习电子电路与C语言编程，制作智能作品</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>VEX机器人竞赛</h4>
-                                <p>适合12-18岁，团队协作完成复杂工程挑战，备战国内外赛事</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                课程周期：12-48周
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：6-18岁
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 创客教育 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    </div>
-                    <div class="service-detail-content">
-                        <h3>创客教育</h3>
-                        <p class="service-tagline">动手实践，将创意变为现实</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>3D打印设计</h4>
-                                <p>学习3D建模软件，设计并打印自己的创意作品</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>激光切割</h4>
-                                <p>掌握矢量图形设计，使用激光切割机制作精密结构</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>创意工坊</h4>
-                                <p>综合材料与工具使用，完成从设计到成品的全流程</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                课程周期：8-24周
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：8-16岁
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 人工智能 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.387-1 1.732V7h1a7 7 0 0 1 7 7v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-4a7 7 0 0 1 7-7h1V5.732A2.001 2.001 0 0 1 12 2z"/></svg>
-                    </div>
-                    <div class="service-detail-content">
-                        <h3>人工智能启蒙</h3>
-                        <p class="service-tagline">探索AI奥秘，培养未来科技人才</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>Python编程</h4>
-                                <p>从零开始学习Python，掌握编程基础与算法思维</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>机器学习入门</h4>
-                                <p>了解机器学习原理，使用可视化工具训练简单模型</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>AI应用开发</h4>
-                                <p>调用AI接口开发智能应用，如图像识别、语音助手</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                课程周期：16-32周
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：10-18岁
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 科技研学 -->
-                <div class="service-detail-card">
-                    <div class="service-icon-large">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-                    </div>
-                    <div class="service-detail-content">
-                        <h3>科技研学</h3>
-                        <p class="service-tagline">走出课堂，在真实场景中探索科技</p>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <h4>科研院所参访</h4>
-                                <p>走进大学实验室、科研院所，近距离感受前沿科技</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>企业科技行</h4>
-                                <p>参观高新技术企业，了解科技成果如何转化为产品</p>
-                            </div>
-                            <div class="feature-item">
-                                <h4>科技夏令营</h4>
-                                <p>沉浸式科技体验，项目式学习，培养团队协作能力</p>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                活动周期：1-7天
-                            </span>
-                            <span class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                                适合年龄：6-16岁
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 课程特色 -->
-    <section class="section features-section">
-        <div class="container">
-            <h2 class="section-title text-center">课程特色</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                    </div>
-                    <h3>PBL项目式学习</h3>
-                    <p>以真实项目为载体，在解决问题的过程中学习知识、培养能力</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 21-3-3"/><path d="m19 18 3 3"/></svg>
-                    </div>
-                    <h3>小班制教学</h3>
-                    <p>每班不超过12人，确保每位学员都能得到充分的关注和指导</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                    </div>
-                    <h3>专业师资团队</h3>
-                    <p>教师均具备相关专业背景和丰富教学经验，持证上岗</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    </div>
-                    <h3>赛事认证体系</h3>
-                    <p>课程对接教育部白名单赛事，学员可获得权威证书认证</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    </div>
-                    <h3>线上线下融合</h3>
-                    <p>线上平台辅助学习，线下实践深化理解，学习效果更有保障</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <h3>成长档案追踪</h3>
-                    <p>记录学员学习历程，定期反馈成长报告，见证每一步进步</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 学习路径 -->
-    <section class="section path-section">
-        <div class="container">
-            <h2 class="section-title text-center">学习成长路径</h2>
-            <div class="learning-path">
-                <div class="path-stage">
-                    <div class="path-number">01</div>
-                    <div class="path-content">
-                        <h3>启蒙阶段</h3>
-                        <p class="path-age">6-8岁</p>
-                        <ul>
-                            <li>乐高积木搭建</li>
-                            <li>图形化编程入门</li>
-                            <li>科学实验探索</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="path-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </div>
-                <div class="path-stage">
-                    <div class="path-number">02</div>
-                    <div class="path-content">
-                        <h3>基础阶段</h3>
-                        <p class="path-age">8-10岁</p>
-                        <ul>
-                            <li>机器人结构与传动</li>
-                            <li>Scratch进阶编程</li>
-                            <li>创客工具使用</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="path-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </div>
-                <div class="path-stage">
-                    <div class="path-number">03</div>
-                    <div class="path-content">
-                        <h3>进阶阶段</h3>
-                        <p class="path-age">10-14岁</p>
-                        <ul>
-                            <li>Arduino硬件编程</li>
-                            <li>Python语言学习</li>
-                            <li>3D设计与打印</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="path-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </div>
-                <div class="path-stage">
-                    <div class="path-number">04</div>
-                    <div class="path-content">
-                        <h3>高阶阶段</h3>
-                        <p class="path-age">14-18岁</p>
-                        <ul>
-                            <li>人工智能应用</li>
-                            <li>竞赛项目实战</li>
-                            <li>科研课题研究</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 价格方案 -->
-    <section class="section pricing-section">
-        <div class="container">
-            <h2 class="section-title text-center">课程方案</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>体验课</h3>
-                        <div class="pricing-price">
-                            <span class="currency">¥</span>
-                            <span class="amount">0</span>
-                            <span class="period">/次</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li>90分钟精品体验</li>
-                            <li>专业教师1对1指导</li>
-                            <li>作品可带回家</li>
-                            <li>学习能力评估报告</li>
-                        </ul>
-                    </div>
-                    <a href="contact.html" class="btn btn-outline btn-block">预约体验</a>
-                </div>
-                <div class="pricing-card popular">
-                    <div class="pricing-badge">最受欢迎</div>
-                    <div class="pricing-header">
-                        <h3>学期班</h3>
-                        <div class="pricing-price">
-                            <span class="currency">¥</span>
-                            <span class="amount">3,980</span>
-                            <span class="period">/期</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li>16次系统课程</li>
-                            <li>小班制教学（≤12人）</li>
-                            <li>全套学习材料</li>
-                            <li>专属学习档案</li>
-                            <li>家长定期反馈</li>
-                        </ul>
-                    </div>
-                    <a href="contact.html" class="btn btn-primary btn-block">立即报名</a>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>年度会员</h3>
-                        <div class="pricing-price">
-                            <span class="currency">¥</span>
-                            <span class="amount">12,800</span>
-                            <span class="period">/年</span>
-                        </div>
-                    </div>
-                    <div class="pricing-features">
-                        <ul>
-                            <li>全年不限次课程</li>
-                            <li>寒暑假集训营</li>
-                            <li>赛事辅导优先权</li>
-                            <li>研学活动8折</li>
-                            <li>1对1学习规划</li>
-                            <li>VIP专属服务</li>
-                        </ul>
-                    </div>
-                    <a href="contact.html" class="btn btn-outline btn-block">咨询详情</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 学员成果 -->
-    <section class="section achievements-section">
-        <div class="container">
-            <h2 class="section-title text-center">学员成果展示</h2>
-            <div class="achievements-grid">
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <div class="image-placeholder">作品展示</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h4>智能垃圾分类机器人</h4>
-                        <p class="achievement-author">学员：张小明 | 12岁</p>
-                        <p class="achievement-desc">使用图像识别技术自动分类垃圾，获市级青少年科技创新大赛一等奖</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <div class="image-placeholder">作品展示</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h4>智能家居控制系统</h4>
-                        <p class="achievement-author">学员：李小红 | 14岁</p>
-                        <p class="achievement-desc">基于物联网的家居自动化方案，可通过手机APP远程控制</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <div class="image-placeholder">作品展示</div>
-                    </div>
-                    <div class="achievement-content">
-                        <h4>自动浇花装置</h4>
-                        <p class="achievement-author">学员：王小强 | 10岁</p>
-                        <p class="achievement-desc">根据土壤湿度自动浇水，解决假期无人照顾植物的问题</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>开启孩子的科创之旅</h2>
-                <p>预约免费体验课，让孩子感受科技的魅力</p>
-                <div class="cta-buttons">
-                    <a href="contact.html" class="btn btn-primary btn-lg">预约体验</a>
-                    <a href="classes.html" class="btn btn-outline btn-lg">查看班级</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="logo.png" alt="嘉桐科技" class="footer-logo-img">
-                        <span>嘉桐科技</span>
-                    </div>
-                    <p class="footer-slogan">嘉心筑梦，桐启新章</p>
-                    <p class="footer-desc">专注青少年科创教育，培养面向未来的创新型人才</p>
-                </div>
-                <div class="footer-links">
-                    <h4>快速链接</h4>
-                    <ul>
-                        <li><a href="about.html">关于我们</a></li>
-                        <li><a href="services.html">产品服务</a></li>
-                        <li><a href="classes.html">研学班级</a></li>
-                        <li><a href="wishwall.html">科创心愿墙</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>帮助中心</h4>
-                    <ul>
-                        <li><a href="#">常见问题</a></li>
-                        <li><a href="#">使用指南</a></li>
-                        <li><a href="contact.html">联系我们</a></li>
-                        <li><a href="#">隐私政策</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h4>联系方式</h4>
-                    <p>邮箱：69506408@qq.com</p>
-                    <p>地址：沈阳市浑南区</p>
-                    <p>网址：www.jt-education.ltd</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 沈阳嘉桐科技有限公司 版权所有</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 登录弹窗 -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeLoginModal">&times;</button>
-            <h2>用户登录</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">邮箱</label>
-                    <input type="email" id="loginEmail" required placeholder="请输入邮箱">
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">密码</label>
-                    <input type="password" id="loginPassword" required placeholder="请输入密码">
-                </div>
-                <div class="form-group admin-code-group" style="display:none;">
-                    <label for="adminCode">管理员邀请码</label>
-                    <input type="text" id="adminCode" placeholder="管理员登录请输入邀请码">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">登录</button>
-            </form>
-            <p class="form-footer">还没有账号？<a href="#" id="switchToRegister">立即注册</a></p>
-        </div>
-    </div>
-
-    <!-- 注册弹窗 -->
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeRegisterModal">&times;</button>
-            <h2>学员注册</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="registerName">姓名</label>
-                    <input type="text" id="registerName" required placeholder="请输入姓名">
-                </div>
-                <div class="form-group">
-                    <label for="registerEmail">邮箱</label>
-                    <input type="email" id="registerEmail" required placeholder="请输入邮箱">
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword">密码</label>
-                    <input type="password" id="registerPassword" required placeholder="请设置密码（至少6位）" minlength="6">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">注册</button>
-            </form>
-            <p class="form-footer">已有账号？<a href="#" id="switchToLogin">立即登录</a></p>
-            <p class="form-footer"><a href="#" id="teacherRegisterLink">教师注册</a></p>
-        </div>
-    </div>
-
-    <!-- 教师注册弹窗 -->
-    <div class="modal" id="teacherRegisterModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeTeacherModal">&times;</button>
-            <h2>教师注册</h2>
-            <form id="teacherRegisterForm">
-                <div class="form-group">
-                    <label for="teacherName">姓名</label>
-                    <input type="text" id="teacherName" required placeholder="请输入姓名">
-                </div>
-                <div class="form-group">
-                    <label for="teacherEmail">邮箱</label>
-                    <input type="email" id="teacherEmail" required placeholder="请输入邮箱">
-                </div>
-                <div class="form-group">
-                    <label for="teacherPassword">密码</label>
-                    <input type="password" id="teacherPassword" required placeholder="请设置密码（至少6位）" minlength="6">
-                </div>
-                <div class="form-group">
-                    <label for="teacherCode">教师邀请码</label>
-                    <input type="text" id="teacherCode" required placeholder="请输入教师邀请码">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">注册</button>
-            </form>
-            <p class="form-footer"><a href="#" id="backToRegister">返回学员注册</a></p>
-        </div>
-    </div>
-
-    <!-- Toast 提示 -->
-    <div class="toast" id="toast"></div>
-
-    <!-- 引入 CloudBase SDK -->
-    <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
-    <script src="cloudbase.js"></script>
-    <script src="main.js"></script>
-</body>
-</html>
->>>>>>> b969fbcb6ccd51040f9cb3170350694f0e755c51
