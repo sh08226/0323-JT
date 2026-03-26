@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 沈阳嘉桐科技有限公司</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 管理后台导航 -->
+    <nav class="admin-navbar">
+        <div class="admin-nav-container">
+            <div class="admin-logo">
+                <img src="logo.png" alt="嘉桐科技" class="nav-logo">
+                <span>管理后台</span>
+            </div>
+            <ul class="admin-menu">
+                <li><a href="#" class="active" onclick="showAdminTab('dashboard')">
+                    <i class="fas fa-home"></i> 概览
+                </a></li>
+                <li><a href="#" onclick="showAdminTab('wishes')">
+                    <i class="fas fa-star"></i> 心愿墙审核
+                </a></li>
+                <li><a href="#" onclick="showAdminTab('classes')">
+                    <i class="fas fa-users"></i> 班级审批
+                </a></li>
+                <li><a href="#" onclick="showAdminTab('users')">
+                    <i class="fas fa-user-cog"></i> 用户管理
+                </a></li>
+                <li><a href="index.html">
+                    <i class="fas fa-arrow-left"></i> 返回网站
+                </a></li>
+            </ul>
+            <div class="admin-user">
+                <span id="adminUsername">管理员</span>
+                <button class="btn-logout" onclick="logout()">退出</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 管理后台内容 -->
+    <div class="admin-content">
+        <!-- 概览页面 -->
+        <div class="admin-page" id="page-dashboard">
+            <div class="admin-header">
+                <h1>数据概览</h1>
+                <p>欢迎来到嘉桐科技管理后台</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>156</h3>
+                        <p>注册用户</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>23</h3>
+                        <p>心愿总数</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8</h3>
+                        <p>班级数量</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>留言待回复</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-cards">
+                <div class="admin-card">
+                    <h3><i class="fas fa-clock"></i> 待审核心愿</h3>
+                    <ul class="pending-list">
+                        <li>
+                            <span>我想发明智能机器人</span>
+                            <button class="btn-sm btn-approve">通过</button>
+                            <button class="btn-sm btn-reject">拒绝</button>
+                        </li>
+                        <li>
+                            <span>参加机器人比赛</span>
+                            <button class="btn-sm btn-approve">通过</button>
+                            <button class="btn-sm btn-reject">拒绝</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="admin-card">
+                    <h3><i class="fas fa-clock"></i> 待审批班级</h3>
+                    <ul class="pending-list">
+                        <li>
+                            <span>Python 进阶班</span>
+                            <button class="btn-sm btn-approve">通过</button>
+                            <button class="btn-sm btn-reject">拒绝</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 心愿墙审核页面 -->
+        <div class="admin-page" id="page-wishes" style="display:none;">
+            <div class="admin-header">
+                <h1>心愿墙审核</h1>
+                <p>审核用户发布的心愿</p>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>标题</th>
+                            <th>作者</th>
+                            <th>发布时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>我想发明智能机器人</td>
+                            <td>小明</td>
+                            <td>2026-03-25</td>
+                            <td><span class="badge badge-warning">待审核</span></td>
+                            <td>
+                                <button class="btn-sm btn-approve">通过</button>
+                                <button class="btn-sm btn-reject">拒绝</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>学习编程参加竞赛</td>
+                            <td>小红</td>
+                            <td>2026-03-24</td>
+                            <td><span class="badge badge-success">已通过</span></td>
+                            <td>
+                                <button class="btn-sm btn-delete">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 班级审批页面 -->
+        <div class="admin-page" id="page-classes" style="display:none;">
+            <div class="admin-header">
+                <h1>班级审批</h1>
+                <p>审批教师创建的班级</p>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>班级名称</th>
+                            <th>教师</th>
+                            <th>上课时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Python 编程入门班</td>
+                            <td>张老师</td>
+                            <td>周六 14:00-16:00</td>
+                            <td><span class="badge badge-success">已通过</span></td>
+                            <td>
+                                <button class="btn-sm btn-delete">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>机器人创意工坊</td>
+                            <td>李老师</td>
+                            <td>周日 10:00-12:00</td>
+                            <td><span class="badge badge-warning">待审核</span></td>
+                            <td>
+                                <button class="btn-sm btn-approve">通过</button>
+                                <button class="btn-sm btn-reject">拒绝</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 用户管理页面 -->
+        <div class="admin-page" id="page-users" style="display:none;">
+            <div class="admin-header">
+                <h1>用户管理</h1>
+                <p>管理所有注册用户</p>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用户名</th>
+                            <th>邮箱</th>
+                            <th>角色</th>
+                            <th>注册时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>admin</td>
+                            <td>69506408@qq.com</td>
+                            <td><span class="badge badge-danger">管理员</span></td>
+                            <td>2026-03-01</td>
+                            <td>
+                                <button class="btn-sm btn-delete">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>张老师</td>
+                            <td>zhang@qq.com</td>
+                            <td><span class="badge badge-info">教师</span></td>
+                            <td>2026-03-10</td>
+                            <td>
+                                <button class="btn-sm btn-delete">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>小明</td>
+                            <td>xiaoming@qq.com</td>
+                            <td><span class="badge badge-primary">学员</span></td>
+                            <td>2026-03-15</td>
+                            <td>
+                                <button class="btn-sm btn-delete">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="cloudbase.js"></script>
+    <script>
+        // 检查管理员登录
+        const adminUser = localStorage.getItem('jt_admin');
+        if (!adminUser) {
+            // 未登录，跳转到首页（这里可以改成管理员登录页面）
+            // window.location.href = 'index.html';
+        }
+
+        // 切换标签页
+        function showAdminTab(tab) {
+            const pages = document.querySelectorAll('.admin-page');
+            pages.forEach(p => p.style.display = 'none');
+            document.getElementById('page-' + tab).style.display = 'block';
+            
+            const links = document.querySelectorAll('.admin-menu a');
+            links.forEach(l => l.classList.remove('active'));
+            event.target.closest('a').classList.add('active');
+        }
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('jt_admin');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
