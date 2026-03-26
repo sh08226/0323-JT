@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>研学班级 - 沈阳嘉桐科技有限公司</title>
+    <meta name="description" content="嘉桐科技研学班级，学员可申请加入，教师可创建班级">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <!-- 导航栏 -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">
+            <a href="index.html" class="nav-brand">
                 <img src="logo.png" alt="嘉桐科技" class="nav-logo">
-                <span class="logo-text">嘉桐科技</span>
+                <span class="brand-text">嘉桐科技</span>
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html">首页</a></li>
                 <li><a href="about.html">关于我们</a></li>
                 <li><a href="services.html">服务项目</a></li>
@@ -24,10 +27,10 @@
                 <li><a href="contact.html">联系我们</a></li>
             </ul>
             <div class="nav-actions">
-                <button class="btn-login" onclick="showLoginModal()">登录</button>
-                <button class="btn-register" onclick="showRegisterModal()">注册</button>
+                <button class="btn btn-primary btn-sm" onclick="showLoginModal()">登录</button>
+                <button class="btn btn-secondary btn-sm" onclick="showRegisterModal()">注册</button>
             </div>
-            <div class="menu-toggle">
+            <div class="menu-toggle" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
@@ -42,17 +45,14 @@
     </header>
 
     <!-- 班级内容 -->
-    <section class="classes-section">
+    <section class="section">
         <div class="container">
-            <!-- 教师创建班级 -->
-            <div class="create-class-section">
-                <button class="btn-primary" onclick="showCreateClassModal()">
+            <div class="section-header">
+                <button class="btn btn-primary" onclick="showCreateClassModal()">
                     <i class="fas fa-plus"></i> 创建班级
                 </button>
             </div>
-
-            <!-- 班级列表 -->
-            <div class="classes-grid" id="classesList">
+            <div class="classes-grid">
                 <div class="class-card">
                     <div class="class-header">
                         <h3>Python 编程入门班</h3>
@@ -65,7 +65,7 @@
                         <p><i class="fas fa-map-marker-alt"></i> 沈阳市和平区</p>
                     </div>
                     <div class="class-actions">
-                        <button class="btn-secondary" onclick="joinClass('class1')">加入班级</button>
+                        <button class="btn btn-primary btn-sm" onclick="joinClass('class1')">加入班级</button>
                     </div>
                 </div>
                 <div class="class-card">
@@ -80,7 +80,7 @@
                         <p><i class="fas fa-map-marker-alt"></i> 沈阳市铁西区</p>
                     </div>
                     <div class="class-actions">
-                        <button class="btn-secondary" onclick="joinClass('class2')">加入班级</button>
+                        <button class="btn btn-primary btn-sm" onclick="joinClass('class2')">等待审核</button>
                     </div>
                 </div>
                 <div class="class-card">
@@ -95,7 +95,7 @@
                         <p><i class="fas fa-map-marker-alt"></i> 沈阳市皇姑区</p>
                     </div>
                     <div class="class-actions">
-                        <button class="btn-secondary" onclick="joinClass('class3')">加入班级</button>
+                        <button class="btn btn-primary btn-sm" onclick="joinClass('class3')">加入班级</button>
                     </div>
                 </div>
             </div>
@@ -103,33 +103,33 @@
     </section>
 
     <!-- 创建班级弹窗 -->
-    <div class="modal" id="createClassModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('createClassModal')">&times;</span>
-            <h2>创建班级</h2>
-            <form id="createClassForm" onsubmit="submitCreateClass(event)">
-                <div class="form-group">
-                    <label>班级名称</label>
-                    <input type="text" id="className" required placeholder="请输入班级名称">
-                </div>
-                <div class="form-group">
-                    <label>教师姓名</label>
-                    <input type="text" id="teacherName" required placeholder="请输入您的姓名">
-                </div>
-                <div class="form-group">
-                    <label>上课时间</label>
-                    <input type="text" id="classTime" required placeholder="如：周六 14:00-16:00">
-                </div>
-                <div class="form-group">
-                    <label>上课地点</label>
-                    <input type="text" id="classLocation" required placeholder="请输入上课地点">
-                </div>
-                <div class="form-group">
-                    <label>班级简介</label>
-                    <textarea id="classDesc" rows="4" placeholder="请介绍班级的学习内容"></textarea>
-                </div>
-                <button type="submit" class="btn-primary btn-block">提交申请</button>
-            </form>
+    <div class="modal-overlay" id="createClassModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>创建班级</h3>
+                <span class="modal-close" onclick="closeModal('createClassModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="submitCreateClass(event)">
+                    <div class="form-group">
+                        <label>班级名称</label>
+                        <input type="text" id="className" placeholder="请输入班级名称" required>
+                    </div>
+                    <div class="form-group">
+                        <label>上课时间</label>
+                        <input type="text" id="classTime" placeholder="如：周六 14:00-16:00" required>
+                    </div>
+                    <div class="form-group">
+                        <label>上课地点</label>
+                        <input type="text" id="classLocation" placeholder="请输入上课地点" required>
+                    </div>
+                    <div class="form-group">
+                        <label>班级简介</label>
+                        <textarea id="classDesc" placeholder="请介绍班级的学习内容"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%">提交申请</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -160,47 +160,37 @@
         </div>
     </footer>
 
+    <!-- Toast 提示容器 -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script src="main.js"></script>
-    <script src="cloudbase.js"></script>
     <script>
-        // 创建班级
-        async function submitCreateClass(e) {
-            e.preventDefault();
-            
-            const user = JSON.parse(localStorage.getItem('jt_user') || '{}');
-            if (!user.role || user.role !== 'teacher') {
-                alert('请先登录教师账号');
-                return;
-            }
-
-            const classData = {
-                name: document.getElementById('className').value,
-                teacher: document.getElementById('teacherName').value,
-                time: document.getElementById('classTime').value,
-                location: document.getElementById('classLocation').value,
-                description: document.getElementById('classDesc').value,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                creatorId: user._id
-            };
-
-            // 模拟提交（需要 CloudBase 配置完成后实际保存）
-            alert('班级创建申请已提交，等待管理员审核！');
-            closeModal('createClassModal');
-            document.getElementById('createClassForm').reset();
-        }
-
-        function joinClass(classId) {
-            alert('请先登录学员账号，然后加入班级');
-        }
-
         function showCreateClassModal() {
             const user = JSON.parse(localStorage.getItem('jt_user') || '{}');
-            if (!user.role || user.role !== 'teacher') {
+            if (!user._id) {
+                showLoginModal();
+                return;
+            }
+            if (user.role !== 'teacher') {
                 alert('只有教师才能创建班级');
                 return;
             }
             document.getElementById('createClassModal').style.display = 'flex';
+        }
+
+        function joinClass(classId) {
+            const user = JSON.parse(localStorage.getItem('jt_user') || '{}');
+            if (!user._id) {
+                showLoginModal();
+                return;
+            }
+            alert('班级申请已提交，等待教师审核！');
+        }
+
+        function submitCreateClass(e) {
+            e.preventDefault();
+            alert('班级创建申请已提交，等待管理员审核！');
+            closeModal('createClassModal');
         }
     </script>
 </body>

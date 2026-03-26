@@ -8,291 +8,173 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
 </head>
 <body>
 
-<!-- 导航栏 -->
-<nav class="navbar" id="navbar">
-    <div class="container">
-        <a href="index.html" class="nav-brand">
-            <img src="logo.png" alt="嘉桐科技" class="nav-logo">
-            <span>嘉桐科技</span>
-        </a>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html" class="active">关于我们</a></li>
-            <li><a href="services.html">产品服务</a></li>
-            <li><a href="wishwall.html">科创心愿墙</a></li>
-            <li><a href="classes.html">研学班级</a></li>
-            <li><a href="contact.html">联系我们</a></li>
-        </ul>
-        <div class="nav-actions">
-            <button class="btn btn-primary btn-sm" onclick="showLoginModal()">
-                <i class="fas fa-sign-in-alt"></i> 登录
-            </button>
-            <button class="btn btn-secondary btn-sm" onclick="showRegisterModal()">注册</button>
-            <div class="nav-toggle" id="navToggle">
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="logo.png" alt="嘉桐科技" class="nav-logo">
+                <span class="brand-text">嘉桐科技</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html" class="active">关于我们</a></li>
+                <li><a href="services.html">服务项目</a></li>
+                <li><a href="classes.html">研学班级</a></li>
+                <li><a href="wishwall.html">心愿墙</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn btn-primary btn-sm" onclick="showLoginModal()">登录</button>
+                <button class="btn btn-secondary btn-sm" onclick="showRegisterModal()">注册</button>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- 页面头部 -->
-<header class="page-header">
-    <div class="container">
-        <h1>关于我们</h1>
-        <p>嘉心筑梦，桐启新章 —— 致力于青少年科创教育</p>
-    </div>
-</header>
+    <!-- 页面头部 -->
+    <header class="page-header">
+        <div class="container">
+            <h1>关于我们</h1>
+            <p>了解嘉桐科技，见证科创教育的力量</p>
+        </div>
+    </header>
 
-<!-- 企业简介 -->
-<section class="section">
-    <div class="container">
-        <div class="card" style="max-width: 900px; margin: 0 auto; text-align: center;">
-            <h2 style="margin-bottom: 1.5rem;">沈阳嘉桐科技有限公司</h2>
-            <p style="font-size: 1.125rem; color: var(--text-light); line-height: 1.8;">
-                沈阳嘉桐科技有限公司是一家专注于青少年科创教育的综合服务机构。我们秉持"嘉心筑梦，桐启新章"的教育理念，为青少年提供优质的科创研学、海外留学、科教仪器和师资培训等服务。
-            </p>
-            <p style="font-size: 1.125rem; color: var(--text-light); line-height: 1.8; margin-top: 1rem;">
-                多年来，我们与国内外众多学校和教育机构建立了紧密的合作关系，累计服务学员超过5000人，获得家长和社会的广泛认可。
-            </p>
+    <!-- 关于内容 -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>公司简介</h2>
+                <p>沈阳嘉桐科技有限公司是一家专注于青少年科创教育的机构</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>教育理念</h3>
+                    <p>激发兴趣，启迪思维，让每一个孩子在探索中成长</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>团队优势</h3>
+                    <p>名校背景师资，资深教学经验，因材施教</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>教学成果</h3>
+                    <p>帮助众多学员获得各类科创竞赛奖项</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>服务理念</h3>
+                    <p>用心对待每一位学员，关注每一个成长细节</p>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- 统计数据 -->
-<section class="section" style="background: var(--bg);">
-    <div class="container">
-        <div class="card-grid" style="max-width: 900px; margin: 0 auto;">
-            <div class="card" style="text-align: center; padding: 3rem 2rem;">
-                <div class="feature-icon" style="margin: 0 auto 1rem;">
-                    <i class="fas fa-calendar-alt"></i>
+    <!-- 统计数据 -->
+    <section class="section section-bg">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">累计学员</span>
                 </div>
-                <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem;">5+</h3>
-                <p style="color: var(--text-muted);">年教育经验</p>
-            </div>
-            <div class="card" style="text-align: center; padding: 3rem 2rem;">
-                <div class="feature-icon" style="margin: 0 auto 1rem;">
-                    <i class="fas fa-school"></i>
+                <div class="stat-card">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">专业教师</span>
                 </div>
-                <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem;">50+</h3>
-                <p style="color: var(--text-muted);">合作学校</p>
-            </div>
-            <div class="card" style="text-align: center; padding: 3rem 2rem;">
-                <div class="feature-icon" style="margin: 0 auto 1rem;">
-                    <i class="fas fa-users"></i>
+                <div class="stat-card">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">合作学校</span>
                 </div>
-                <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem;">5000+</h3>
-                <p style="color: var(--text-muted);">服务学员</p>
+                <div class="stat-card">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">获奖项目</span>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- 企业文化 -->
-<section class="section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">企业文化</span>
-            <h2>我们的理念</h2>
+    <!-- 团队成员 -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>核心团队</h2>
+                <p>专业的师资团队，专注青少年科创教育</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>张老师</h3>
+                    <p>创始人 / 计算机博士</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>李老师</h3>
+                    <p>教学总监 / 资深讲师</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>王老师</h3>
+                    <p>竞赛指导 / 金牌教练</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>赵老师</h3>
+                    <p>课程研发 / 教育硕士</p>
+                </div>
+            </div>
         </div>
-        <div class="card-grid">
-            <div class="card">
-                <div class="feature-icon">
-                    <i class="fas fa-bullseye"></i>
-                </div>
-                <h3>使命</h3>
-                <p style="color: var(--text-light); margin-top: 1rem;">
-                    用科技创新引领教育，让每一个孩子都能发现自己的潜能， 实现自己的梦想。
-                </p>
-            </div>
-            <div class="card">
-                <div class="feature-icon">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <h3>愿景</h3>
-                <p style="color: var(--text-light); margin-top: 1rem;">
-                    成为国内领先的青少年科创教育服务品牌，为国家培养更多具有创新精神和实践能力的优秀人才。
-                </p>
-            </div>
-            <div class="card">
-                <div class="feature-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3>价值观</h3>
-                <p style="color: var(--text-light); margin-top: 1rem;">
-                    客户至上、诚信为本、创新驱动、协作共赢。我们始终坚持以学生为中心，用心做好每一项教育服务。
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- 发展历程 -->
-<section class="section" style="background: var(--bg);">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">发展历程</span>
-            <h2>大事记</h2>
-        </div>
-        <div class="card" style="max-width: 800px; margin: 0 auto;">
-            <div style="border-left: 3px solid var(--primary); padding-left: 2rem;">
-                <div style="margin-bottom: 2rem;">
-                    <span style="display: inline-block; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600;">2021</span>
-                    <h4 style="margin-top: 0.75rem;">公司成立</h4>
-                    <p style="color: var(--text-light);">沈阳嘉桐科技有限公司正式成立，开启科创教育之旅</p>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>嘉桐科技</h4>
+                    <p>嘉心筑梦，桐启新章</p>
+                    <p>专注于青少年科创教育</p>
                 </div>
-                <div style="margin-bottom: 2rem;">
-                    <span style="display: inline-block; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600;">2022</span>
-                    <h4 style="margin-top: 0.75rem;">业务拓展</h4>
-                    <p style="color: var(--text-light);">与50+所学校建立合作关系，服务学员突破1000人</p>
+                <div class="footer-section">
+                    <h4>联系方式</h4>
+                    <p><i class="fas fa-envelope"></i> 69506408@qq.com</p>
                 </div>
-                <div style="margin-bottom: 2rem;">
-                    <span style="display: inline-block; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600;">2023</span>
-                    <h4 style="margin-top: 0.75rem;">品牌升级</h4>
-                    <p style="color: var(--text-light);">推出海外留学服务，品牌影响力进一步扩大</p>
-                </div>
-                <div>
-                    <span style="display: inline-block; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600;">2024-2025</span>
-                    <h4 style="margin-top: 0.75rem;">持续增长</h4>
-                    <p style="color: var(--text-light);">服务学员超过5000人，成为区域知名教育品牌</p>
+                <div class="footer-section">
+                    <h4>关注我们</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                    </div>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 沈阳嘉桐科技有限公司. All rights reserved.</p>
+            </div>
         </div>
-    </div>
-</section>
+    </footer>
 
-<!-- CTA -->
-<section class="cta">
-    <div class="container">
-        <div class="cta-content">
-            <h2>加入我们</h2>
-            <p>与嘉桐科技一起，为青少年的未来创造更多可能</p>
-            <a href="contact.html" class="btn btn-lg">
-                <i class="fas fa-comments"></i> 联系我们
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- 页脚 -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <img src="logo.png" alt="嘉桐科技" class="nav-logo">
-                <p>嘉心筑梦，桐启新章。专注于青少年科创教育，为孩子创造美好未来。</p>
-            </div>
-            <div class="footer-links">
-                <h4>快速链接</h4>
-                <ul>
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="about.html">关于我们</a></li>
-                    <li><a href="services.html">产品服务</a></li>
-                    <li><a href="contact.html">联系我们</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>特色功能</h4>
-                <ul>
-                    <li><a href="wishwall.html">科创心愿墙</a></li>
-                    <li><a href="classes.html">研学班级</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>联系我们</h4>
-                <ul>
-                    <li><i class="fas fa-envelope"></i> 69506408@qq.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; 2026 沈阳嘉桐科技有限公司. All rights reserved.</span>
-            <span>嘉心筑梦，桐启新章</span>
-        </div>
-    </div>
-</footer>
-
-<!-- 登录弹窗 -->
-<div class="modal-overlay" id="loginModal">
-    <div class="modal">
-        <div class="modal-header">
-            <h3>欢迎回来</h3>
-            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="modal-tabs">
-                <button class="modal-tab active" onclick="switchTab('login')">登录</button>
-                <button class="modal-tab" onclick="switchTab('register')">注册</button>
-                <button class="modal-tab" onclick="switchTab('teacher')">教师注册</button>
-            </div>
-            
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label class="form-label">邮箱</label>
-                    <input type="email" class="form-input" id="loginEmail" placeholder="请输入邮箱" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">密码</label>
-                    <input type="password" class="form-input" id="loginPassword" placeholder="请输入密码" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-sign-in-alt"></i> 登录
-                </button>
-            </form>
-            
-            <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
-                <div class="form-group">
-                    <label class="form-label">昵称</label>
-                    <input type="text" class="form-input" id="registerName" placeholder="请输入昵称" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">邮箱</label>
-                    <input type="email" class="form-input" id="registerEmail" placeholder="请输入邮箱" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">密码</label>
-                    <input type="password" class="form-input" id="registerPassword" placeholder="请输入密码（至少6位）" required minlength="6">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-user-plus"></i> 注册
-                </button>
-            </form>
-            
-            <form id="teacherForm" class="hidden" onsubmit="handleTeacherRegister(event)">
-                <div class="form-group">
-                    <label class="form-label">昵称</label>
-                    <input type="text" class="form-input" id="teacherName" placeholder="请输入昵称" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">邮箱</label>
-                    <input type="email" class="form-input" id="teacherEmail" placeholder="请输入邮箱" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">密码</label>
-                    <input type="password" class="form-input" id="teacherPassword" placeholder="请输入密码（至少6位）" required minlength="6">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">确认密码</label>
-                    <input type="password" class="form-input" id="teacherConfirmPassword" placeholder="请再次输入密码" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">教师码</label>
-                    <input type="text" class="form-input" id="teacherCode" placeholder="请输入教师码" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-chalkboard-teacher"></i> 教师注册
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="toast-container" id="toastContainer"></div>
-
-<script src="cloudbase.js"></script>
-<script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

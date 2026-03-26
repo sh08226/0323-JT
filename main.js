@@ -3,66 +3,73 @@
 // 全局变量
 let currentUser = null;
 
-// ===== 初始化 =====
+// 初始化
 document.addEventListener('DOMContentLoaded', function() {
     initNavbar();
-    initModals();
     checkLoginStatus();
-    initAnimations();
 });
 
-// ===== 导航栏 =====
-function initNavbar() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
+// 移动端菜单
+function toggleMenu() {
+    document.getElementById('navMenu').classList.toggle('active');
+}
+
+// 导航栏滚动效果
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
     }
+});
 
-    // 滚动时改变导航栏背景
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        }
-    });
+// 登录弹窗
+function showLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
 }
 
-// ===== 弹窗 =====
-function initModals() {
-    // 点击弹窗外部关闭
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
-        }
-    };
+// 注册弹窗
+function showRegisterModal() {
+    showLoginModal();
+    switchTab('register');
 }
 
-function showModal(modalId) {
-    document.getElementById(modalId).style.display = 'flex';
-}
-
+// 关闭弹窗
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
-// ===== 登录注册 =====
-function showLoginModal() {
-    showModal('loginModal');
+// 点击弹窗外部关闭
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal-overlay')) {
+        event.target.style.display = 'none';
+    }
+};
+
+// 切换登录/注册标签
+function switchTab(tab) {
+    const tabs = document.querySelectorAll('.modal-tab');
+    const forms = ['loginForm', 'registerForm', 'teacherForm'];
+    
+    tabs.forEach(t => t.classList.remove('active'));
+    forms.forEach(f => document.getElementById(f).classList.add('hidden'));
+    
+    if (tab === 'login') {
+        tabs[0].classList.add('active');
+        document.getElementById('loginForm').classList.remove('hidden');
+    } else if (tab === 'register') {
+        tabs[1].classList.add('active');
+        document.getElementById('registerForm').classList.remove('hidden');
+    } else if (tab === 'teacher') {
+        tabs[2].classList.add('active');
+        document.getElementById('teacherForm').classList.remove('hidden');
+    }
 }
 
-function showRegisterModal() {
-    showModal('registerModal');
-}
-
+// 检查登录状态
 function checkLoginStatus() {
     const user = localStorage.getItem('jt_user');
     if (user) {
@@ -71,6 +78,7 @@ function checkLoginStatus() {
     }
 }
 
+// 更新用户UI
 function updateUserUI(isLoggedIn) {
     const navActions = document.querySelector('.nav-actions');
     if (!navActions) return;
@@ -80,179 +88,153 @@ function updateUserUI(isLoggedIn) {
                        currentUser.role === 'admin' ? '管理员' : '学员';
         
         navActions.innerHTML = `
-            <span class="user-info">欢迎, ${currentUser.username}</span>
-            <span class="user-role">${roleText}</span>
-            <button class="btn-logout" onclick="logout()">退出</button>
-            ${currentUser.role === 'admin' ? '<a href="admin.html" class="btn-admin">管理后台</a>' : ''}
+            <span style="margin-right:10px;font-size:13px;">欢迎 ${currentUser.username}</span>
+            <button class="btn btn-secondary btn-sm" onclick="logout()">退出</button>
+            ${currentUser.role === 'admin' ? '<a href="admin.html" class="btn btn-primary btn-sm" style="margin-left:10px;">管理</a>' : ''}
         `;
     } else {
         navActions.innerHTML = `
-            <button class="btn-login" onclick="showLoginModal()">登录</button>
-            <button class="btn-register" onclick="showRegisterModal()">注册</button>
+            <button class="btn btn-primary btn-sm" onclick="showLoginModal()">登录</button>
+            <button class="btn btn-secondary btn-sm" onclick="showRegisterModal()">注册</button>
         `;
     }
 }
 
-function login(event) {
-    event.preventDefault();
+// 处理登录
+function handleLogin(e) {
+    e.preventDefault();
     
-    const username = document.getElementById('loginUsername').value;
+    const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     
-    // 模拟登录验证
-    if (username && password) {
-        // 检查是否是管理员
-        if (username === 'admin' && password === 'JTADMIN2026') {
-            currentUser = { username: 'admin', role: 'admin', _id: 'admin001' };
-            localStorage.setItem('jt_admin', JSON.stringify(currentUser));
-            window.location.href = 'admin.html';
-            return;
-        }
-        
-        // 模拟用户登录（实际需要 CloudBase 验证）
-        currentUser = { 
-            username: username, 
-            role: 'student', 
-            _id: 'user_' + Date.now() 
-        };
-        
-        localStorage.setItem('jt_user', JSON.stringify(currentUser));
-        updateUserUI(true);
-        closeModal('loginModal');
-        alert('登录成功！');
-        
-        // 清除表单
-        document.getElementById('loginForm').reset();
-    }
-}
-
-function register(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('regUsername').value;
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
-    const confirmPassword = document.getElementById('regConfirmPassword').value;
-    const role = document.getElementById('regRole').value;
-    const code = document.getElementById('regCode').value;
-    
-    // 验证
-    if (password !== confirmPassword) {
-        alert('两次密码输入不一致！');
+    if (!email || !password) {
+        alert('请输入邮箱和密码');
         return;
     }
     
-    // 教师码验证
-    if (role === 'teacher' && code !== 'JT2026') {
-        alert('教师码错误！');
+    // 管理员登录检查
+    if (email === 'admin@jt.com' && password === 'JTADMIN2026') {
+        currentUser = { username: 'admin', role: 'admin', _id: 'admin001' };
+        localStorage.setItem('jt_admin', JSON.stringify(currentUser));
+        window.location.href = 'admin.html';
         return;
     }
     
-    // 模拟注册成功
+    // 模拟用户登录
     currentUser = { 
-        username: username, 
-        email: email, 
-        role: role, 
+        username: email.split('@')[0], 
+        email: email,
+        role: 'student', 
         _id: 'user_' + Date.now() 
     };
     
     localStorage.setItem('jt_user', JSON.stringify(currentUser));
     updateUserUI(true);
-    closeModal('registerModal');
-    alert('注册成功！');
+    closeModal('loginModal');
+    showToast('登录成功！', 'success');
     
-    // 清除表单
+    document.getElementById('loginForm').reset();
+}
+
+// 处理学员注册
+function handleRegister(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('registerName').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    
+    if (!name || !email || !password) {
+        alert('请填写完整信息');
+        return;
+    }
+    
+    if (password.length < 6) {
+        alert('密码至少6位');
+        return;
+    }
+    
+    // 模拟注册成功
+    currentUser = { 
+        username: name, 
+        email: email, 
+        role: 'student', 
+        _id: 'user_' + Date.now() 
+    };
+    
+    localStorage.setItem('jt_user', JSON.stringify(currentUser));
+    updateUserUI(true);
+    closeModal('loginModal');
+    showToast('注册成功！', 'success');
+    
     document.getElementById('registerForm').reset();
 }
 
+// 处理教师注册
+function handleTeacherRegister(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('teacherName').value;
+    const email = document.getElementById('teacherEmail').value;
+    const password = document.getElementById('teacherPassword').value;
+    const confirmPassword = document.getElementById('teacherConfirmPassword').value;
+    const code = document.getElementById('teacherCode').value;
+    
+    if (!name || !email || !password || !confirmPassword || !code) {
+        alert('请填写完整信息');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        alert('两次密码不一致');
+        return;
+    }
+    
+    if (code !== 'JT2026') {
+        alert('教师码错误，请联系管理员获取正确码');
+        return;
+    }
+    
+    // 模拟注册成功
+    currentUser = { 
+        username: name, 
+        email: email, 
+        role: 'teacher', 
+        _id: 'user_' + Date.now() 
+    };
+    
+    localStorage.setItem('jt_user', JSON.stringify(currentUser));
+    updateUserUI(true);
+    closeModal('loginModal');
+    showToast('教师注册成功！', 'success');
+    
+    document.getElementById('teacherForm').reset();
+}
+
+// 退出登录
 function logout() {
     localStorage.removeItem('jt_user');
     localStorage.removeItem('jt_admin');
     currentUser = null;
     updateUserUI(false);
+    showToast('已退出登录', 'info');
     window.location.href = 'index.html';
 }
 
-// 切换注册角色时显示/隐藏教师码输入
-document.addEventListener('DOMContentLoaded', function() {
-    const roleSelect = document.getElementById('regRole');
-    if (roleSelect) {
-        roleSelect.addEventListener('change', function() {
-            const codeGroup = document.getElementById('teacherCodeGroup');
-            if (codeGroup) {
-                codeGroup.style.display = this.value === 'teacher' ? 'block' : 'none';
-            }
-        });
-    }
-});
-
-// ===== 动画 =====
-function initAnimations() {
-    // 数字动画
-    const counters = document.querySelectorAll('.stat-num');
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        animateCounter(counter, target);
-    });
+// Toast 提示
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
     
-    // 滚动动画
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `<span>${message}</span>`;
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
+    container.appendChild(toast);
     
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        observer.observe(el);
-    });
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
-
-function animateCounter(element, target) {
-    let count = 0;
-    const duration = 2000;
-    const step = target / (duration / 16);
-    
-    const timer = setInterval(() => {
-        count += step;
-        if (count >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(count);
-        }
-    }, 16);
-}
-
-// ===== 表单提交 =====
-function submitWish(event) {
-    event.preventDefault();
-    alert('心愿已提交，等待审核！');
-    closeModal('wishModal');
-}
-
-function submitContact(event) {
-    event.preventDefault();
-    alert('留言已发送，我们会尽快联系您！');
-    document.getElementById('contactForm').reset();
-}
-
-// ===== 平滑滚动 =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
